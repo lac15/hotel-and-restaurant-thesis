@@ -1,4 +1,4 @@
-package hu.unideb.inf.thesis.hotel.client.api;
+package hu.unideb.inf.thesis.hotel.client.api.service;
 
 import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
 

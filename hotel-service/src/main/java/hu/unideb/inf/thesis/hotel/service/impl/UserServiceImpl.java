@@ -1,6 +1,6 @@
 package hu.unideb.inf.thesis.hotel.service.impl;
 
-import hu.unideb.inf.thesis.hotel.client.api.UserService;
+import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.UserEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.UserRepository;
