@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+
+    <h:head>
+        <title><ui:insert name="title">#{msg['home.title.label']}</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <h:outputStylesheet name="css/hotel.css"/>
+
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="#{msg['home.home.label']}" icon="fa fa-fw fa-home" />
+
+                <p:menuitem value="#{msg['home.hotel.label']}" icon="fa fa-fw fa-bed" />
+
+                <p:menuitem value="#{msg['home.restaurant.label']}" icon="fa fa-fw fa-cutlery" />
+
+                <p:menuitem value="#{msg['home.gallery.label']}" icon="fa fa-fw fa-image" />
+
+                <p:menuitem value="#{msg['home.contact.label']}" icon="fa fa-fw fa-envelope" />
+
+                <f:facet name="options">
+                    <p:commandButton type="button" value="#{msg['home.login.label']}" icon="fa fa-fw fa-user" />
+                    <p:commandButton type="button" value="#{msg['home.logout.label']}" icon="fa fa-fw fa-close" />
+                </f:facet>
+            </p:menubar>
+        </h:form>
+
+        <h1>#{msg['home.welcome.label']}</h1>
+
+        <div class="accordian">
+            <ul>
+                <li>
+                    <div class="image_title">
+                        <a href="#">#{msg['home.hotel.label']}</a>
+                    </div>
+                    <a href="#">
+                        <img src="resources/images/img01.jpg" alt=""/>
+                    </a>
+                </li>
+                <li>
+                    <div class="image_title">
+                        <a href="#">#{msg['home.restaurant.label']}</a>
+                    </div>
+                    <a href="#">
+                        <img src="resources/images/img02.jpg" alt=""/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </h:body>
+
+</html>
