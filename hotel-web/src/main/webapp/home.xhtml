@@ -29,8 +29,8 @@
                 <p:menuitem value="#{msg['home.contact.label']}" icon="fa fa-fw fa-envelope" />
 
                 <f:facet name="options">
-                    <p:commandButton type="button" value="#{msg['home.login.label']}" icon="fa fa-fw fa-user" />
-                    <p:commandButton type="button" value="#{msg['home.logout.label']}" icon="fa fa-fw fa-close" />
+                    <p:button type="button" value="#{msg['home.login.label']}" icon="fa fa-fw fa-user" outcome="login" />
+                    <p:button type="button" value="#{msg['home.logout.label']}" icon="fa fa-fw fa-close" />
                 </f:facet>
             </p:menubar>
         </h:form>
