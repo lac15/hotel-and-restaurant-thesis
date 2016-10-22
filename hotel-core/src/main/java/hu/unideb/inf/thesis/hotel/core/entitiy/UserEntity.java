@@ -1,6 +1,8 @@
 package hu.unideb.inf.thesis.hotel.core.entitiy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -22,17 +24,21 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private boolean active;
 
-    /*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<Role> roles;*/
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<RoleEntity> roles;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<TableEntity> tables;
 
     public UserEntity(){}
 
-    public UserEntity(String name, String email, String password/*, List<Role> roles*/) {
+    public UserEntity(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.active = true;
-        /*this.roles = new ArrayList<>();*/
+        this.roles = new ArrayList<>();
+        this.tables = new ArrayList<>();
     }
 
     public String getName() {
@@ -67,13 +73,21 @@ public class UserEntity extends BaseEntity {
         this.active = active;
     }
 
-    /*public List<Role> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
-    }*/
+    }
+
+    public List<TableEntity> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<TableEntity> tables) {
+        this.tables = tables;
+    }
 
     @Override
     public boolean equals(Object o) {
