@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+
+    <h:head>
+        <title><ui:insert name="title">#{msg['register.title.label']}</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <p:panel rendered="#{facesContext.externalContext.userPrincipal == null}">
+
+            <p:outputLabel value="#{msg['register.title.label']}" styleClass="label label-info"/>
+            <p:separator/>
+
+            <p:outputLabel value="#{msg['register.alreadyRegistered.label']}&#160;"/>
+            <p:link href="/../hotel/login.xhtml" value="#{msg['register.alreadyRegistered.link']}"/>
+
+            <p:separator/>
+
+            <h:form id="registerForm">
+
+                <p:panelGrid columns="4" layout="grid" cellpadding="5">
+                    <p:outputLabel for="name" value="#{msg['register.name.label']}"/>
+                    <p:inputText id="name" value="#{registerUser.user.name}" required="true"
+                                 requiredMessage="#{msg['register.name.requiredMessage']}"/>
+                                 <!--validator="#{usernameValidator.validate}"-->
+                    <p:tooltip for="name" value="#{msg['register.name.tooltip']}"/>
+                    <p:message for="name" display="both"/>
+
+                    <p:outputLabel for="email" value="#{msg['register.email.label']}"/>
+                    <p:inputText id="email" value="#{registerUser.user.email}" required="true"
+                                 requiredMessage="#{msg['register.email.requiredMessage']}"/>
+                                 <!--validator="#{emailValidator.validate}"-->
+                    <p:tooltip for="email" value="#{msg['register.email.tooltip']}"/>
+                    <p:message for="email" display="both"/>
+
+                    <p:outputLabel for="psw1" value="#{msg['register.password.label']}"/>
+                    <p:password id="psw1" value="#{registerUser.user.password}" required="true"
+                                requiredMessage="#{msg['register.password.requiredMessage']}"
+                                match="psw2" feedback="true" inline="true">
+                        <!--<f:validator validatorId="custom.passwordValidator"/>-->
+                    </p:password>
+                    <p:tooltip for="psw1" value="#{msg['register.password.tooltip']}"/>
+                    <p:message for="psw1" display="both"/>
+
+                    <p:outputLabel for="psw2" value="#{msg['register.confirmpassword.label']}"/>
+                    <p:password id="psw2" value="#{registerUser.user.password}" required="true"
+                                requiredMessage="#{msg['register.confirmpassword.requiredMessage']}"/>
+                    <p:tooltip for="psw2" value="#{msg['register.confirmpassword.tooltip']}"/>
+                    <p:message for="psw2" display="both"/>
+
+                    <p:commandButton value="#{msg['register.submitButton.label']}"
+                                     ajax="false"
+                                     action="#{registerBean.doRegister}" icon="fa fa-plus"/>
+                </p:panelGrid>
+
+                <p:separator/>
+            </h:form>
+        </p:panel>
+
+    </h:body>
+</html>

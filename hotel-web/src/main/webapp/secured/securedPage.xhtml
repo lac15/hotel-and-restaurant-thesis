@@ -9,10 +9,11 @@
       xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
 
-    <head>
-        <title>#{msg['secured.title']}</title>
-    </head>
-    <body>
+    <h:head>
+        <title><ui:insert name="title">#{msg['secured.title.label']}</ui:insert></title>
+    </h:head>
+
+    <h:body>
         <h1>#{msg['secured.welcome.label']}</h1>
-    </body>
+    </h:body>
 </html>

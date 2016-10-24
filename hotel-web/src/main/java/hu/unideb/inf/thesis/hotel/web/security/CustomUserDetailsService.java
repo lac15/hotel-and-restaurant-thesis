@@ -1,4 +1,4 @@
-package hu.unideb.inf.thesis.hotel.web;
+package hu.unideb.inf.thesis.hotel.web.security;
 
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoleService;
