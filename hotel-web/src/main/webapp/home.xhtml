@@ -9,56 +9,37 @@
       xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
 
-    <h:head>
-        <title>#{msg['home.title.label']}</title>
-    </h:head>
+    <ui:composition template="/resources/templates/pageTemplate.xhtml">
+        <ui:define name="title">
+            #{msg['home.title.label']}
+        </ui:define>
 
-    <h:body>
-        <h:outputStylesheet name="css/hotel.css"/>
+        <ui:define name="body">
+            <h:outputStylesheet name="css/hotel.css"/>
 
-        <h:form>
-            <p:menubar>
-                <p:menuitem value="#{msg['home.home.label']}" icon="fa fa-fw fa-home" outcome="home" />
+            <h1>#{msg['home.welcome.label']}</h1>
 
-                <p:menuitem value="#{msg['home.hotel.label']}" icon="fa fa-fw fa-bed" outcome="hotel" />
-
-                <p:menuitem value="#{msg['home.restaurant.label']}" icon="fa fa-fw fa-cutlery" outcome="restaurant" />
-
-                <p:menuitem value="#{msg['home.gallery.label']}" icon="fa fa-fw fa-image" outcome="gallery" />
-
-                <p:menuitem value="#{msg['home.contact.label']}" icon="fa fa-fw fa-envelope" outcome="contact" />
-
-                <f:facet name="options">
-                    <p:button type="button" value="#{msg['home.register.label']}" icon="fa fa-fw fa-plus" outcome="register" />
-                    <p:button type="button" value="#{msg['home.login.label']}" icon="fa fa-fw fa-user" outcome="login" />
-                    <p:button type="button" value="#{msg['home.logout.label']}" icon="fa fa-fw fa-close" />
-                </f:facet>
-            </p:menubar>
-        </h:form>
-
-        <h1>#{msg['home.welcome.label']}</h1>
-
-        <div class="accordian">
-            <ul>
-                <li>
-                    <div class="image_title">
-                        <a href="${pageContext.request.contextPath}/hotel/hotel.xhtml">#{msg['home.hotel.label']}</a>
-                    </div>
-                    <a href="${pageContext.request.contextPath}/hotel/hotel.xhtml">
-                        <img src="resources/images/img01.jpg" alt=""/>
-                    </a>
-                </li>
-                <li>
-                    <div class="image_title">
-                        <a href="${pageContext.request.contextPath}/hotel/restaurant.xhtml">#{msg['home.restaurant.label']}</a>
-                    </div>
-                    <a href="${pageContext.request.contextPath}/hotel/restaurant.xhtml">
-                        <img src="resources/images/img02.jpg" alt=""/>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-    </h:body>
+            <div class="accordian">
+                <ul>
+                    <li>
+                        <div class="image_title">
+                            <a href="${pageContext.request.contextPath}/hotel/hotel.xhtml">#{msg['home.hotel.label']}</a>
+                        </div>
+                        <a href="${pageContext.request.contextPath}/hotel/hotel.xhtml">
+                            <img src="resources/images/img01.jpg" alt=""/>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="image_title">
+                            <a href="${pageContext.request.contextPath}/hotel/restaurant.xhtml">#{msg['home.restaurant.label']}</a>
+                        </div>
+                        <a href="${pageContext.request.contextPath}/hotel/restaurant.xhtml">
+                            <img src="resources/images/img02.jpg" alt=""/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ui:define>
+    </ui:composition>
 
 </html>
