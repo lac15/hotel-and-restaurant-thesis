@@ -47,7 +47,7 @@
 
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>bootstrap</artifactId>
+            <artifactId>pepper-grinder</artifactId>
             <version>1.0.10</version>
         </dependency>
 
