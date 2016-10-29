@@ -19,7 +19,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>profile</from-outcome>
+            <from-outcome>/secured/profile</from-outcome>
             <to-view-id>/secured/profile.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -28,7 +28,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>login</from-outcome>
+            <from-outcome>/login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -37,16 +37,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>logout</from-outcome>
-            <to-view-id>/logout.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/*.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>home</from-outcome>
+            <from-outcome>/home</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -55,7 +46,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>hotel</from-outcome>
+            <from-outcome>/hotel</from-outcome>
             <to-view-id>/hotel.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -64,7 +55,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>restaurant</from-outcome>
+            <from-outcome>/restaurant</from-outcome>
             <to-view-id>/restaurant.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -73,7 +64,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>gallery</from-outcome>
+            <from-outcome>/gallery</from-outcome>
             <to-view-id>/gallery.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -82,7 +73,7 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>contact</from-outcome>
+            <from-outcome>/contact</from-outcome>
             <to-view-id>/contact.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
@@ -91,7 +82,7 @@
     <navigation-rule>
         <from-view-id>/home.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>home</from-outcome>
+            <from-outcome>/home</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>

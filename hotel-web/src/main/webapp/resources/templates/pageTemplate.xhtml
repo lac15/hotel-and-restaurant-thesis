@@ -29,17 +29,21 @@
         <div>
             <h:form>
                 <p:menubar>
-                    <p:menuitem value="#{msg['menu.home.button']}" icon="fa fa-home" outcome="home"/>
-                    <p:menuitem value="#{msg['menu.hotel.button']}" icon="fa fa-bed" outcome="hotel"/>
-                    <p:menuitem value="#{msg['menu.restaurant.button']}" icon="fa fa-cutlery" outcome="restaurant"/>
-                    <p:menuitem value="#{msg['menu.gallery.button']}" icon="fa fa-image" outcome="gallery"/>
-                    <p:menuitem value="#{msg['menu.contact.button']}" icon="fa fa-envelope" outcome="contact"/>
+                    <p:menuitem value="#{msg['menu.home.button']}" icon="fa fa-home" outcome="/home"/>
+                    <p:menuitem value="#{msg['menu.hotel.button']}" icon="fa fa-bed" outcome="/hotel"/>
+                    <p:menuitem value="#{msg['menu.restaurant.button']}" icon="fa fa-cutlery" outcome="/restaurant"/>
+                    <p:menuitem value="#{msg['menu.gallery.button']}" icon="fa fa-image" outcome="/gallery"/>
+                    <p:menuitem value="#{msg['menu.contact.button']}" icon="fa fa-envelope" outcome="/contact"/>
 
                     <f:facet name="options">
-                        <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-plus" outcome="register" rendered="#{p:ifNoneGranted('USER')}"/>
-                        <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user" outcome="login" rendered="#{p:ifNoneGranted('USER')}"/>
-                        <p:button type="button" value="#{msg['menu.profile.button']}" icon="fa fa-user" outcome="profile" rendered="#{p:ifGranted('USER')}"/>
-                        <p:button type="button" value="#{msg['menu.logout.button']}" icon="fa fa-close" outcome="home" rendered="#{p:ifGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-plus" outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user" outcome="/login" rendered="#{p:ifNoneGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.profile.button']}" icon="fa fa-user" outcome="/secured/profile" rendered="#{p:ifGranted('USER')}"/>
+                        <!--<p:button type="button" onclick="rc()" value="#{msg['menu.logout.button']}" icon="fa fa-close" rendered="#{p:ifGranted('USER')}"/>-->
+
+                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/logout" rendered="#{p:ifGranted('USER')}">
+                            #{msg['menu.logout.button']}
+                        </h:outputLink>
                     </f:facet>
                 </p:menubar>
             </h:form>
