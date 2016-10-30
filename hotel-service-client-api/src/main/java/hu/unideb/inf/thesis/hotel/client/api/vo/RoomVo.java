@@ -2,19 +2,21 @@ package hu.unideb.inf.thesis.hotel.client.api.vo;
 
 import java.io.Serializable;
 
-public class TableVo implements Serializable {
+public class RoomVo implements Serializable {
 
-    private static final long serialVersionUID = 6754000328505763772L;
+    private static final long serialVersionUID = 1648000328505763772L;
 
     private Long id;
     private int number;
+    private int capacity;
     private boolean reserved;
 
-    public TableVo(){}
+    public RoomVo(){}
 
-    public TableVo(Long id, int number) {
+    public RoomVo(Long id, int number, int capacity) {
         this.id = id;
         this.number = number;
+        this.capacity = capacity;
         this.reserved = false;
     }
 
@@ -32,6 +34,14 @@ public class TableVo implements Serializable {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public boolean isReserved() {

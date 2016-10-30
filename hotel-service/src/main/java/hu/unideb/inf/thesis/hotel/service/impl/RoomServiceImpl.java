@@ -1,0 +1,58 @@
+package hu.unideb.inf.thesis.hotel.service.impl;
+
+import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
+import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
+import hu.unideb.inf.thesis.hotel.core.entitiy.RoomEntity;
+import hu.unideb.inf.thesis.hotel.core.repository.RoomRepository;
+import hu.unideb.inf.thesis.hotel.service.mapper.RoomMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
+
+import javax.ejb.*;
+import javax.interceptor.Interceptors;
+
+@Stateless(name = "RoomService", mappedName = "RoomService")
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@Local(RoomService.class)
+@Interceptors({SpringBeanAutowiringInterceptor.class})
+public class RoomServiceImpl implements RoomService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoomServiceImpl.class);
+
+    @Autowired
+    private RoomRepository roomRepository;
+
+    /*@Override
+    public List<RoomVo> getRooms() {
+        return RoomMapper.toVo(roomRepository.findAll());
+    }*/
+
+    @Override
+    public RoomVo saveRoom(RoomVo roomVo) {
+        RoomEntity roomEntity = roomRepository.findOne(roomVo.getId());
+        if (roomEntity == null) {
+            roomEntity = new RoomEntity();
+        }
+        RoomMapper.toEntity(roomVo, roomEntity);
+        return RoomMapper.toVo(roomRepository.save(roomEntity));
+    }
+
+    @Override
+    public RoomVo getRoomById(Long id) {
+        return RoomMapper.toVo(roomRepository.findOne(id));
+    }
+
+    @Override
+    public RoomVo getRoomByNumber(int number) {
+        return RoomMapper.toVo(roomRepository.findByNumber(number));
+    }
+
+    @Override
+    public void setRoomReservedByNumber(int number, boolean reserved) {
+        roomRepository.findByNumber(number).setReserved(reserved);
+    }
+
+}
