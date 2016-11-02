@@ -1,4 +1,4 @@
-package hu.unideb.inf.thesis.hotel.web.managedbeans;
+package hu.unideb.inf.thesis.hotel.web.managedbeans.register;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoleService;
 import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
@@ -8,11 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "registerBean")
 @RequestScoped
