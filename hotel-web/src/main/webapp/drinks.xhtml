@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+
+    <ui:composition template="/resources/templates/pageTemplate.xhtml">
+        <ui:define name="title">
+            #{msg['drinks.title.label']}
+        </ui:define>
+
+        <ui:define name="body">
+            <h:outputStylesheet name="css/hotel.css"/>
+
+            <h1>#{msg['drinks.welcome.label']}</h1>
+
+            <p:dataTable var="drink" value="#{drinksMB.drinks}" style="margin-bottom:0">
+                <f:facet name="header">
+                    #{msg['drinks.title.label']}
+                </f:facet>
+
+                <p:column headerText="#{msg['drinks.name.label']}" sortBy="#{drink.name}">
+                    <h:outputText value="#{drink.name}" />
+                </p:column>
+                <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}">
+                    <h:outputText value="#{drink.price}"/>
+                </p:column>
+            </p:dataTable>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

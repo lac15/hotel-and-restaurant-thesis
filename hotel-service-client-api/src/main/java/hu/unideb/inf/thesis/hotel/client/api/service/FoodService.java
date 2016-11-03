@@ -2,6 +2,8 @@ package hu.unideb.inf.thesis.hotel.client.api.service;
 
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
 
+import java.util.List;
+
 public interface FoodService {
 
     FoodVo saveFood(FoodVo foodVo);
@@ -12,4 +14,5 @@ public interface FoodService {
 
     FoodVo getFoodByPrice(int price);
 
+    List<FoodVo> getFoods();
 }
