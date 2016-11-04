@@ -52,6 +52,11 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public List<FoodVo> getFoodByTypeName(String typeName) {
+        return FoodMapper.toVo(foodRepository.findFoodsByFoodTypeEntityName(typeName));
+    }
+
+    @Override
     public List<FoodVo> getFoods() {
         return FoodMapper.toVo(foodRepository.findAll());
     }

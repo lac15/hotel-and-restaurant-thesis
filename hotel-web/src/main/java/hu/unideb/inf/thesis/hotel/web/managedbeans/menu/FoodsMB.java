@@ -24,9 +24,9 @@ public class FoodsMB {
 
     @PostConstruct
     public void init() {
-        /*soups.addAll();
-        mainCourses.addAll();
-        desserts.addAll();*/
+        soups.addAll(foodService.getFoodByTypeName("Soup"));
+        mainCourses.addAll(foodService.getFoodByTypeName("Main course"));
+        desserts.addAll(foodService.getFoodByTypeName("Dessert"));
     }
 
     public List<FoodVo> getSoups() {

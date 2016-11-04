@@ -14,5 +14,7 @@ public interface FoodService {
 
     FoodVo getFoodByPrice(int price);
 
+    List<FoodVo> getFoodByTypeName(String typeName);
+
     List<FoodVo> getFoods();
 }

@@ -14,15 +14,11 @@ public class FoodEntity extends BaseEntity {
     @Column(nullable = false)
     private int price;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private FoodTypeEntity type;
-
     public FoodEntity(){}
 
     public FoodEntity(String name, int price, FoodTypeEntity type) {
         this.name = name;
         this.price = price;
-        this.type = type;
     }
 
     public String getName() {
@@ -41,14 +37,6 @@ public class FoodEntity extends BaseEntity {
         this.price = price;
     }
 
-    public FoodTypeEntity getType() {
-        return type;
-    }
-
-    public void setType(FoodTypeEntity type) {
-        this.type = type;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,8 +46,7 @@ public class FoodEntity extends BaseEntity {
         FoodEntity that = (FoodEntity) o;
 
         if (price != that.price) return false;
-        if (!name.equals(that.name)) return false;
-        return type.equals(that.type);
+        return name.equals(that.name);
 
     }
 
@@ -68,7 +55,6 @@ public class FoodEntity extends BaseEntity {
         int result = super.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + price;
-        result = 31 * result + type.hashCode();
         return result;
     }
 
@@ -77,7 +63,6 @@ public class FoodEntity extends BaseEntity {
         return "FoodEntity{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
-                ", type=" + type +
                 '}';
     }
 }
