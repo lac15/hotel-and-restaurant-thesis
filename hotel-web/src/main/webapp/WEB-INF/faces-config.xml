@@ -80,6 +80,42 @@
     </navigation-rule>
 
     <navigation-rule>
+        <from-view-id>/*.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>/foods</from-outcome>
+            <to-view-id>/foods.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/*.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>/drinks</from-outcome>
+            <to-view-id>/drinks.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/*.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>/order</from-outcome>
+            <to-view-id>/order.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/*.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>/reserve_table</from-outcome>
+            <to-view-id>/reserve_table.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
         <from-view-id>/home.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>/home</from-outcome>
