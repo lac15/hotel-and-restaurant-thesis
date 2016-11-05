@@ -36,7 +36,7 @@
                         <p:menuitem value="#{msg['menu.drinks.button']}" outcome="/drinks"/>
                     </p:submenu>
                     <p:menuitem value="#{msg['menu.order.button']}" icon="fa fa-cutlery" outcome="/order"/>
-                    <p:menuitem value="#{msg['menu.reserve.button']}" icon="fa fa-cutlery" outcome="/reserve_table"/>
+                    <p:menuitem value="#{msg['menu.reserve.button']}" icon="fa fa-cutlery" outcome="/reserveTable"/>
                     <p:menuitem value="#{msg['menu.gallery.button']}" icon="fa fa-image" outcome="/gallery"/>
                     <p:menuitem value="#{msg['menu.contact.button']}" icon="fa fa-envelope" outcome="/contact"/>
 
@@ -44,6 +44,7 @@
                         <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-plus" outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
                         <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user" outcome="/login" rendered="#{p:ifNoneGranted('USER')}"/>
                         <p:button type="button" value="#{msg['menu.adminLayout.button']}" icon="fa fa-user" outcome="/admin/adminLayout" rendered="#{p:ifGranted('ADMIN')}"/>
+                        <p:button type="button" value="#{msg['menu.ownerLayout.button']}" icon="fa fa-user" outcome="/owner/ownerLayout" rendered="#{p:ifGranted('OWNER')}"/>
                         <p:button type="button" value="#{msg['menu.profile.button']}" icon="fa fa-user" outcome="/secured/profile" rendered="#{p:ifGranted('USER')}"/>
                         <!--<p:button type="button" onclick="rc()" value="#{msg['menu.logout.button']}" icon="fa fa-close" rendered="#{p:ifGranted('USER')}"/>-->
 

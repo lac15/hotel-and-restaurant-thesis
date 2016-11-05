@@ -18,6 +18,9 @@ public class FoodsMB {
     private List<FoodVo> soups = new ArrayList<FoodVo>();
     private List<FoodVo> mainCourses = new ArrayList<FoodVo>();
     private List<FoodVo> desserts = new ArrayList<FoodVo>();
+    private List<FoodVo> selectedSoups = new ArrayList<FoodVo>();
+    private List<FoodVo> selectedMainCourses = new ArrayList<FoodVo>();
+    private List<FoodVo> selectedDesserts = new ArrayList<FoodVo>();
     private String soup;
     private String mainCourse;
     private String dessert;
@@ -51,6 +54,30 @@ public class FoodsMB {
 
     public void setDesserts(List<FoodVo> desserts) {
         this.desserts = desserts;
+    }
+
+    public List<FoodVo> getSelectedSoups() {
+        return selectedSoups;
+    }
+
+    public void setSelectedSoups(List<FoodVo> selectedSoups) {
+        this.selectedSoups = selectedSoups;
+    }
+
+    public List<FoodVo> getSelectedMainCourses() {
+        return selectedMainCourses;
+    }
+
+    public void setSelectedMainCourses(List<FoodVo> selectedMainCourses) {
+        this.selectedMainCourses = selectedMainCourses;
+    }
+
+    public List<FoodVo> getSelectedDesserts() {
+        return selectedDesserts;
+    }
+
+    public void setSelectedDesserts(List<FoodVo> selectedDesserts) {
+        this.selectedDesserts = selectedDesserts;
     }
 
     public String getSoup() {

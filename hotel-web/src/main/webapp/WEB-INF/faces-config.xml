@@ -109,8 +109,8 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>/reserve_table</from-outcome>
-            <to-view-id>/reserve_table.xhtml</to-view-id>
+            <from-outcome>/reserveTable</from-outcome>
+            <to-view-id>/reserveTable.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
