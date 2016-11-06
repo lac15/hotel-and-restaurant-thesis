@@ -20,59 +20,99 @@
             <h1>#{msg['owner.welcome.label']}</h1>
 
             <p:panel>
-                <p:tabView>
-                    <p:tab title="#{msg['owner.soupTab.title']}">
-                        <p:dataTable var="soup" value="#{foodsMB.soups}" selection="#{foodsMB.selectedSoups}"
-                                     rowKey="#{soup.id}" style="margin-bottom:0">
-                            <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                            <p:column headerText="#{msg['owner.name.label']}" sortBy="#{soup.name}">
-                                <h:outputText value="#{soup.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['owner.price.label']}" sortBy="#{soup.price}">
-                                <h:outputText value="#{soup.price}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
+                <h:form>
+                    <p:tabView>
+                        <p:tab title="#{msg['owner.soupTab.title']}">
+                            <p:dataTable var="soup" value="#{foodsMB.soups}" selection="#{foodsMB.selectedSoups}"
+                                         rowKey="#{soup.id}" editable="true" style="margin-bottom:0">
+                                <p:ajax event="rowEdit" listener="#{foodsMB.onRowEdit}" />
 
-                    <p:tab title="#{msg['owner.mainCourseTab.title']}">
-                        <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}" selection="#{foodsMB.selectedMainCourses}"
-                                     rowKey="#{mainCourse.id}" style="margin-bottom:0">
-                            <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                            <p:column headerText="#{msg['owner.name.label']}" sortBy="#{mainCourse.name}">
-                                <h:outputText value="#{mainCourse.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['owner.price.label']}" sortBy="#{mainCourse.price}">
-                                <h:outputText value="#{mainCourse.price}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
+                                <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
+                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{soup.name}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{soup.name}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{soup.name}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{soup.price}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{soup.price}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{soup.price}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
 
-                    <p:tab title="#{msg['owner.dessertTab.title']}">
-                        <p:dataTable var="dessert" value="#{foodsMB.desserts}" selection="#{foodsMB.selectedDesserts}"
-                                     rowKey="#{dessert.id}" style="margin-bottom:0">
-                            <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                            <p:column headerText="#{msg['owner.name.label']}" sortBy="#{dessert.name}">
-                                <h:outputText value="#{dessert.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['owner.price.label']}" sortBy="#{dessert.price}">
-                                <h:outputText value="#{dessert.price}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
+                        <p:tab title="#{msg['owner.mainCourseTab.title']}">
+                            <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}" selection="#{foodsMB.selectedMainCourses}"
+                                         rowKey="#{mainCourse.id}" editable="true" style="margin-bottom:0">
+                                <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
+                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{mainCourse.name}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{mainCourse.name}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{mainCourse.name}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{mainCourse.price}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{mainCourse.price}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{mainCourse.price}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
 
-                    <p:tab title="#{msg['owner.drinksTab.title']}">
-                        <p:dataTable var="drink" value="#{drinksMB.drinks}" selection="#{drinksMB.selectedDrinks}"
-                                     rowKey="#{drink.id}" style="margin-bottom:0">
-                            <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                            <p:column headerText="#{msg['owner.name.label']}" sortBy="#{drink.name}">
-                                <h:outputText value="#{drink.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['owner.price.label']}" sortBy="#{drink.price}">
-                                <h:outputText value="#{drink.price}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
-                </p:tabView>
+                        <p:tab title="#{msg['owner.dessertTab.title']}">
+                            <p:dataTable var="dessert" value="#{foodsMB.desserts}" selection="#{foodsMB.selectedDesserts}"
+                                         rowKey="#{dessert.id}" editable="true" style="margin-bottom:0">
+                                <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
+                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{dessert.name}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{dessert.name}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{dessert.name}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{dessert.price}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{dessert.price}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{dessert.price}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+
+                        <p:tab title="#{msg['owner.drinksTab.title']}">
+                            <p:dataTable var="drink" value="#{drinksMB.drinks}" selection="#{drinksMB.selectedDrinks}"
+                                         rowKey="#{drink.id}" editable="true" style="margin-bottom:0">
+                                <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
+                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{drink.name}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{drink.name}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{drink.name}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{drink.price}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{drink.price}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{drink.price}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
             </p:panel>
 
         </ui:define>
