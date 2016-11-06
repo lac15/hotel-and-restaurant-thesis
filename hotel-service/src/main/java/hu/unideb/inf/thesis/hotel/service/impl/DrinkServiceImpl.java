@@ -37,6 +37,11 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
+    public void deleteDrink(Long id) {
+        drinkRepository.delete(id);
+    }
+
+    @Override
     public DrinkVo getDrinkById(Long id) {
         return DrinkMapper.toVo(drinkRepository.findOne(id));
     }

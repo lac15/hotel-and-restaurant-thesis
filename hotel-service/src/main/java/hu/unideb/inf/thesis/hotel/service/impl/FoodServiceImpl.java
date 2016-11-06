@@ -37,6 +37,11 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public void deleteFood(Long id) {
+        foodRepository.delete(id);
+    }
+
+    @Override
     public FoodVo getFoodById(Long id) {
         return FoodMapper.toVo(foodRepository.findOne(id));
     }

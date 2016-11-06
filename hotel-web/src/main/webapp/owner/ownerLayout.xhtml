@@ -23,7 +23,7 @@
                 <h:form>
                     <p:tabView>
                         <p:tab title="#{msg['owner.soupTab.title']}">
-                            <p:dataTable var="soup" value="#{foodsMB.soups}" selection="#{foodsMB.selectedSoups}"
+                            <p:dataTable id="soupTable" var="soup" value="#{foodsMB.soups}" selection="#{foodsMB.selectedSoups}"
                                          rowKey="#{soup.id}" editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
@@ -44,10 +44,17 @@
                                     <p:rowEditor />
                                 </p:column>
                             </p:dataTable>
+
+                            <p:commandButton id="addSoup" value="#{msg['owner.addSoup.button']}"
+                                             update="soupTable" style="margin-top:5px"
+                                             action="#{ownerManagement.addSoup}"/>
+                            <p:commandButton id="deleteSoup" value="#{msg['owner.deleteSoup.button']}"
+                                             update="soupTable" style="margin-top:5px"
+                                             action="#{ownerManagement.deleteSoup(foodsMB.selectedSoups)}"/>
                         </p:tab>
 
                         <p:tab title="#{msg['owner.mainCourseTab.title']}">
-                            <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}" selection="#{foodsMB.selectedMainCourses}"
+                            <p:dataTable id="mainCourseTable" var="mainCourse" value="#{foodsMB.mainCourses}" selection="#{foodsMB.selectedMainCourses}"
                                          rowKey="#{mainCourse.id}" editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
@@ -68,10 +75,17 @@
                                     <p:rowEditor />
                                 </p:column>
                             </p:dataTable>
+
+                            <p:commandButton id="addMainCourse" value="#{msg['owner.addMainCourse.button']}"
+                                             update="mainCourseTable" style="margin-top:5px"
+                                             action="#{ownerManagement.addMainCourse}"/>
+                            <p:commandButton id="deleteMainCourse" value="#{msg['owner.deleteMainCourse.button']}"
+                                             update="mainCourseTable" style="margin-top:5px"
+                                             action="#{ownerManagement.deleteMainCourse(foodsMB.selectedMainCourses)}"/>
                         </p:tab>
 
                         <p:tab title="#{msg['owner.dessertTab.title']}">
-                            <p:dataTable var="dessert" value="#{foodsMB.desserts}" selection="#{foodsMB.selectedDesserts}"
+                            <p:dataTable id="dessertTable" var="dessert" value="#{foodsMB.desserts}" selection="#{foodsMB.selectedDesserts}"
                                          rowKey="#{dessert.id}" editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
@@ -92,10 +106,17 @@
                                     <p:rowEditor />
                                 </p:column>
                             </p:dataTable>
+
+                            <p:commandButton id="addDessert" value="#{msg['owner.addDessert.button']}"
+                                             update="dessertTable" style="margin-top:5px"
+                                             action="#{ownerManagement.addDessert}"/>
+                            <p:commandButton id="deleteDessert" value="#{msg['owner.deleteDessert.button']}"
+                                             update="dessertTable" style="margin-top:5px"
+                                             action="#{ownerManagement.deleteDessert(foodsMB.selectedDesserts)}"/>
                         </p:tab>
 
                         <p:tab title="#{msg['owner.drinksTab.title']}">
-                            <p:dataTable var="drink" value="#{drinksMB.drinks}" selection="#{drinksMB.selectedDrinks}"
+                            <p:dataTable id="drinkTable" var="drink" value="#{drinksMB.drinks}" selection="#{drinksMB.selectedDrinks}"
                                          rowKey="#{drink.id}" editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditDrink}" />
 
@@ -116,6 +137,13 @@
                                     <p:rowEditor />
                                 </p:column>
                             </p:dataTable>
+
+                            <p:commandButton id="addDrink" value="#{msg['owner.addDrink.button']}"
+                                             update="drinkTable" style="margin-top:5px"
+                                             action="#{ownerManagement.addDrink}"/>
+                            <p:commandButton id="deleteDrink" value="#{msg['owner.deleteDrink.button']}"
+                                             update="drinkTable" style="margin-top:5px"
+                                             action="#{ownerManagement.deleteDrink(drinksMB.selectedDrinks)}"/>
                         </p:tab>
                     </p:tabView>
                 </h:form>
