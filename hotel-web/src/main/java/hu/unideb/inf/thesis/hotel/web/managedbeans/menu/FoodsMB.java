@@ -2,8 +2,6 @@ package hu.unideb.inf.thesis.hotel.web.managedbeans.menu;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.FoodService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -106,9 +104,4 @@ public class FoodsMB {
         this.dessert = dessert;
     }
 
-    public void onRowEdit(RowEditEvent event) {
-        FoodVo blablaO = ((FoodVo) event.getObject());
-
-        System.out.println(blablaO.getName());
-    }
 }

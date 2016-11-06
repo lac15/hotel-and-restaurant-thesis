@@ -25,7 +25,7 @@
                         <p:tab title="#{msg['owner.soupTab.title']}">
                             <p:dataTable var="soup" value="#{foodsMB.soups}" selection="#{foodsMB.selectedSoups}"
                                          rowKey="#{soup.id}" editable="true" style="margin-bottom:0">
-                                <p:ajax event="rowEdit" listener="#{foodsMB.onRowEdit}" />
+                                <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
                                 <p:column headerText="#{msg['owner.name.label']}" sortBy="#{soup.name}">
@@ -49,6 +49,8 @@
                         <p:tab title="#{msg['owner.mainCourseTab.title']}">
                             <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}" selection="#{foodsMB.selectedMainCourses}"
                                          rowKey="#{mainCourse.id}" editable="true" style="margin-bottom:0">
+                                <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
+
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
                                 <p:column headerText="#{msg['owner.name.label']}" sortBy="#{mainCourse.name}">
                                     <p:cellEditor>
@@ -71,6 +73,8 @@
                         <p:tab title="#{msg['owner.dessertTab.title']}">
                             <p:dataTable var="dessert" value="#{foodsMB.desserts}" selection="#{foodsMB.selectedDesserts}"
                                          rowKey="#{dessert.id}" editable="true" style="margin-bottom:0">
+                                <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
+
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
                                 <p:column headerText="#{msg['owner.name.label']}" sortBy="#{dessert.name}">
                                     <p:cellEditor>
@@ -93,6 +97,8 @@
                         <p:tab title="#{msg['owner.drinksTab.title']}">
                             <p:dataTable var="drink" value="#{drinksMB.drinks}" selection="#{drinksMB.selectedDrinks}"
                                          rowKey="#{drink.id}" editable="true" style="margin-bottom:0">
+                                <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditDrink}" />
+
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
                                 <p:column headerText="#{msg['owner.name.label']}" sortBy="#{drink.name}">
                                     <p:cellEditor>
