@@ -48,19 +48,19 @@ public class OwnerManagementMB {
 
     public void deleteSoup(List<FoodVo> soups){
         for (FoodVo soup : soups) {
-            foodService.deleteFood(soup.getId());
+            foodService.deleteFood(soup.getId(), "Soup");
         }
     }
 
     public void deleteMainCourse(List<FoodVo> mainCourses){
         for (FoodVo mainCourse : mainCourses) {
-            foodService.deleteFood(mainCourse.getId());
+            foodService.deleteFood(mainCourse.getId(), "Main course");
         }
     }
 
     public void deleteDessert(List<FoodVo> desserts){
         for (FoodVo dessert : desserts) {
-            foodService.deleteFood(dessert.getId());
+            foodService.deleteFood(dessert.getId(), "Dessert");
         }
     }
 

@@ -4,6 +4,7 @@ import hu.unideb.inf.thesis.hotel.client.api.service.FoodService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.FoodEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.FoodRepository;
+import hu.unideb.inf.thesis.hotel.core.repository.FoodTypeRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.FoodMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,8 @@ public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FoodRepository foodRepository;
+    @Autowired
+    private FoodTypeRepository foodTypeRepository;
 
     @Override
     public FoodVo saveFood(FoodVo foodVo) {
@@ -37,7 +40,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public void deleteFood(Long id) {
+    public void deleteFood(Long id, String typeName) {
+        foodTypeRepository.findByName(typeName).getFoods().remove(foodRepository.findOne(id));
         foodRepository.delete(id);
     }
 
