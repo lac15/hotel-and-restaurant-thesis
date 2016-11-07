@@ -8,6 +8,8 @@ public interface FoodService {
 
     FoodVo saveFood(FoodVo foodVo);
 
+    void saveFoodWithType(FoodVo foodVo, String typeName);
+
     void deleteFood(Long id, String typeName);
 
     FoodVo getFoodById(Long id);

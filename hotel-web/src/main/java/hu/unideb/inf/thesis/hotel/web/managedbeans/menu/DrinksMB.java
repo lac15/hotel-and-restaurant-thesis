@@ -17,7 +17,7 @@ public class DrinksMB {
 
     private List<DrinkVo> drinks = new ArrayList<DrinkVo>();
     private List<DrinkVo> selectedDrinks = new ArrayList<DrinkVo>();
-    private String drink;
+    private DrinkVo drink;
 
     @PostConstruct
     public void init() {
@@ -40,11 +40,11 @@ public class DrinksMB {
         this.selectedDrinks = selectedDrinks;
     }
 
-    public String getDrink() {
+    public DrinkVo getDrink() {
         return drink;
     }
 
-    public void setDrink(String drink) {
+    public void setDrink(DrinkVo drink) {
         this.drink = drink;
     }
 }

@@ -21,9 +21,9 @@ public class FoodsMB {
     private List<FoodVo> selectedSoups = new ArrayList<FoodVo>();
     private List<FoodVo> selectedMainCourses = new ArrayList<FoodVo>();
     private List<FoodVo> selectedDesserts = new ArrayList<FoodVo>();
-    private String soup;
-    private String mainCourse;
-    private String dessert;
+    private FoodVo soup;
+    private FoodVo mainCourse;
+    private FoodVo dessert;
 
     @PostConstruct
     public void init() {
@@ -80,28 +80,27 @@ public class FoodsMB {
         this.selectedDesserts = selectedDesserts;
     }
 
-    public String getSoup() {
+    public FoodVo getSoup() {
         return soup;
     }
 
-    public void setSoup(String soup) {
+    public void setSoup(FoodVo soup) {
         this.soup = soup;
     }
 
-    public String getMainCourse() {
+    public FoodVo getMainCourse() {
         return mainCourse;
     }
 
-    public void setMainCourse(String mainCourse) {
+    public void setMainCourse(FoodVo mainCourse) {
         this.mainCourse = mainCourse;
     }
 
-    public String getDessert() {
+    public FoodVo getDessert() {
         return dessert;
     }
 
-    public void setDessert(String dessert) {
+    public void setDessert(FoodVo dessert) {
         this.dessert = dessert;
     }
-
 }

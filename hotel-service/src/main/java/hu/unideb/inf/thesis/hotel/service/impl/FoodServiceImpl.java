@@ -40,6 +40,12 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public void saveFoodWithType(FoodVo foodVo, String typeName) {
+        saveFood(foodVo);
+        foodTypeRepository.findByName(typeName).getFoods().add(FoodMapper.toEntity(foodVo));
+    }
+
+    @Override
     public void deleteFood(Long id, String typeName) {
         foodTypeRepository.findByName(typeName).getFoods().remove(foodRepository.findOne(id));
         foodRepository.delete(id);
