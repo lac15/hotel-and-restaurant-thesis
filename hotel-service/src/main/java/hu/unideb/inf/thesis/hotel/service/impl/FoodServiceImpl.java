@@ -41,7 +41,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public void saveFoodWithType(FoodVo foodVo, String typeName) {
-        saveFood(foodVo);
+        foodRepository.save(FoodMapper.toEntity(foodVo));
         foodTypeRepository.findByName(typeName).getFoods().add(FoodMapper.toEntity(foodVo));
     }
 
