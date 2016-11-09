@@ -139,7 +139,7 @@
 
                             <p:commandButton id="addDessert" value="#{msg['owner.addDessert.button']}"
                                              update="dessertTable" style="margin-top:5px"
-                                             oncomplete="PF('addSoupDialog').show()"/>
+                                             oncomplete="PF('addDessertDialog').show()"/>
                             <p:commandButton id="deleteDessert" value="#{msg['owner.deleteDessert.button']}"
                                              update="dessertTable" style="margin-top:5px"
                                              action="#{ownerManagement.deleteDessert(foodsMB.selectedDesserts)}"/>
@@ -185,7 +185,7 @@
 
                             <p:commandButton id="addDrink" value="#{msg['owner.addDrink.button']}"
                                              update="drinkTable" style="margin-top:5px"
-                                             oncomplete="PF('addSoupDialog').show()"/>
+                                             oncomplete="PF('addDrinkDialog').show()"/>
                             <p:commandButton id="deleteDrink" value="#{msg['owner.deleteDrink.button']}"
                                              update="drinkTable" style="margin-top:5px"
                                              action="#{ownerManagement.deleteDrink(drinksMB.selectedDrinks)}"/>

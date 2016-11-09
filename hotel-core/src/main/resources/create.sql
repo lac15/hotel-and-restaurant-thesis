@@ -16,8 +16,8 @@ INSERT INTO "public".foodtypes (id, name) VALUES (1, 'Soup');
 INSERT INTO "public".foodtypes (id, name) VALUES (2, 'Main course');
 INSERT INTO "public".foodtypes (id, name) VALUES (3, 'Dessert');
 
-INSERT INTO "public".foods (id, name, price) VALUES (1, 'Bableves', 500);
+INSERT INTO "public".foods (id, name, price) VALUES (nextval('hibernate_sequence'), 'Bableves', 500);
 
 INSERT INTO "public".foodtypes_foods (foodtypeentity_id, foods_id) VALUES (1, 1);
 
-INSERT INTO "public".drinks (id, name, price) VALUES (1, 'Fanta', 250);
+INSERT INTO "public".drinks (id, name, price) VALUES (currval('hibernate_sequence'), 'Fanta', 250);

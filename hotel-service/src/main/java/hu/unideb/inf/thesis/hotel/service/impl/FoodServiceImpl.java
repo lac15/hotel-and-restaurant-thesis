@@ -3,6 +3,7 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 import hu.unideb.inf.thesis.hotel.client.api.service.FoodService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.FoodEntity;
+import hu.unideb.inf.thesis.hotel.core.entitiy.FoodTypeEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.FoodRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.FoodTypeRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.FoodMapper;
@@ -42,7 +43,10 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public void saveFoodWithType(FoodVo foodVo, String typeName) {
         foodRepository.save(FoodMapper.toEntity(foodVo));
-        foodTypeRepository.findByName(typeName).getFoods().add(FoodMapper.toEntity(foodVo));
+
+        FoodTypeEntity fte = foodTypeRepository.findByName(typeName);
+        fte.getFoods().add(foodRepository.findByName(foodVo.getName()));
+        foodTypeRepository.save(fte);
     }
 
     @Override
