@@ -69,15 +69,18 @@ public class OwnerManagementMB {
     }
 
     public void addSoup(){
-        foodService.saveFoodWithType(soup, "Soup");
+        foodService.saveFood(soup);
+        foodService.addFoodToFoodType(soup, "Soup");
     }
 
     public void addMainCourse(){
-        foodService.saveFoodWithType(mainCourse, "Main course");
+        foodService.saveFood(mainCourse);
+        foodService.addFoodToFoodType(mainCourse, "Main course");
     }
 
     public void addDessert(){
-        foodService.saveFoodWithType(dessert, "Dessert");
+        foodService.saveFood(dessert);
+        foodService.addFoodToFoodType(dessert, "Dessert");
     }
 
     public void addDrink(){

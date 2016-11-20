@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface FoodService {
 
-    FoodVo saveFood(FoodVo foodVo);
+    void saveFood(FoodVo foodVo);
 
-    void saveFoodWithType(FoodVo foodVo, String typeName);
+    void addFoodToFoodType(FoodVo foodVo, String typeName);
 
     void deleteFood(Long id, String typeName);
 

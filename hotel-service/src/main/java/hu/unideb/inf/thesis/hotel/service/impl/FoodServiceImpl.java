@@ -31,22 +31,23 @@ public class FoodServiceImpl implements FoodService {
     private FoodTypeRepository foodTypeRepository;
 
     @Override
-    public FoodVo saveFood(FoodVo foodVo) {
-        FoodEntity foodEntity = foodRepository.findOne(foodVo.getId());
+    public void saveFood(FoodVo foodVo) {
+        FoodEntity foodEntity = foodRepository.findByName(foodVo.getName());
         if (foodEntity == null) {
             foodEntity = new FoodEntity();
         }
         FoodMapper.toEntity(foodVo, foodEntity);
-        return FoodMapper.toVo(foodRepository.save(foodEntity));
+        foodRepository.save(foodEntity);
     }
 
     @Override
-    public void saveFoodWithType(FoodVo foodVo, String typeName) {
-        foodRepository.save(FoodMapper.toEntity(foodVo));
+    public void addFoodToFoodType(FoodVo foodVo, String typeName) {
+        FoodEntity food = foodRepository.findByName(foodVo.getName());
 
-        FoodTypeEntity fte = foodTypeRepository.findByName(typeName);
-        fte.getFoods().add(foodRepository.findByName(foodVo.getName()));
-        foodTypeRepository.save(fte);
+        FoodTypeEntity foodTypeEntity = foodTypeRepository.findByName(typeName);
+        foodTypeEntity.getFoods().add(food);
+
+        foodTypeRepository.save(foodTypeEntity);
     }
 
     @Override

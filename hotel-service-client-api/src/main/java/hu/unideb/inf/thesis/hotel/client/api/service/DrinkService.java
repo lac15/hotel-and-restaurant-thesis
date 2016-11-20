@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DrinkService {
 
-    DrinkVo saveDrink(DrinkVo drinkVo);
+    void saveDrink(DrinkVo drinkVo);
 
     void deleteDrink(Long id);
 
