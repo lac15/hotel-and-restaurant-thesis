@@ -20,4 +20,6 @@ INSERT INTO "public".foods (id, name, price) VALUES (nextval('hibernate_sequence
 
 INSERT INTO "public".foodtypes_foods (foodtypeentity_id, foods_id) VALUES (1, 1);
 
-INSERT INTO "public".drinks (id, name, price) VALUES (currval('hibernate_sequence'), 'Fanta', 250);
+INSERT INTO "public".drinks (id, name, price) VALUES (nextval('hibernate_sequence'), 'Fanta', 250);
+
+INSERT INTO "public".tables (id, number, seats, description, reserved) VALUES (nextval('hibernate_sequence'), 1, 4, 'Ez egy leírás.', false);

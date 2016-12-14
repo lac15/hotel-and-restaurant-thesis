@@ -12,6 +12,7 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 import javax.ejb.*;
 import javax.interceptor.Interceptors;
+import java.util.List;
 
 @Stateless(name = "TableService", mappedName = "TableService")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -25,10 +26,10 @@ public class TableServiceImpl implements TableService {
     @Autowired
     private TableRepository tableRepository;
 
-    /*@Override
-    public List<RoleVo> getRoles() {
-        return RoleMapper.toVo(roleRepository.findAll());
-    }*/
+    @Override
+    public List<TableVo> getTables() {
+        return TableMapper.toVo(tableRepository.findAll());
+    }
 
     @Override
     public TableVo saveTable(TableVo tableVo) {

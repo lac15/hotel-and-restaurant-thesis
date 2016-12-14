@@ -18,6 +18,21 @@
             <h:outputStylesheet name="css/hotel.css"/>
 
             <h1>#{msg['reserveTable.welcome.label']}</h1>
+
+            <p:dataTable var="table" value="#{reserveTableMB.tables}" style="margin-bottom:0">
+                <p:column headerText="#{msg['reserveTable.number.label']}" sortBy="#{table.number}">
+                    <h:outputText value="#{table.number}" />
+                </p:column>
+                <p:column headerText="#{msg['reserveTable.seats.label']}" sortBy="#{table.seats}">
+                    <h:outputText value="#{table.seats}"/>
+                </p:column>
+                <p:column headerText="#{msg['reserveTable.description.label']}" sortBy="#{table.description}">
+                    <h:outputText value="#{table.description}"/>
+                </p:column>
+                <p:column headerText="#{msg['reserveTable.reserved.label']}" sortBy="#{table.reserved}">
+                    <h:outputText value="#{table.reserved}"/>
+                </p:column>
+            </p:dataTable>
         </ui:define>
     </ui:composition>
 
