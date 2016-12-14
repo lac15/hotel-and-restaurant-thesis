@@ -10,6 +10,8 @@ public interface TableService {
 
     TableVo getTableByNumber(int number);
 
+    TableVo getTableBySeats(int seats);
+
     void setTableReservedByNumber(int number, boolean reserved);
 
 }

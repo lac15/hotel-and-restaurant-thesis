@@ -51,6 +51,11 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
+    public TableVo getTableBySeats(int seats) {
+        return TableMapper.toVo(tableRepository.findBySeats(seats));
+    }
+
+    @Override
     public void setTableReservedByNumber(int number, boolean reserved) {
         tableRepository.findByNumber(number).setReserved(reserved);
     }
