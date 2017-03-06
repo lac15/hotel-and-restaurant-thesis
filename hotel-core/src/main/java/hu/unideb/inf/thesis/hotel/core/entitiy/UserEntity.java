@@ -35,6 +35,12 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<RoleEntity> roles;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<FoodEntity> foods;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<DrinkEntity> drinks;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<TableEntity> tables;
 
@@ -51,6 +57,8 @@ public class UserEntity extends BaseEntity {
         this.phone = phone;
         this.active = true;
         this.roles = new ArrayList<>();
+        this.foods = new ArrayList<>();
+        this.drinks = new ArrayList<>();
         this.tables = new ArrayList<>();
         this.rooms = new ArrayList<>();
     }
@@ -109,6 +117,22 @@ public class UserEntity extends BaseEntity {
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public List<FoodEntity> getFoods() {
+        return foods;
+    }
+
+    public void setFoods(List<FoodEntity> foods) {
+        this.foods = foods;
+    }
+
+    public List<DrinkEntity> getDrinks() {
+        return drinks;
+    }
+
+    public void setDrinks(List<DrinkEntity> drinks) {
+        this.drinks = drinks;
     }
 
     public List<TableEntity> getTables() {
