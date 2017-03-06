@@ -3,6 +3,7 @@ package hu.unideb.inf.thesis.hotel.core.entitiy;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Users")
@@ -30,22 +31,23 @@ public class UserEntity extends BaseEntity {
 
     @Basic
     @Column(nullable = false)
+    private boolean hotelCustomer;
+
+    @Basic
+    @Column(nullable = false)
     private boolean active;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<RoleEntity> roles;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<FoodEntity> foods;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<DrinkEntity> drinks;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<OrderEntity> orders;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<TableEntity> tables;
+    private List<TableReserveEntity> tableReserves;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<RoomEntity> rooms;
+    private List<RoomReserveEntity> roomReserves;
 
     public UserEntity(){}
 
@@ -55,12 +57,12 @@ public class UserEntity extends BaseEntity {
         this.password = password;
         this.address = address;
         this.phone = phone;
+        this.hotelCustomer = false;
         this.active = true;
         this.roles = new ArrayList<>();
-        this.foods = new ArrayList<>();
-        this.drinks = new ArrayList<>();
-        this.tables = new ArrayList<>();
-        this.rooms = new ArrayList<>();
+        this.orders = new ArrayList<>();
+        this.tableReserves = new ArrayList<>();
+        this.roomReserves = new ArrayList<>();
     }
 
     public String getName() {
@@ -103,6 +105,14 @@ public class UserEntity extends BaseEntity {
         this.phone = phone;
     }
 
+    public boolean isHotelCustomer() {
+        return hotelCustomer;
+    }
+
+    public void setHotelCustomer(boolean hotelCustomer) {
+        this.hotelCustomer = hotelCustomer;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -119,65 +129,48 @@ public class UserEntity extends BaseEntity {
         this.roles = roles;
     }
 
-    public List<FoodEntity> getFoods() {
-        return foods;
+    public List<OrderEntity> getOrders() {
+        return orders;
     }
 
-    public void setFoods(List<FoodEntity> foods) {
-        this.foods = foods;
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
     }
 
-    public List<DrinkEntity> getDrinks() {
-        return drinks;
+    public List<TableReserveEntity> getTableReserves() {
+        return tableReserves;
     }
 
-    public void setDrinks(List<DrinkEntity> drinks) {
-        this.drinks = drinks;
+    public void setTableReserves(List<TableReserveEntity> tableReserves) {
+        this.tableReserves = tableReserves;
     }
 
-    public List<TableEntity> getTables() {
-        return tables;
+    public List<RoomReserveEntity> getRoomReserves() {
+        return roomReserves;
     }
 
-    public void setTables(List<TableEntity> tables) {
-        this.tables = tables;
-    }
-
-    public List<RoomEntity> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<RoomEntity> rooms) {
-        this.rooms = rooms;
+    public void setRoomReserves(List<RoomReserveEntity> roomReserves) {
+        this.roomReserves = roomReserves;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof UserEntity)) return false;
         if (!super.equals(o)) return false;
-
         UserEntity that = (UserEntity) o;
-
-        if (active != that.active) return false;
-        if (!name.equals(that.name)) return false;
-        if (!email.equals(that.email)) return false;
-        if (!password.equals(that.password)) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        return phone != null ? phone.equals(that.phone) : that.phone == null;
-
+        return hotelCustomer == that.hotelCustomer &&
+                active == that.active &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(phone, that.phone);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (active ? 1 : 0);
-        return result;
+        return Objects.hash(super.hashCode(), name, email, password, address, phone, hotelCustomer, active);
     }
 
     @Override
