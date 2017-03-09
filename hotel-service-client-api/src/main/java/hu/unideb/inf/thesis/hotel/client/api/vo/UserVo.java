@@ -12,9 +12,11 @@ public class UserVo implements Serializable {
     private String password;
     private String address;
     private String phone;
+    private boolean hotelCustomer;
     private boolean active;
 
     public UserVo() {
+        this.hotelCustomer = false;
         this.active = true;
     }
 
@@ -25,6 +27,7 @@ public class UserVo implements Serializable {
         this.password = password;
         this.address = address;
         this.phone = phone;
+        this.hotelCustomer = false;
         this.active = true;
     }
 
@@ -74,6 +77,14 @@ public class UserVo implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean isHotelCustomer() {
+        return hotelCustomer;
+    }
+
+    public void setHotelCustomer(boolean hotelCustomer) {
+        this.hotelCustomer = hotelCustomer;
     }
 
     public boolean isActive() {
