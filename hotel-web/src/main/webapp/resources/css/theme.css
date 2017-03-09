@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 html {
     height: 100%;
 }
@@ -17,10 +22,18 @@ header {
 }
 
 body {
-    background-color: #eff3f6;
+    background-image: url("/hotel/resources/images/bg02.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
     min-height: 100%;
     padding-bottom: 52px;
+    font-family: arial, verdana, tahoma;
+}
+
+h1 {
+    text-align: center;
 }
 
 h6.welcome-text {

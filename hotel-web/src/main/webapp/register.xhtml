@@ -15,8 +15,6 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:outputStylesheet name="css/hotel.css"/>
-
             <p:panel rendered="#{facesContext.externalContext.userPrincipal == null}">
 
                 <p:outputLabel value="#{msg['register.title.label']}" styleClass="label label-info"/>
