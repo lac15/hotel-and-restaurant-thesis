@@ -1,4 +1,4 @@
-package hu.unideb.inf.thesis.hotel.web.managedbeans;
+package hu.unideb.inf.thesis.hotel.web.managedbeans.login;
 
 import hu.unideb.inf.thesis.hotel.client.api.exception.EmailSendingException;
 import hu.unideb.inf.thesis.hotel.client.api.service.MailService;

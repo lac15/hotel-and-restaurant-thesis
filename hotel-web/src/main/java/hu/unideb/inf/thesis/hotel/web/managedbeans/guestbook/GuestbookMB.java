@@ -1,4 +1,4 @@
-package hu.unideb.inf.thesis.hotel.web.managedbeans;
+package hu.unideb.inf.thesis.hotel.web.managedbeans.guestbook;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.GuestbookService;
 import hu.unideb.inf.thesis.hotel.client.api.service.UserService;

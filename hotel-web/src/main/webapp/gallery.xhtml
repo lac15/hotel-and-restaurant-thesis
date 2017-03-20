@@ -16,6 +16,10 @@
 
         <ui:define name="body">
             <h1>#{msg['gallery.welcome.label']}</h1>
+
+            <p:galleria value="#{galleryBean.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                <p:graphicImage name="/images/#{image}" alt="Image Description for #{image}" title="#{image}"/>
+            </p:galleria>
         </ui:define>
     </ui:composition>
 
