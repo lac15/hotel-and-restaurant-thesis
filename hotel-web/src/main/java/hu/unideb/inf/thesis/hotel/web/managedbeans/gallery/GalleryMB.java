@@ -14,6 +14,8 @@ public class GalleryMB {
 
     private List<String> images;
 
+    private String selectedImage;
+
     @PostConstruct
     public void init() {
         images = new ArrayList<String>();
@@ -27,5 +29,13 @@ public class GalleryMB {
 
     public List<String> getImages() {
         return images;
+    }
+
+    public String getSelectedImage() {
+        return selectedImage;
+    }
+
+    public void setSelectedImage(String selectedImage) {
+        this.selectedImage = selectedImage;
     }
 }

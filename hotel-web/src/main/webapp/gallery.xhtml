@@ -20,6 +20,32 @@
             <p:galleria value="#{galleryBean.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
                 <p:graphicImage name="/images/#{image}" alt="Image Description for #{image}" title="#{image}"/>
             </p:galleria>
+
+            <h:form id="form">
+                <p:dataGrid var="image" value="#{galleryBean.images}" columns="3" layout="grid"
+                            rows="3" paginator="true" id="galleryImages"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="3,6,12">
+                    <f:facet name="header">
+                        Four Seasons Hotel and Restaurant Gallery
+                    </f:facet>
+
+                    <p:panel style="text-align: center">
+                        <p:commandLink update=":form:imageDetail" oncomplete="PF('imageDialog').show()">
+                            <p:graphicImage name="/images/#{image}" style="width: 100%"/>
+                            <f:setPropertyActionListener value="#{image}" target="#{galleryBean.selectedImage}" />
+                        </p:commandLink>
+
+                        <h:outputText value="#{image}" />
+                    </p:panel>
+                </p:dataGrid>
+
+                <p:dialog widgetVar="imageDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="imageDetail">
+                        <p:graphicImage name="/images/#{galleryBean.selectedImage}" />
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
         </ui:define>
     </ui:composition>
 
