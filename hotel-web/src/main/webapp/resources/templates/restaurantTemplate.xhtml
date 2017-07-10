@@ -46,6 +46,7 @@
                     <f:facet name="options">
                         <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-plus" outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
                         <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user" outcome="/login" rendered="#{p:ifNoneGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.cart.button']}" icon="fa fa-shopping-cart" outcome="/secured/cart" rendered="#{p:ifGranted('USER')}"/>
                         <p:button type="button" value="#{msg['menu.adminLayout.button']}" icon="fa fa-user" outcome="/admin/adminLayout" rendered="#{p:ifGranted('ADMIN')}"/>
                         <p:button type="button" value="#{msg['menu.ownerLayout.button']}" icon="fa fa-user" outcome="/owner/ownerLayout" rendered="#{p:ifGranted('OWNER')}"/>
                         <p:button type="button" value="#{msg['menu.profile.button']}" icon="fa fa-user" outcome="/secured/profile" rendered="#{p:ifGranted('USER')}"/>
