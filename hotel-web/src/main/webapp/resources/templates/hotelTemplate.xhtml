@@ -11,7 +11,8 @@
     <h:head>
         <h:outputStylesheet library="css" name="theme.css"/>
         <h:outputStylesheet library="css" name="hotel.css"/>
-        <h:outputScript library="js" name="sticky_menu.js"/>
+        <script type="text/javascript" src="/hotel/resources/js/sticky_menu.js"/>
+
         <title><ui:insert name="title"/></title>
     </h:head>
 
@@ -28,7 +29,9 @@
                 </div>
         </header>
 
-        <div>
+        <div id="navFix"></div>
+
+        <div id="navigation">
             <h:form>
                 <p:menubar>
                     <p:menuitem value="#{msg['menu.home.button']}" icon="fa fa-home" outcome="/home"/>
