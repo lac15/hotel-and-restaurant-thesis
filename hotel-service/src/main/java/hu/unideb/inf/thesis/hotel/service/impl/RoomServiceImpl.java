@@ -12,6 +12,7 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 import javax.ejb.*;
 import javax.interceptor.Interceptors;
+import java.util.List;
 
 @Stateless(name = "RoomService", mappedName = "RoomService")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -25,10 +26,10 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    /*@Override
+    @Override
     public List<RoomVo> getRooms() {
         return RoomMapper.toVo(roomRepository.findAll());
-    }*/
+    }
 
     @Override
     public RoomVo saveRoom(RoomVo roomVo) {
