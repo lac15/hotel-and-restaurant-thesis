@@ -25,3 +25,25 @@ INSERT INTO "public".foodtypes_foods (foodtypeentity_id, foods_id) VALUES (1, 1)
 INSERT INTO "public".drinks (id, name, price) VALUES (nextval('hibernate_sequence'), 'Fanta', 250);
 
 INSERT INTO "public".tables (id, number, seats, description, reserved) VALUES (nextval('hibernate_sequence'), 1, 4, 'Ez egy leírás.', false);
+
+INSERT INTO "public".roomtypes (id, capacity, price) VALUES (1, 1, 5000);
+INSERT INTO "public".roomtypes (id, capacity, price) VALUES (2, 2, 10000);
+INSERT INTO "public".roomtypes (id, capacity, price) VALUES (3, 4, 15000);
+
+INSERT INTO "public".rooms (id, number, reserved) VALUES (1, 1, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (2, 2, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (3, 3, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (4, 4, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (5, 5, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (6, 6, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (7, 7, FALSE);
+INSERT INTO "public".rooms (id, number, reserved) VALUES (8, 8, FALSE);
+
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (1, 1);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (1, 2);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (2, 3);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (2, 4);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (2, 5);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 6);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 7);
+INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 8);

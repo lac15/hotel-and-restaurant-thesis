@@ -1,7 +1,9 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.rooms;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
+import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 
 import javax.annotation.PostConstruct;
@@ -10,33 +12,33 @@ import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean(name = "roomssMB")
+@ManagedBean(name = "roomsMB")
 public class RoomsMB {
 
     @EJB
-    private RoomService roomService;
+    private RoomTypeService roomTypeService;
 
-    private List<RoomVo> rooms = new ArrayList<RoomVo>();
-    private RoomVo room;
+    private List<RoomTypeVo> roomTypes = new ArrayList<RoomTypeVo>();
+    private RoomTypeVo roomType;
 
     @PostConstruct
     public void init() {
-        rooms.addAll(roomService.getRooms());
+        roomTypes.addAll(roomTypeService.getRoomTypes());
     }
 
-    public List<RoomVo> getRooms() {
-        return rooms;
+    public List<RoomTypeVo> getRoomTypes() {
+        return roomTypes;
     }
 
-    public void setRooms(List<RoomVo> rooms) {
-        this.rooms = rooms;
+    public void setRoomTypes(List<RoomTypeVo> roomTypes) {
+        this.roomTypes = roomTypes;
     }
 
-    public RoomVo getRoom() {
-        return room;
+    public RoomTypeVo getRoomType() {
+        return roomType;
     }
 
-    public void setRoom(RoomVo room) {
-        this.room = room;
+    public void setRoomType(RoomTypeVo roomType) {
+        this.roomType = roomType;
     }
 }

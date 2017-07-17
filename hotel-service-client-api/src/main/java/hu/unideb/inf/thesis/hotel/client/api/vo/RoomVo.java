@@ -8,15 +8,13 @@ public class RoomVo implements Serializable {
 
     private Long id;
     private int number;
-    private int capacity;
     private boolean reserved;
 
     public RoomVo(){}
 
-    public RoomVo(Long id, int number, int capacity) {
+    public RoomVo(Long id, int number, int capacity, double price) {
         this.id = id;
         this.number = number;
-        this.capacity = capacity;
         this.reserved = false;
     }
 
@@ -34,14 +32,6 @@ public class RoomVo implements Serializable {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public boolean isReserved() {

@@ -18,17 +18,17 @@
             <h1>#{msg['rooms.welcome.label']}</h1>
 
             <h:form id="form">
-                <p:carousel value="#{roomssMB.rooms}" headerText="Rooms" var="room" itemStyle="text-align:center" responsive="true">
+                <p:carousel value="#{roomsMB.roomTypes}" headerText="Rooms" var="roomType" itemStyle="text-align:center" responsive="true">
                 <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
                     <!--<f:facet name="header">
                         <p:graphicImage name="demo/images/car/#{car.brand}.gif"/>
                     </f:facet>-->
 
-                    <h:outputText value="Capacity:" />
-                    <h:outputText value="#{room.capacity}" />
+                    <h:outputText value="#{msg['rooms.capacity.label']}" />
+                    <h:outputText value="#{roomType.capacity} #{msg['rooms.capacity.tag.label']}" />
 
-                    <!--<h:outputText value="Price" />
-                    <h:outputText value="#{room.price}" />-->
+                    <h:outputText value="#{msg['rooms.price.label']}" />
+                    <h:outputText value="#{roomType.price} #{msg['rooms.price.tag.label']}" />
                 </p:panelGrid>
             </p:carousel>
             </h:form>
