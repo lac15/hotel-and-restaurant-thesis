@@ -9,13 +9,15 @@ public class RoomTypeVo implements Serializable {
     private Long id;
     private int capacity;
     private int price;
+    private String image;
 
     public RoomTypeVo(){}
 
-    public RoomTypeVo(Long id, int capacity, int price) {
+    public RoomTypeVo(Long id, int capacity, int price, String image) {
         this.id = id;
         this.capacity = capacity;
         this.price = price;
+        this.image = image;
     }
 
     public Long getId() {
@@ -40,5 +42,13 @@ public class RoomTypeVo implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -16,15 +16,20 @@ public class RoomTypeEntity extends BaseEntity {
     @Column(nullable = false)
     private int price;
 
+    @Basic
+    @Column(nullable = false)
+    private String image;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<RoomEntity> rooms;
 
     public RoomTypeEntity() {
     }
 
-    public RoomTypeEntity(int capacity, int price) {
+    public RoomTypeEntity(int capacity, int price, String image) {
         this.capacity = capacity;
         this.price = price;
+        this.image = image;
         this.rooms = new ArrayList<RoomEntity>();
     }
 
@@ -42,6 +47,14 @@ public class RoomTypeEntity extends BaseEntity {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<RoomEntity> getRooms() {

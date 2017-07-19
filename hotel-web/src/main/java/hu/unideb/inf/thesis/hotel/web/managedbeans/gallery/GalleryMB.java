@@ -20,11 +20,9 @@ public class GalleryMB {
     public void init() {
         images = new ArrayList<String>();
 
-        images.add("bg00.jpg");
-        images.add("bg01.jpg");
-        images.add("bg02.jpg");
-        images.add("img01.jpg");
-        images.add("img02.jpg");
+        for(int i = 1; i <= 10; i++){
+            images.add("gallery_image_" + i + ".jpg");
+        }
     }
 
     public List<String> getImages() {

@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean(name = "roomsMB")
+@ManagedBean(name = "roomsBean")
 public class RoomsMB {
 
     @EJB
@@ -20,6 +20,8 @@ public class RoomsMB {
 
     private List<RoomTypeVo> roomTypes = new ArrayList<RoomTypeVo>();
     private RoomTypeVo roomType;
+
+    private String selectedImage;
 
     @PostConstruct
     public void init() {
@@ -40,5 +42,13 @@ public class RoomsMB {
 
     public void setRoomType(RoomTypeVo roomType) {
         this.roomType = roomType;
+    }
+
+    public String getSelectedImage() {
+        return selectedImage;
+    }
+
+    public void setSelectedImage(String selectedImage) {
+        this.selectedImage = selectedImage;
     }
 }

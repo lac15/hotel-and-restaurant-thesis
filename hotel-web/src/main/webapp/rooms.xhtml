@@ -18,19 +18,29 @@
             <h1>#{msg['rooms.welcome.label']}</h1>
 
             <h:form id="form">
-                <p:carousel value="#{roomsMB.roomTypes}" headerText="Rooms" var="roomType" itemStyle="text-align:center" responsive="true">
-                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-                    <!--<f:facet name="header">
-                        <p:graphicImage name="demo/images/car/#{car.brand}.gif"/>
-                    </f:facet>-->
+                <p:carousel value="#{roomsBean.roomTypes}" headerText="Rooms" var="roomType" itemStyle="text-align:center" responsive="true">
+                    <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                        <f:facet name="header">
+                            <p:commandLink update=":form:imageDetail" oncomplete="PF('imageDialog').show()">
+                                <p:graphicImage name="images/rooms/#{roomType.image}.jpg" style="width: 100%"/>
+                                <f:setPropertyActionListener value="#{roomType.image}.jpg" target="#{roomsBean.selectedImage}" />
+                            </p:commandLink>
+                        </f:facet>
 
-                    <h:outputText value="#{msg['rooms.capacity.label']}" />
-                    <h:outputText value="#{roomType.capacity} #{msg['rooms.capacity.tag.label']}" />
+                        <h:outputText value="#{msg['rooms.capacity.label']}" />
+                        <h:outputText value="#{roomType.capacity} #{msg['rooms.capacity.tag.label']}" />
 
-                    <h:outputText value="#{msg['rooms.price.label']}" />
-                    <h:outputText value="#{roomType.price} #{msg['rooms.price.tag.label']}" />
-                </p:panelGrid>
-            </p:carousel>
+                        <h:outputText value="#{msg['rooms.price.label']}" />
+                        <h:outputText value="#{roomType.price} #{msg['rooms.price.tag.label']}" />
+                    </p:panelGrid>
+                </p:carousel>
+
+                <p:dialog widgetVar="imageDialog" modal="true" showEffect="fade" hideEffect="fade"
+                          resizable="false" width="65%">
+                    <p:outputPanel id="imageDetail">
+                        <p:graphicImage name="images/rooms/#{roomsBean.selectedImage}" style="width: 100%"/>
+                    </p:outputPanel>
+                </p:dialog>
             </h:form>
         </ui:define>
     </ui:composition>
