@@ -118,8 +118,8 @@
     <navigation-rule>
         <from-view-id>/*.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>/reserveTable</from-outcome>
-            <to-view-id>/reserveTable.xhtml</to-view-id>
+            <from-outcome>/secured/reserveTable</from-outcome>
+            <to-view-id>/secured/reserveTable.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
