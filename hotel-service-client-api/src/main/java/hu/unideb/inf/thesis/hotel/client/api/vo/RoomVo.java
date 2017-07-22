@@ -1,6 +1,8 @@
 package hu.unideb.inf.thesis.hotel.client.api.vo;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class RoomVo implements Serializable {
 
@@ -8,14 +10,13 @@ public class RoomVo implements Serializable {
 
     private Long id;
     private int number;
-    private boolean reserved;
+    private List<Date> reservedDates;
 
     public RoomVo(){}
 
-    public RoomVo(Long id, int number, int capacity, double price) {
+    public RoomVo(Long id, int number) {
         this.id = id;
         this.number = number;
-        this.reserved = false;
     }
 
     public Long getId() {
@@ -34,11 +35,11 @@ public class RoomVo implements Serializable {
         this.number = number;
     }
 
-    public boolean isReserved() {
-        return reserved;
+    public List<Date> getReservedDates() {
+        return reservedDates;
     }
 
-    public void setReserved(boolean reserved) {
-        this.reserved = reserved;
+    public void setReservedDates(List<Date> reservedDates) {
+        this.reservedDates = reservedDates;
     }
 }

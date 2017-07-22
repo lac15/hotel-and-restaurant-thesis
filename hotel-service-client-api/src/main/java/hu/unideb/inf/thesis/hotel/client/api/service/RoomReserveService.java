@@ -1,7 +1,6 @@
 package hu.unideb.inf.thesis.hotel.client.api.service;
 
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,5 @@ public interface RoomReserveService {
     List<RoomReserveVo> getRoomReservesByStartTime(Date startTime);
 
     List<RoomReserveVo> getRoomReservesByEndTime(Date endTime);
-
-    List<RoomReserveVo> getRoomReservesByTable(RoomVo roomVo);
 
 }

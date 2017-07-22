@@ -29,15 +29,15 @@
                     <p:outputLabel value="#{msg['profile.rule.label']}"/>-->
 
                     <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
-                    <p:calendar id="startTime" value="#{roomsBean.startTime}" />
+                    <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" />
                     <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
                     <p:outputLabel for="endTime" value="Foglalás vége:"/>
-                    <p:calendar id="endTime" value="#{roomsBean.endTime}" />
+                    <p:calendar id="endTime" value="#{reserveRoomBean.endTime}" />
                     <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
                     <p:commandButton value="#{msg['profile.save.label']}" ajax="false"
-                                     action="#{roomsBean.addRoomReserve}" icon="fa fa-save"/>
+                                     action="#{reserveRoomBean.addRoomReserve}" icon="fa fa-save"/>
                 </p:panelGrid>
             </h:form>
         </ui:define>

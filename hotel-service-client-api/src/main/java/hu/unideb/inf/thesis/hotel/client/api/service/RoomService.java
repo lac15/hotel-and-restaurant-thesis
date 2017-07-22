@@ -2,6 +2,7 @@ package hu.unideb.inf.thesis.hotel.client.api.service;
 
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RoomService {
@@ -13,7 +14,5 @@ public interface RoomService {
     RoomVo getRoomById(Long id);
 
     RoomVo getRoomByNumber(int number);
-
-    void setRoomReservedByNumber(int number, boolean reserved);
 
 }

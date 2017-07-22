@@ -1,6 +1,8 @@
 package hu.unideb.inf.thesis.hotel.core.entitiy;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Rooms")
@@ -10,17 +12,16 @@ public class RoomEntity extends BaseEntity {
     @Column(nullable = false)
     private int number;
 
-    @Basic
-    @Column(nullable = false)
-    private boolean reserved;
+    @ElementCollection
+    private List<Date> reservedDates;
 
-    public RoomEntity() {
-        this.reserved = false;
-    }
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<RoomReserveEntity> roomReserves;
 
-    public RoomEntity(int number, boolean reserved) {
+    public RoomEntity(){}
+
+    public RoomEntity(int number) {
         this.number = number;
-        this.reserved = reserved;
     }
 
     public int getNumber() {
@@ -31,12 +32,20 @@ public class RoomEntity extends BaseEntity {
         this.number = number;
     }
 
-    public boolean isReserved() {
-        return reserved;
+    public List<Date> getReservedDates() {
+        return reservedDates;
     }
 
-    public void setReserved(boolean reserved) {
-        this.reserved = reserved;
+    public void setReservedDates(List<Date> reservedDates) {
+        this.reservedDates = reservedDates;
+    }
+
+    public List<RoomReserveEntity> getRoomReserves() {
+        return roomReserves;
+    }
+
+    public void setRoomReserves(List<RoomReserveEntity> roomReserves) {
+        this.roomReserves = roomReserves;
     }
 
     @Override
@@ -47,15 +56,13 @@ public class RoomEntity extends BaseEntity {
 
         RoomEntity that = (RoomEntity) o;
 
-        if (number != that.number) return false;
-        return reserved == that.reserved;
+        return number == that.number;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + number;
-        result = 31 * result + (reserved ? 1 : 0);
         return result;
     }
 
@@ -63,7 +70,6 @@ public class RoomEntity extends BaseEntity {
     public String toString() {
         return "RoomEntity{" +
                 "number=" + number +
-                ", reserved=" + reserved +
                 '}';
     }
 }

@@ -51,9 +51,4 @@ public class RoomServiceImpl implements RoomService {
         return RoomMapper.toVo(roomRepository.findByNumber(number));
     }
 
-    @Override
-    public void setRoomReservedByNumber(int number, boolean reserved) {
-        roomRepository.findByNumber(number).setReserved(reserved);
-    }
-
 }

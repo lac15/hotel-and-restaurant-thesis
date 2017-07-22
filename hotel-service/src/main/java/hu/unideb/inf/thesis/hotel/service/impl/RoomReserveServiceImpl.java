@@ -54,9 +54,4 @@ public class RoomReserveServiceImpl implements RoomReserveService {
         return RoomReserveMapper.toVo(roomReserveRepository.findByEndTime(endTime));
     }
 
-    @Override
-    public List<RoomReserveVo> getRoomReservesByTable(RoomVo roomVo) {
-        return RoomReserveMapper.toVo(roomReserveRepository.findByRoom(RoomMapper.toEntity(roomVo)));
-    }
-
 }

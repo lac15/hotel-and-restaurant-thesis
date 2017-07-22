@@ -16,14 +16,16 @@ public class RoomReserveEntity extends BaseEntity {
     @Column(nullable = false)
     private Date endTime;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private RoomEntity room;
+    @Basic
+    @Column(nullable = false)
+    private int totalPrice;
 
     public RoomReserveEntity(){}
 
-    public RoomReserveEntity(Date startTime, Date endTime) {
+    public RoomReserveEntity(Date startTime, Date endTime, int totalPrice) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.totalPrice = totalPrice;
     }
 
     public Date getStartTime() {
@@ -42,28 +44,34 @@ public class RoomReserveEntity extends BaseEntity {
         this.endTime = endTime;
     }
 
-    public RoomEntity getRoom() {
-        return room;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setRoom(RoomEntity room) {
-        this.room = room;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof RoomReserveEntity)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         RoomReserveEntity that = (RoomReserveEntity) o;
-        return Objects.equals(startTime, that.startTime) &&
-                Objects.equals(endTime, that.endTime) &&
-                Objects.equals(room, that.room);
+
+        if (totalPrice != that.totalPrice) return false;
+        if (!startTime.equals(that.startTime)) return false;
+        return endTime.equals(that.endTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), startTime, endTime, room);
+        int result = super.hashCode();
+        result = 31 * result + startTime.hashCode();
+        result = 31 * result + endTime.hashCode();
+        result = 31 * result + totalPrice;
+        return result;
     }
 
     @Override
@@ -71,7 +79,7 @@ public class RoomReserveEntity extends BaseEntity {
         return "RoomReserveEntity{" +
                 "startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", room=" + room +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }

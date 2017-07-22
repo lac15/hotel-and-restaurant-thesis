@@ -10,13 +10,15 @@ public class RoomReserveVo implements Serializable {
     private Long id;
     private Date startTime;
     private Date endTime;
+    private int totalPrice;
 
     public RoomReserveVo(){}
 
-    public RoomReserveVo(Long id, Date startTime, Date endTime ) {
+    public RoomReserveVo(Long id, Date startTime, Date endTime, int totalPrice ) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
@@ -41,5 +43,13 @@ public class RoomReserveVo implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

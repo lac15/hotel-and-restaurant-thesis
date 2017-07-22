@@ -30,14 +30,14 @@ INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (1, 2, 5000, 
 INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (2, 3, 10000, 'room_3');
 INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (3, 4, 15000, 'room_4');
 
-INSERT INTO "public".rooms (id, number, reserved) VALUES (1, 1, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (2, 2, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (3, 3, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (4, 4, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (5, 5, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (6, 6, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (7, 7, FALSE);
-INSERT INTO "public".rooms (id, number, reserved) VALUES (8, 8, FALSE);
+INSERT INTO "public".rooms (id, number) VALUES (1, 1);
+INSERT INTO "public".rooms (id, number) VALUES (2, 2);
+INSERT INTO "public".rooms (id, number) VALUES (3, 3);
+INSERT INTO "public".rooms (id, number) VALUES (4, 4);
+INSERT INTO "public".rooms (id, number) VALUES (5, 5);
+INSERT INTO "public".rooms (id, number) VALUES (6, 6);
+INSERT INTO "public".rooms (id, number) VALUES (7, 7);
+INSERT INTO "public".rooms (id, number) VALUES (8, 8);
 
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (1, 1);
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (1, 2);
