@@ -42,7 +42,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     }
 
     @Override
-    public List<RoomTypeVo> getRoomByCapacity(int capacity) {
+    public RoomTypeVo getRoomTypeByCapacity(int capacity) {
         return RoomTypeMapper.toVo(roomTypeRepository.findByCapacity(capacity));
     }
 

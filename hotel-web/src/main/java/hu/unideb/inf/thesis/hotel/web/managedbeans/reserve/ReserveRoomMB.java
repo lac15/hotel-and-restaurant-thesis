@@ -2,7 +2,9 @@ package hu.unideb.inf.thesis.hotel.web.managedbeans.reserve;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomReserveService;
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
+import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 
 import javax.annotation.PostConstruct;
@@ -19,26 +21,30 @@ public class ReserveRoomMB {
     private RoomReserveService roomReserveService;
     @EJB
     private RoomService roomService;
+    @EJB
+    private RoomTypeService roomTypeService;
 
     private RoomReserveVo roomReserveVo = new RoomReserveVo();
 
-    private List<RoomVo> rooms = new ArrayList<RoomVo>();
-    private RoomVo room;
+    private List<RoomTypeVo> roomTypes = new ArrayList<RoomTypeVo>();
+    private Long roomTypeId;
 
     private Date startTime = new Date();
     private Date endTime = new Date();
 
     @PostConstruct
-    public void init() { rooms.addAll(roomService.getRooms());}
+    public void init() { roomTypes.addAll(roomTypeService.getRoomTypes());}
 
     public void addRoomReserve() {
         //Save reservation to database if it can be reserved (not reserved yet)
         //if () {
             roomReserveVo.setStartTime(startTime);
             roomReserveVo.setEndTime(endTime);
+            roomReserveVo.setTotalPrice(/*(endTime - startTime) *  */
+                    roomTypeService.getRoomTypeById(roomTypeId).getPrice());
             roomReserveService.saveRoomReserve(roomReserveVo);
         //}
-
+/*
         //Has to iterate from startTime to endTime
         List<Date> newDates = new ArrayList<Date>();
         newDates.add(startTime);
@@ -46,7 +52,7 @@ public class ReserveRoomMB {
         //Add reserved dates to the selected room's reservedDates list
         room.getReservedDates().addAll(newDates);
         //Save the room's changes to the database
-        roomService.saveRoom(room);
+        roomService.saveRoom(room);*/
     }
 
     public RoomReserveVo getRoomReserveVo() {
@@ -65,20 +71,20 @@ public class ReserveRoomMB {
         this.roomService = roomService;
     }
 
-    public List<RoomVo> getRooms() {
-        return rooms;
+    public List<RoomTypeVo> getRoomTypes() {
+        return roomTypes;
     }
 
-    public void setRooms(List<RoomVo> rooms) {
-        this.rooms = rooms;
+    public void setRoomTypes(List<RoomTypeVo> roomTypes) {
+        this.roomTypes = roomTypes;
     }
 
-    public RoomVo getRoom() {
-        return room;
+    public Long getRoomTypeId() {
+        return roomTypeId;
     }
 
-    public void setRoom(RoomVo room) {
-        this.room = room;
+    public void setRoomTypeId(Long roomTypeId) {
+        this.roomTypeId = roomTypeId;
     }
 
     public Date getStartTime() {

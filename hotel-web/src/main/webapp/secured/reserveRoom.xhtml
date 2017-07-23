@@ -21,12 +21,12 @@
                 <h1>#{msg['reserveRoom.welcome.label']}</h1>
 
                 <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
-                    <!--<p:outputLabel for="roomType" value="Szoba típusa:"/>
-                    <p:selectOneMenu id="roomType" value="#{roomsBean.roomType}">
-                        <f:selectItems value="#{roomsBean.roomTypes}" var="roomType"
-                                       itemLabel="#{roomType.capacity}"/>
+                    <p:outputLabel for="roomType" value="Szoba típusa:"/>
+                    <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}">
+                        <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
+                                       itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
                     </p:selectOneMenu>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>-->
+                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
                     <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
                     <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" />
@@ -36,10 +36,12 @@
                     <p:calendar id="endTime" value="#{reserveRoomBean.endTime}" />
                     <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
-                    <p:commandButton value="#{msg['profile.save.label']}" ajax="false"
+                    <p:commandButton value="#{msg['profile.save.label']}"
                                      action="#{reserveRoomBean.addRoomReserve}" icon="fa fa-save"/>
                 </p:panelGrid>
             </h:form>
+
+            <p:schedule value="#{reserveRoomScheduleBean.reservationModel}" />
         </ui:define>
     </ui:composition>
 

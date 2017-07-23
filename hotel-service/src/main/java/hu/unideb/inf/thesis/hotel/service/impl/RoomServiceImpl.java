@@ -1,6 +1,8 @@
 package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
+import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
+import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoomEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.RoomRepository;

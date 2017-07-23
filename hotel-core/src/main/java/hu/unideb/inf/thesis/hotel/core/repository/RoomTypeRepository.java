@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface RoomTypeRepository extends JpaRepository<RoomTypeEntity, Long> {
 
-    List<RoomTypeEntity> findByCapacity(int capacity);
+    RoomTypeEntity findByCapacity(int capacity);
 
 }

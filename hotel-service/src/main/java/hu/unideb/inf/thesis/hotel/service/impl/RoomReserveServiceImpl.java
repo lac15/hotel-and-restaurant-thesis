@@ -31,10 +31,8 @@ public class RoomReserveServiceImpl implements RoomReserveService {
 
     @Override
     public RoomReserveVo saveRoomReserve(RoomReserveVo roomReserveVo) {
-        RoomReserveEntity roomReserveEntity = roomReserveRepository.findOne(roomReserveVo.getId());
-        if (roomReserveEntity == null) {
-            roomReserveEntity = new RoomReserveEntity();
-        }
+        RoomReserveEntity roomReserveEntity = new RoomReserveEntity();
+
         RoomReserveMapper.toEntity(roomReserveVo, roomReserveEntity);
         return RoomReserveMapper.toVo(roomReserveRepository.save(roomReserveEntity));
     }

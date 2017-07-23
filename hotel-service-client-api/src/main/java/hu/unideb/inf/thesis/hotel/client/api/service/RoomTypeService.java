@@ -12,6 +12,6 @@ public interface RoomTypeService {
 
     RoomTypeVo getRoomTypeById(Long id);
 
-    List<RoomTypeVo> getRoomByCapacity(int capacity);
+    RoomTypeVo getRoomTypeByCapacity(int capacity);
 
 }
