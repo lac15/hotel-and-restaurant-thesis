@@ -2,8 +2,10 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoomTypeEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.RoomTypeRepository;
+import hu.unideb.inf.thesis.hotel.service.mapper.RoomMapper;
 import hu.unideb.inf.thesis.hotel.service.mapper.RoomTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,4 +53,8 @@ public class RoomTypeServiceImpl implements RoomTypeService {
         return RoomTypeMapper.toVo(roomTypeRepository.findOne(id));
     }
 
+    @Override
+    public List<RoomVo> getRoomsByRoomTypeId(Long roomTypeId) {
+        return RoomMapper.toVo(roomTypeRepository.findOne(roomTypeId).getRooms());
+    }
 }

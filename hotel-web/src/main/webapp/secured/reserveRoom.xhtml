@@ -17,14 +17,25 @@
         <ui:define name="body">
             <h:outputStylesheet name="css/hotel.css"/>
 
-            <h:form styleClass="baseForm">
+            <h:form id="form" styleClass="baseForm">
                 <h1>#{msg['reserveRoom.welcome.label']}</h1>
 
                 <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
                     <p:outputLabel for="roomType" value="Szoba típusa:"/>
                     <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}">
+                        <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" process="@this" update="roomNumber" />
+                        <f:selectItem itemLabel="Típus" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
                                        itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
+
+                    <p:outputLabel for="roomNumber" value="Szoba száma:"/>
+                    <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}">
+                        <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update=":scheduleForm:reservationSchedule" />
+                        <f:selectItem itemLabel="Szobaszám" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
+                                       itemLabel="#{room.number}" itemValue="#{room.id}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
@@ -41,7 +52,9 @@
                 </p:panelGrid>
             </h:form>
 
-            <p:schedule value="#{reserveRoomScheduleBean.reservationModel}" />
+            <h:form id="scheduleForm">
+                <p:schedule id="reservationSchedule" value="#{reserveRoomBean.reservationModel}" />
+            </h:form>
         </ui:define>
     </ui:composition>
 

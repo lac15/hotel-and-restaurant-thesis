@@ -47,3 +47,5 @@ INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (2, 5)
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 6);
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 7);
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 8);
+
+INSERT INTO "public".roomentity_reserveddates (roomentity_id, reserveddates) VALUES (1, '2017-07-27');

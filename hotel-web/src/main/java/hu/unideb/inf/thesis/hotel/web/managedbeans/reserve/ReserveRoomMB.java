@@ -6,6 +6,10 @@ import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.LazyScheduleModel;
+import org.primefaces.model.ScheduleModel;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -29,8 +33,13 @@ public class ReserveRoomMB {
     private List<RoomTypeVo> roomTypes = new ArrayList<RoomTypeVo>();
     private Long roomTypeId;
 
+    private List<RoomVo> rooms = new ArrayList<RoomVo>();
+    private Long roomId;
+
     private Date startTime = new Date();
     private Date endTime = new Date();
+
+    private ScheduleModel reservationModel = new DefaultScheduleModel();
 
     @PostConstruct
     public void init() { roomTypes.addAll(roomTypeService.getRoomTypes());}
@@ -53,6 +62,21 @@ public class ReserveRoomMB {
         room.getReservedDates().addAll(newDates);
         //Save the room's changes to the database
         roomService.saveRoom(room);*/
+    }
+
+    public void onRoomTypeChange() {
+        if (roomTypeId != null) {
+            rooms = roomTypeService.getRoomsByRoomTypeId(roomTypeId);
+        }
+    }
+
+    public void onRoomNumberChange() {
+        if (roomId != null) {
+            for (Date reservedDate : roomService.getRoomById(roomId).getReservedDates()) {
+                reservationModel.addEvent(new DefaultScheduleEvent("Reserved", reservedDate, reservedDate, true));
+                System.out.println("HOZZAADTAM EGY ÚJ EVENTET!");
+            }
+        }
     }
 
     public RoomReserveVo getRoomReserveVo() {
@@ -87,6 +111,22 @@ public class ReserveRoomMB {
         this.roomTypeId = roomTypeId;
     }
 
+    public List<RoomVo> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<RoomVo> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -101,5 +141,13 @@ public class ReserveRoomMB {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public ScheduleModel getReservationModel() {
+        return reservationModel;
+    }
+
+    public void setReservationModel(ScheduleModel reservationModel) {
+        this.reservationModel = reservationModel;
     }
 }
