@@ -42,7 +42,9 @@ public class ReserveRoomMB {
     private ScheduleModel reservationModel = new DefaultScheduleModel();
 
     @PostConstruct
-    public void init() { roomTypes.addAll(roomTypeService.getRoomTypes());}
+    public void init() {
+        roomTypes.addAll(roomTypeService.getRoomTypes());
+    }
 
     public void addRoomReserve() {
         //Save reservation to database if it can be reserved (not reserved yet)
@@ -67,14 +69,12 @@ public class ReserveRoomMB {
     public void onRoomTypeChange() {
         if (roomTypeId != null) {
             rooms = roomTypeService.getRoomsByRoomTypeId(roomTypeId);
-        }
-    }
 
-    public void onRoomNumberChange() {
-        if (roomId != null) {
-            for (Date reservedDate : roomService.getRoomById(roomId).getReservedDates()) {
-                reservationModel.addEvent(new DefaultScheduleEvent("Reserved", reservedDate, reservedDate, true));
-                System.out.println("HOZZAADTAM EGY ÚJ EVENTET!");
+            for (RoomVo room : rooms) {
+                for (Date reservedDate : roomService.getRoomById(room.getId()).getReservedDates()) {
+                    reservationModel.addEvent(new DefaultScheduleEvent(
+                            "Room " + room.getNumber() + " is reserved", reservedDate, reservedDate));
+                }
             }
         }
     }

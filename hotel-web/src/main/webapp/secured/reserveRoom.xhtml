@@ -23,19 +23,9 @@
                 <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
                     <p:outputLabel for="roomType" value="Szoba típusa:"/>
                     <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}">
-                        <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" process="@this" update="roomNumber" />
                         <f:selectItem itemLabel="Típus" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
                                        itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
-
-                    <p:outputLabel for="roomNumber" value="Szoba száma:"/>
-                    <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}">
-                        <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update=":scheduleForm:reservationSchedule" />
-                        <f:selectItem itemLabel="Szobaszám" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
-                                       itemLabel="#{room.number}" itemValue="#{room.id}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
@@ -50,11 +40,22 @@
                     <p:commandButton value="#{msg['profile.save.label']}"
                                      action="#{reserveRoomBean.addRoomReserve}" icon="fa fa-save"/>
                 </p:panelGrid>
+
+                <p:panelGrid columns="2" layout="grid" styleClass="basePanel">
+                    <p:outputLabel for="roomTypeSearch" value="Szoba típusa:"/>
+                    <p:selectOneMenu id="roomTypeSearch" value="#{reserveRoomBean.roomTypeId}">
+                        <f:selectItem itemLabel="Típus" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
+                                       itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="#{msg['profile.save.label']}" actionListener="#{reserveRoomBean.onRoomTypeChange}"
+                                     oncomplete="PF('myschedule').update();" icon="fa fa-save" process=""/>
+                </p:panelGrid>
+
+                <p:schedule id="reservationSchedule" widgetVar="myschedule" value="#{reserveRoomBean.reservationModel}" />
             </h:form>
 
-            <h:form id="scheduleForm">
-                <p:schedule id="reservationSchedule" value="#{reserveRoomBean.reservationModel}" />
-            </h:form>
         </ui:define>
     </ui:composition>
 
