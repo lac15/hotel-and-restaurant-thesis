@@ -8,17 +8,18 @@ import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name = "reserveRoomBean")
+@ViewScoped
 public class ReserveRoomMB {
 
     @EJB
@@ -36,8 +37,8 @@ public class ReserveRoomMB {
     private List<RoomVo> rooms = new ArrayList<RoomVo>();
     private Long roomId;
 
-    private Date startTime = new Date();
-    private Date endTime = new Date();
+    private Date startTime;
+    private Date endTime;
 
     private ScheduleModel reservationModel = new DefaultScheduleModel();
 
@@ -57,6 +58,9 @@ public class ReserveRoomMB {
         //}
 /*
         //Has to iterate from startTime to endTime
+        LocalDateTime ldt = LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
+        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        
         List<Date> newDates = new ArrayList<Date>();
         newDates.add(startTime);
         newDates.add(endTime);
@@ -73,7 +77,7 @@ public class ReserveRoomMB {
             for (RoomVo room : rooms) {
                 for (Date reservedDate : roomService.getRoomById(room.getId()).getReservedDates()) {
                     reservationModel.addEvent(new DefaultScheduleEvent(
-                            "Room " + room.getNumber() + " is reserved", reservedDate, reservedDate));
+                            "Room " + room.getNumber() + " is reserved", reservedDate, reservedDate, true));
                 }
             }
         }
