@@ -14,6 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,7 @@ public class ReserveRoomMB {
     private Long roomTypeId;
 
     private List<RoomVo> rooms = new ArrayList<RoomVo>();
+    private RoomVo room;
     private Long roomId;
 
     private Date startTime;
@@ -48,37 +51,59 @@ public class ReserveRoomMB {
     }
 
     public void addRoomReserve() {
-        //Save reservation to database if it can be reserved (not reserved yet)
-        //if () {
+        boolean contains = false;
+        LocalDateTime ldtStart = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
+        LocalDateTime ldtEnd = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
+
+        LocalDateTime ldtEndPlus = ldtEnd.plusDays(1);
+
+        for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
+            Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+
+            if (room.getReservedDates().contains(normalDate)) {
+                contains = true;
+                break;
+            }
+        }
+
+        if (contains) {
+            System.out.println("Nem szabad a választott szoba az adott időszakban!");
+        } else {
+            int days = 0;
+            for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
+                days++;
+            }
+
             roomReserveVo.setStartTime(startTime);
             roomReserveVo.setEndTime(endTime);
-            roomReserveVo.setTotalPrice(/*(endTime - startTime) *  */
+            roomReserveVo.setTotalPrice(days *
                     roomTypeService.getRoomTypeById(roomTypeId).getPrice());
             roomReserveService.saveRoomReserve(roomReserveVo);
-        //}
-/*
-        //Has to iterate from startTime to endTime
-        LocalDateTime ldt = LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
-        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-        
-        List<Date> newDates = new ArrayList<Date>();
-        newDates.add(startTime);
-        newDates.add(endTime);
-        //Add reserved dates to the selected room's reservedDates list
-        room.getReservedDates().addAll(newDates);
-        //Save the room's changes to the database
-        roomService.saveRoom(room);*/
+
+            for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
+                Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+
+                room.getReservedDates().add(normalDate);
+            }
+            roomService.saveRoom(room);
+        }
     }
 
     public void onRoomTypeChange() {
         if (roomTypeId != null) {
             rooms = roomTypeService.getRoomsByRoomTypeId(roomTypeId);
+        }
+    }
 
-            for (RoomVo room : rooms) {
-                for (Date reservedDate : roomService.getRoomById(room.getId()).getReservedDates()) {
-                    reservationModel.addEvent(new DefaultScheduleEvent(
-                            "Room " + room.getNumber() + " is reserved", reservedDate, reservedDate, true));
-                }
+    public void onRoomNumberChange() {
+        if (roomId != null) {
+            room = roomService.getRoomById(roomId);
+
+            reservationModel.getEvents().clear();
+
+            for (Date reservedDate : room.getReservedDates()) {
+                reservationModel.addEvent(new DefaultScheduleEvent(
+                        "Room " + room.getNumber() + " is reserved", reservedDate, reservedDate, true));
             }
         }
     }
@@ -121,6 +146,14 @@ public class ReserveRoomMB {
 
     public void setRooms(List<RoomVo> rooms) {
         this.rooms = rooms;
+    }
+
+    public RoomVo getRoom() {
+        return room;
+    }
+
+    public void setRoom(RoomVo room) {
+        this.room = room;
     }
 
     public Long getRoomId() {
