@@ -2,10 +2,8 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomReserveService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoomReserveEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.RoomReserveRepository;
-import hu.unideb.inf.thesis.hotel.service.mapper.RoomMapper;
 import hu.unideb.inf.thesis.hotel.service.mapper.RoomReserveMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +29,12 @@ public class RoomReserveServiceImpl implements RoomReserveService {
 
     @Override
     public RoomReserveVo saveRoomReserve(RoomReserveVo roomReserveVo) {
-        RoomReserveEntity roomReserveEntity = new RoomReserveEntity();
+        RoomReserveEntity roomReserveEntity = roomReserveRepository.findByStartTimeAndEndTimeAndTotalPrice(
+                roomReserveVo.getStartTime(), roomReserveVo.getEndTime(), roomReserveVo.getTotalPrice());
 
+        if (roomReserveEntity == null) {
+            roomReserveEntity = new RoomReserveEntity();
+        }
         RoomReserveMapper.toEntity(roomReserveVo, roomReserveEntity);
         return RoomReserveMapper.toVo(roomReserveRepository.save(roomReserveEntity));
     }

@@ -48,7 +48,11 @@ INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 6)
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 7);
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 8);
 
-INSERT INTO "public".roomentity_reserveddates (roomentity_id, reserveddates) VALUES (1, '2017-07-27');
-INSERT INTO "public".roomentity_reserveddates (roomentity_id, reserveddates) VALUES (1, '2017-07-28');
-INSERT INTO "public".roomentity_reserveddates (roomentity_id, reserveddates) VALUES (1, '2017-07-29');
-INSERT INTO "public".roomentity_reserveddates (roomentity_id, reserveddates) VALUES (2, '2017-07-27');
+INSERT INTO "public".reserveddates (id, reserveddate) VALUES (1, '2017-08-10');
+INSERT INTO "public".reserveddates (id, reserveddate) VALUES (2, '2017-08-11');
+INSERT INTO "public".reserveddates (id, reserveddate) VALUES (3, '2017-08-12');
+
+INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 1);
+INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 2);
+INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 3);
+INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (2, 3);

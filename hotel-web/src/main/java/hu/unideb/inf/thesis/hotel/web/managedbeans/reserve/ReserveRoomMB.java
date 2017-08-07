@@ -1,8 +1,10 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.reserve;
 
+import hu.unideb.inf.thesis.hotel.client.api.service.ReservedDateService;
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomReserveService;
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
+import hu.unideb.inf.thesis.hotel.client.api.vo.ReservedDateVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
@@ -30,6 +32,8 @@ public class ReserveRoomMB {
     private RoomService roomService;
     @EJB
     private RoomTypeService roomTypeService;
+    @EJB
+    private ReservedDateService reservedDateService;
 
     private RoomReserveVo roomReserveVo = new RoomReserveVo();
 
@@ -60,8 +64,14 @@ public class ReserveRoomMB {
         for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
             Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
 
-            if (room.getReservedDates().contains(normalDate)) {
-                contains = true;
+            for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
+                if (reservedDate.getReservedDate().compareTo(normalDate) == 0) {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if (contains) {
                 break;
             }
         }
@@ -80,12 +90,17 @@ public class ReserveRoomMB {
                     roomTypeService.getRoomTypeById(roomTypeId).getPrice());
             roomReserveService.saveRoomReserve(roomReserveVo);
 
+            roomService.addRoomReserveToRoom(room, roomReserveVo);
+
             for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
                 Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
 
-                room.getReservedDates().add(normalDate);
+                ReservedDateVo reservedDateVo = new ReservedDateVo();
+                reservedDateVo.setReservedDate(normalDate);
+                reservedDateService.saveReservedDate(reservedDateVo);
+
+                roomService.addReservedDateToRoom(room, reservedDateVo);
             }
-            roomService.saveRoom(room);
         }
     }
 
@@ -101,9 +116,10 @@ public class ReserveRoomMB {
 
             reservationModel.getEvents().clear();
 
-            for (Date reservedDate : room.getReservedDates()) {
+            for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
                 reservationModel.addEvent(new DefaultScheduleEvent(
-                        "Room " + room.getNumber() + " is reserved", reservedDate, reservedDate, true));
+                        "Room " + room.getNumber() + " is reserved", reservedDate.getReservedDate(),
+                        reservedDate.getReservedDate(), true));
             }
         }
     }
@@ -114,14 +130,6 @@ public class ReserveRoomMB {
 
     public void setRoomReserveVo(RoomReserveVo roomReserveVo) {
         this.roomReserveVo = roomReserveVo;
-    }
-
-    public RoomService getRoomService() {
-        return roomService;
-    }
-
-    public void setRoomService(RoomService roomService) {
-        this.roomService = roomService;
     }
 
     public List<RoomTypeVo> getRoomTypes() {

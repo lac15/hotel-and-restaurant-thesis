@@ -12,11 +12,11 @@ public class RoomEntity extends BaseEntity {
     @Column(nullable = false)
     private int number;
 
-    @ElementCollection
-    private List<Date> reservedDates;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<RoomReserveEntity> roomReserves;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<ReservedDateEntity> reservedDates;
 
     public RoomEntity(){}
 
@@ -32,20 +32,20 @@ public class RoomEntity extends BaseEntity {
         this.number = number;
     }
 
-    public List<Date> getReservedDates() {
-        return reservedDates;
-    }
-
-    public void setReservedDates(List<Date> reservedDates) {
-        this.reservedDates = reservedDates;
-    }
-
     public List<RoomReserveEntity> getRoomReserves() {
         return roomReserves;
     }
 
     public void setRoomReserves(List<RoomReserveEntity> roomReserves) {
         this.roomReserves = roomReserves;
+    }
+
+    public List<ReservedDateEntity> getReservedDates() {
+        return reservedDates;
+    }
+
+    public void setReservedDates(List<ReservedDateEntity> reservedDates) {
+        this.reservedDates = reservedDates;
     }
 
     @Override

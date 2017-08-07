@@ -1,11 +1,15 @@
 package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
-import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.ReservedDateVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
+import hu.unideb.inf.thesis.hotel.core.entitiy.ReservedDateEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoomEntity;
+import hu.unideb.inf.thesis.hotel.core.entitiy.RoomReserveEntity;
+import hu.unideb.inf.thesis.hotel.core.repository.ReservedDateRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.RoomRepository;
+import hu.unideb.inf.thesis.hotel.core.repository.RoomReserveRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.RoomMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +31,10 @@ public class RoomServiceImpl implements RoomService {
 
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private ReservedDateRepository reservedDateRepository;
+    @Autowired
+    private RoomReserveRepository roomReserveRepository;
 
     @Override
     public List<RoomVo> getRooms() {
@@ -41,6 +49,27 @@ public class RoomServiceImpl implements RoomService {
         }
         RoomMapper.toEntity(roomVo, roomEntity);
         return RoomMapper.toVo(roomRepository.save(roomEntity));
+    }
+
+    @Override
+    public void addReservedDateToRoom(RoomVo roomVo, ReservedDateVo reservedDateVo) {
+        RoomEntity roomEntity = roomRepository.findByNumber(roomVo.getNumber());
+        ReservedDateEntity reservedDateEntity = reservedDateRepository.findByReservedDate(reservedDateVo.getReservedDate());
+
+        roomEntity.getReservedDates().add(reservedDateEntity);
+
+        roomRepository.save(roomEntity);
+    }
+
+    @Override
+    public void addRoomReserveToRoom(RoomVo roomVo, RoomReserveVo roomReserveVo) {
+        RoomEntity roomEntity = roomRepository.findByNumber(roomVo.getNumber());
+        RoomReserveEntity roomReserveEntity = roomReserveRepository.findByStartTimeAndEndTimeAndTotalPrice(
+                roomReserveVo.getStartTime(), roomReserveVo.getEndTime(), roomReserveVo.getTotalPrice());
+
+        roomEntity.getRoomReserves().add(roomReserveEntity);
+
+        roomRepository.save(roomEntity);
     }
 
     @Override

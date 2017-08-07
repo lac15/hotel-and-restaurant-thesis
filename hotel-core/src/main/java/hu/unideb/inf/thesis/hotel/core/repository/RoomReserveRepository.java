@@ -14,4 +14,8 @@ public interface RoomReserveRepository extends JpaRepository<RoomReserveEntity, 
 
     List<RoomReserveEntity> findByEndTime(Date endTime);
 
+    List<RoomReserveEntity> findByTotalPrice(int totalPrice);
+
+    RoomReserveEntity findByStartTimeAndEndTimeAndTotalPrice(Date startTime, Date endTime, int totalPrice);
+
 }
