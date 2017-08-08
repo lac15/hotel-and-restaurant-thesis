@@ -34,10 +34,12 @@ public class TableServiceImpl implements TableService {
     @Override
     public TableVo saveTable(TableVo tableVo) {
         TableEntity tableEntity = tableRepository.findOne(tableVo.getId());
+
         if (tableEntity == null) {
             tableEntity = new TableEntity();
+            TableMapper.toEntity(tableVo, tableEntity);
         }
-        TableMapper.toEntity(tableVo, tableEntity);
+
         return TableMapper.toVo(tableRepository.save(tableEntity));
     }
 

@@ -36,10 +36,12 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     @Override
     public RoomTypeVo saveRoomType(RoomTypeVo roomTypeVo) {
         RoomTypeEntity roomTypeEntity = roomTypeRepository.findOne(roomTypeVo.getId());
+
         if (roomTypeEntity == null) {
             roomTypeEntity = new RoomTypeEntity();
+            RoomTypeMapper.toEntity(roomTypeVo, roomTypeEntity);
         }
-        RoomTypeMapper.toEntity(roomTypeVo, roomTypeEntity);
+
         return RoomTypeMapper.toVo(roomTypeRepository.save(roomTypeEntity));
     }
 

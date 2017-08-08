@@ -32,10 +32,12 @@ public class TableReserveServiceImpl implements TableReserveService {
     @Override
     public TableReserveVo saveTableReserve(TableReserveVo tableReserveVo) {
         TableReserveEntity tableReserveEntity = tableReserveRepository.findOne(tableReserveVo.getId());
+
         if (tableReserveEntity == null) {
             tableReserveEntity = new TableReserveEntity();
+            TableReserveMapper.toEntity(tableReserveVo, tableReserveEntity);
         }
-        TableReserveMapper.toEntity(tableReserveVo, tableReserveEntity);
+
         return TableReserveMapper.toVo(tableReserveRepository.save(tableReserveEntity));
     }
 

@@ -33,10 +33,12 @@ public class FoodTypeServiceImpl implements FoodTypeService {
     @Override
     public FoodTypeVo saveFoodType(FoodTypeVo foodTypeVo) {
         FoodTypeEntity foodTypeEntity = foodTypeRepository.findOne(foodTypeVo.getId());
+
         if (foodTypeEntity == null) {
             foodTypeEntity = new FoodTypeEntity();
+            FoodTypeMapper.toEntity(foodTypeVo, foodTypeEntity);
         }
-        FoodTypeMapper.toEntity(foodTypeVo, foodTypeEntity);
+
         return FoodTypeMapper.toVo(foodTypeRepository.save(foodTypeEntity));
     }
 

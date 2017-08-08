@@ -1,7 +1,6 @@
 package hu.unideb.inf.thesis.hotel.core.entitiy;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,7 +11,7 @@ public class RoomEntity extends BaseEntity {
     @Column(nullable = false)
     private int number;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<RoomReserveEntity> roomReserves;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)

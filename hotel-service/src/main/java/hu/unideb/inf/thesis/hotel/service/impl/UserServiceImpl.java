@@ -43,10 +43,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVo saveUser(UserVo userVo) {
         UserEntity userEntity = userRepository.findOne(userVo.getId());
+
         if (userEntity == null) {
             userEntity = new UserEntity();
+            UserMapper.toEntity(userVo, userEntity);
         }
-        UserMapper.toEntity(userVo, userEntity);
+
         return UserMapper.toVo(userRepository.save(userEntity));
     }
 

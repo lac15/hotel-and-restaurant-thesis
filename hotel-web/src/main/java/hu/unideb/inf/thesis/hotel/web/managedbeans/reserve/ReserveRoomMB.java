@@ -55,12 +55,12 @@ public class ReserveRoomMB {
     }
 
     public void addRoomReserve() {
-        boolean contains = false;
         LocalDateTime ldtStart = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
         LocalDateTime ldtEnd = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
 
         LocalDateTime ldtEndPlus = ldtEnd.plusDays(1);
 
+        boolean contains = false;
         for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
             Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
 
@@ -86,20 +86,17 @@ public class ReserveRoomMB {
 
             roomReserveVo.setStartTime(startTime);
             roomReserveVo.setEndTime(endTime);
-            roomReserveVo.setTotalPrice(days *
-                    roomTypeService.getRoomTypeById(roomTypeId).getPrice());
-            roomReserveService.saveRoomReserve(roomReserveVo);
+            roomReserveVo.setTotalPrice(days * roomTypeService.getRoomTypeById(roomTypeId).getPrice());
 
-            roomService.addRoomReserveToRoom(room, roomReserveVo);
+            roomService.addRoomReserveToRoom(room, roomReserveService.saveRoomReserve(roomReserveVo));
 
             for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
                 Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
 
                 ReservedDateVo reservedDateVo = new ReservedDateVo();
                 reservedDateVo.setReservedDate(normalDate);
-                reservedDateService.saveReservedDate(reservedDateVo);
 
-                roomService.addReservedDateToRoom(room, reservedDateVo);
+                roomService.addReservedDateToRoom(room, reservedDateService.saveReservedDate(reservedDateVo));
             }
         }
     }

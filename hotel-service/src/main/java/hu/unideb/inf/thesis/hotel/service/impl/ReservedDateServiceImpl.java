@@ -35,10 +35,12 @@ public class ReservedDateServiceImpl implements ReservedDateService {
     @Override
     public ReservedDateVo saveReservedDate(ReservedDateVo reservedDateVo) {
         ReservedDateEntity reservedDateEntity = reservedDateRepository.findByReservedDate(reservedDateVo.getReservedDate());
+
         if (reservedDateEntity == null) {
             reservedDateEntity = new ReservedDateEntity();
+            ReservedDateMapper.toEntity(reservedDateVo, reservedDateEntity);
         }
-        ReservedDateMapper.toEntity(reservedDateVo, reservedDateEntity);
+
         return ReservedDateMapper.toVo(reservedDateRepository.save(reservedDateEntity));
     }
 

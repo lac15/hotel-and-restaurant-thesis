@@ -29,10 +29,12 @@ public class DrinkServiceImpl implements DrinkService {
     @Override
     public void saveDrink(DrinkVo drinkVo) {
         DrinkEntity drinkEntity = drinkRepository.findByName(drinkVo.getName());
+
         if (drinkEntity == null) {
             drinkEntity = new DrinkEntity();
+            DrinkMapper.toEntity(drinkVo, drinkEntity);
         }
-        DrinkMapper.toEntity(drinkVo, drinkEntity);
+
         drinkRepository.save(drinkEntity);
     }
 

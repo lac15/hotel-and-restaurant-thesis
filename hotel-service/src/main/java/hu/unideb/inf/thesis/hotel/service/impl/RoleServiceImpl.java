@@ -34,10 +34,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleVo saveRole(RoleVo roleVo) {
         RoleEntity roleEntity = roleRepository.findOne(roleVo.getId());
+
         if (roleEntity == null) {
             roleEntity = new RoleEntity();
+            RoleMapper.toEntity(roleVo, roleEntity);
         }
-        RoleMapper.toEntity(roleVo, roleEntity);
+
         return RoleMapper.toVo(roleRepository.save(roleEntity));
     }
 

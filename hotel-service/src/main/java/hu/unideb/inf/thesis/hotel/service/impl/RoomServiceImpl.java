@@ -44,17 +44,19 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public RoomVo saveRoom(RoomVo roomVo) {
         RoomEntity roomEntity = roomRepository.findOne(roomVo.getId());
+
         if (roomEntity == null) {
             roomEntity = new RoomEntity();
+            RoomMapper.toEntity(roomVo, roomEntity);
         }
-        RoomMapper.toEntity(roomVo, roomEntity);
+
         return RoomMapper.toVo(roomRepository.save(roomEntity));
     }
 
     @Override
     public void addReservedDateToRoom(RoomVo roomVo, ReservedDateVo reservedDateVo) {
         RoomEntity roomEntity = roomRepository.findByNumber(roomVo.getNumber());
-        ReservedDateEntity reservedDateEntity = reservedDateRepository.findByReservedDate(reservedDateVo.getReservedDate());
+        ReservedDateEntity reservedDateEntity = reservedDateRepository.findOne(reservedDateVo.getId());
 
         roomEntity.getReservedDates().add(reservedDateEntity);
 
@@ -64,8 +66,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void addRoomReserveToRoom(RoomVo roomVo, RoomReserveVo roomReserveVo) {
         RoomEntity roomEntity = roomRepository.findByNumber(roomVo.getNumber());
-        RoomReserveEntity roomReserveEntity = roomReserveRepository.findByStartTimeAndEndTimeAndTotalPrice(
-                roomReserveVo.getStartTime(), roomReserveVo.getEndTime(), roomReserveVo.getTotalPrice());
+        RoomReserveEntity roomReserveEntity = roomReserveRepository.findOne(roomReserveVo.getId());
 
         roomEntity.getRoomReserves().add(roomReserveEntity);
 

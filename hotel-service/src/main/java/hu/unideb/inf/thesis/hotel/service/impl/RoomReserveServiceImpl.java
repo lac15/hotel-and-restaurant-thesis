@@ -34,8 +34,9 @@ public class RoomReserveServiceImpl implements RoomReserveService {
 
         if (roomReserveEntity == null) {
             roomReserveEntity = new RoomReserveEntity();
+            RoomReserveMapper.toEntity(roomReserveVo, roomReserveEntity);
         }
-        RoomReserveMapper.toEntity(roomReserveVo, roomReserveEntity);
+
         return RoomReserveMapper.toVo(roomReserveRepository.save(roomReserveEntity));
     }
 

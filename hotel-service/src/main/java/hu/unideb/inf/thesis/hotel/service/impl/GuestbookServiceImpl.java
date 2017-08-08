@@ -42,10 +42,12 @@ public class GuestbookServiceImpl implements GuestbookService {
     @Override
     public GuestbookVo saveMessage(GuestbookVo guestbookVo) {
         GuestbookEntity guestbookEntity = guestbookRepository.findOne(guestbookVo.getId());
+
         if (guestbookEntity == null) {
             guestbookEntity = new GuestbookEntity();
+            GuestbookMapper.toEntity(guestbookVo, guestbookEntity);
         }
-        GuestbookMapper.toEntity(guestbookVo, guestbookEntity);
+
         return GuestbookMapper.toVo(guestbookRepository.save(guestbookEntity));
     }
 
