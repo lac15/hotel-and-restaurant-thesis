@@ -59,8 +59,6 @@ public class RoomServiceImpl implements RoomService {
         ReservedDateEntity reservedDateEntity = reservedDateRepository.findOne(reservedDateVo.getId());
 
         roomEntity.getReservedDates().add(reservedDateEntity);
-
-        roomRepository.save(roomEntity);
     }
 
     @Override
@@ -69,8 +67,6 @@ public class RoomServiceImpl implements RoomService {
         RoomReserveEntity roomReserveEntity = roomReserveRepository.findOne(roomReserveVo.getId());
 
         roomEntity.getRoomReserves().add(roomReserveEntity);
-
-        roomRepository.save(roomEntity);
     }
 
     @Override
