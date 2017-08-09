@@ -1,5 +1,6 @@
 package hu.unideb.inf.thesis.hotel.core.repository;
 
+import hu.unideb.inf.thesis.hotel.core.entitiy.RoomEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoomReserveEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ public interface RoomReserveRepository extends JpaRepository<RoomReserveEntity, 
 
     List<RoomReserveEntity> findByTotalPrice(int totalPrice);
 
-    RoomReserveEntity findByStartTimeAndEndTimeAndTotalPrice(Date startTime, Date endTime, int totalPrice);
+    RoomReserveEntity findByStartTimeAndEndTimeAndTotalPriceAndRoomEntity(Date startTime, Date endTime,
+                                                                          int totalPrice, RoomEntity roomEntity);
 
 }

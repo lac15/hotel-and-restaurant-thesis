@@ -62,14 +62,6 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void addRoomReserveToRoom(RoomVo roomVo, RoomReserveVo roomReserveVo) {
-        RoomEntity roomEntity = roomRepository.findByNumber(roomVo.getNumber());
-        RoomReserveEntity roomReserveEntity = roomReserveRepository.findOne(roomReserveVo.getId());
-
-        roomEntity.getRoomReserves().add(roomReserveEntity);
-    }
-
-    @Override
     public RoomVo getRoomById(Long id) {
         return RoomMapper.toVo(roomRepository.findOne(id));
     }

@@ -12,9 +12,6 @@ public class RoomEntity extends BaseEntity {
     private int number;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<RoomReserveEntity> roomReserves;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<ReservedDateEntity> reservedDates;
 
     public RoomEntity(){}
@@ -29,14 +26,6 @@ public class RoomEntity extends BaseEntity {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-
-    public List<RoomReserveEntity> getRoomReserves() {
-        return roomReserves;
-    }
-
-    public void setRoomReserves(List<RoomReserveEntity> roomReserves) {
-        this.roomReserves = roomReserves;
     }
 
     public List<ReservedDateEntity> getReservedDates() {

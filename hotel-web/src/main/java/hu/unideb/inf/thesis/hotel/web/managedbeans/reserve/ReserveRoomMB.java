@@ -1,13 +1,7 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.reserve;
 
-import hu.unideb.inf.thesis.hotel.client.api.service.ReservedDateService;
-import hu.unideb.inf.thesis.hotel.client.api.service.RoomReserveService;
-import hu.unideb.inf.thesis.hotel.client.api.service.RoomService;
-import hu.unideb.inf.thesis.hotel.client.api.service.RoomTypeService;
-import hu.unideb.inf.thesis.hotel.client.api.vo.ReservedDateVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomTypeVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomVo;
+import hu.unideb.inf.thesis.hotel.client.api.service.*;
+import hu.unideb.inf.thesis.hotel.client.api.vo.*;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
@@ -16,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -34,6 +29,8 @@ public class ReserveRoomMB {
     private RoomTypeService roomTypeService;
     @EJB
     private ReservedDateService reservedDateService;
+    @EJB
+    private UserService userService;
 
     private RoomReserveVo roomReserveVo = new RoomReserveVo();
 
@@ -41,16 +38,21 @@ public class ReserveRoomMB {
     private Long roomTypeId;
 
     private List<RoomVo> rooms = new ArrayList<RoomVo>();
-    private RoomVo room;
+    private RoomVo roomVo;
     private Long roomId;
 
     private Date startTime;
     private Date endTime;
 
+    private UserVo userVo;
+
     private ScheduleModel reservationModel = new DefaultScheduleModel();
 
     @PostConstruct
     public void init() {
+        String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+        userVo = userService.getUserByName(username);
+
         roomTypes.addAll(roomTypeService.getRoomTypes());
     }
 
@@ -88,7 +90,9 @@ public class ReserveRoomMB {
             roomReserveVo.setEndTime(endTime);
             roomReserveVo.setTotalPrice(days * roomTypeService.getRoomTypeById(roomTypeId).getPrice());
 
-            roomService.addRoomReserveToRoom(room, roomReserveService.saveRoomReserve(roomReserveVo));
+            RoomReserveVo roomReserveVoForUser = roomReserveService.saveRoomReserve(roomReserveVo, roomVo);
+
+            userService.addRoomReserveToUser(userVo, roomReserveVoForUser);
 
             for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
                 Date normalDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
@@ -96,7 +100,7 @@ public class ReserveRoomMB {
                 ReservedDateVo reservedDateVo = new ReservedDateVo();
                 reservedDateVo.setReservedDate(normalDate);
 
-                roomService.addReservedDateToRoom(room, reservedDateService.saveReservedDate(reservedDateVo));
+                roomService.addReservedDateToRoom(roomVo, reservedDateService.saveReservedDate(reservedDateVo));
             }
         }
     }
@@ -109,13 +113,13 @@ public class ReserveRoomMB {
 
     public void onRoomNumberChange() {
         if (roomId != null) {
-            room = roomService.getRoomById(roomId);
+            roomVo = roomService.getRoomById(roomId);
 
             reservationModel.getEvents().clear();
 
             for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
                 reservationModel.addEvent(new DefaultScheduleEvent(
-                        "Room " + room.getNumber() + " is reserved", reservedDate.getReservedDate(),
+                        "Room " + roomVo.getNumber() + " is reserved", reservedDate.getReservedDate(),
                         reservedDate.getReservedDate(), true));
             }
         }
@@ -153,12 +157,12 @@ public class ReserveRoomMB {
         this.rooms = rooms;
     }
 
-    public RoomVo getRoom() {
-        return room;
+    public RoomVo getRoomVo() {
+        return roomVo;
     }
 
-    public void setRoom(RoomVo room) {
-        this.room = room;
+    public void setRoomVo(RoomVo roomVo) {
+        this.roomVo = roomVo;
     }
 
     public Long getRoomId() {
@@ -183,6 +187,14 @@ public class ReserveRoomMB {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
     }
 
     public ScheduleModel getReservationModel() {

@@ -2,7 +2,6 @@ package hu.unideb.inf.thesis.hotel.core.entitiy;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "RoomReserves")
@@ -20,12 +19,17 @@ public class RoomReserveEntity extends BaseEntity {
     @Column(nullable = false)
     private int totalPrice;
 
+    @OneToOne
+    @JoinColumn(name = "Rooms_id")
+    private RoomEntity roomEntity;
+
     public RoomReserveEntity(){}
 
-    public RoomReserveEntity(Date startTime, Date endTime, int totalPrice) {
+    public RoomReserveEntity(Date startTime, Date endTime, int totalPrice, RoomEntity roomEntity) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.totalPrice = totalPrice;
+        this.roomEntity = roomEntity;
     }
 
     public Date getStartTime() {
@@ -50,6 +54,14 @@ public class RoomReserveEntity extends BaseEntity {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public RoomEntity getRoomEntity() {
+        return roomEntity;
+    }
+
+    public void setRoomEntity(RoomEntity roomEntity) {
+        this.roomEntity = roomEntity;
     }
 
     @Override

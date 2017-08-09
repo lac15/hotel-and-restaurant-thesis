@@ -14,8 +14,6 @@ public interface RoomService {
 
     void addReservedDateToRoom(RoomVo roomVo, ReservedDateVo reservedDateVo);
 
-    void addRoomReserveToRoom(RoomVo roomVo, RoomReserveVo roomReserveVo);
-
     RoomVo getRoomById(Long id);
 
     RoomVo getRoomByNumber(int number);
