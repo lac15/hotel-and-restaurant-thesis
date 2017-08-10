@@ -2,6 +2,7 @@ package hu.unideb.inf.thesis.hotel.web.managedbeans.reserve;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.*;
 import hu.unideb.inf.thesis.hotel.client.api.vo.*;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
@@ -16,6 +17,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.time.LocalDateTime.now;
 
 @ManagedBean(name = "reserveRoomBean")
 @ViewScoped
@@ -79,7 +82,8 @@ public class ReserveRoomMB {
         }
 
         if (contains) {
-            System.out.println("Nem szabad a választott szoba az adott időszakban!");
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('warningDialog').show();");
         } else {
             int days = 0;
             for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
@@ -102,6 +106,9 @@ public class ReserveRoomMB {
 
                 roomService.addReservedDateToRoom(roomVo, reservedDateService.saveReservedDate(reservedDateVo));
             }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('reservationDialog').show();");
         }
     }
 
@@ -115,12 +122,19 @@ public class ReserveRoomMB {
         if (roomId != null) {
             roomVo = roomService.getRoomById(roomId);
 
+            LocalDateTime today = now();
+            today = today.withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+            Date todayDate = Date.from(today.atZone(ZoneId.systemDefault()).toInstant());
+
             reservationModel.getEvents().clear();
 
             for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
-                reservationModel.addEvent(new DefaultScheduleEvent(
-                        "Room " + roomVo.getNumber() + " is reserved", reservedDate.getReservedDate(),
-                        reservedDate.getReservedDate(), true));
+                if ( reservedDate.getReservedDate().compareTo(todayDate) >= 0 ) {
+                    reservationModel.addEvent(new DefaultScheduleEvent(
+                            "Room " + roomVo.getNumber() + " is reserved", reservedDate.getReservedDate(),
+                            reservedDate.getReservedDate(), true));
+                }
             }
         }
     }

@@ -44,11 +44,36 @@
                     <p:calendar id="endTime" value="#{reserveRoomBean.endTime}" />
 
                     <p:commandButton value="#{msg['profile.save.label']}"
+                                     update=":form:reservationDetails"
                                      action="#{reserveRoomBean.addRoomReserve}" icon="fa fa-save"/>
                 </p:panelGrid>
+
+                <p:dialog widgetVar="reservationDialog" header="Reservation Details" modal="true">
+                    <h:panelGrid id="reservationDetails" columns="2">
+                        <p:outputLabel value="Room type" />
+                        <h:outputText value="#{reserveRoomBean.roomTypeId}" />
+
+                        <p:outputLabel value="Room number:" />
+                        <h:outputText value="#{reserveRoomBean.roomVo.number}" />
+
+                        <p:outputLabel value="From:" />
+                        <h:outputText value="#{reserveRoomBean.roomReserveVo.startTime}" />
+
+                        <p:outputLabel value="To:" />
+                        <h:outputText value="#{reserveRoomBean.roomReserveVo.endTime}" />
+
+                        <p:outputLabel value="Total price:" />
+                        <h:outputText value="#{reserveRoomBean.roomReserveVo.totalPrice}" />
+                    </h:panelGrid>
+                </p:dialog>
+
+                <p:dialog widgetVar="warningDialog" header="Warning Details" modal="true">
+                    <h:outputText value="Nem szabad a választott szoba az adott időszakban!" />
+                </p:dialog>
             </h:form>
 
-            <p:schedule id="reservationSchedule" value="#{reserveRoomBean.reservationModel}" draggable="false"/>
+            <p:schedule id="reservationSchedule" value="#{reserveRoomBean.reservationModel}"
+                        draggable="false" clientTimeZone="local"/>
 
         </ui:define>
     </ui:composition>
