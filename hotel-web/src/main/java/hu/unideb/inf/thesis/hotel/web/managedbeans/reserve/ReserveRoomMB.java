@@ -83,7 +83,7 @@ public class ReserveRoomMB {
 
         if (contains) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("PF('warningDialog').show();");
+            context.execute("PF('alreadyReservedWarningDialog').show();");
         } else {
             int days = 0;
             for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {

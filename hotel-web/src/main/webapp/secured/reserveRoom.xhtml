@@ -20,7 +20,7 @@
             <h:form id="form" styleClass="baseForm">
                 <h1>#{msg['reserveRoom.welcome.label']}</h1>
 
-                <p:panelGrid columns="2" layout="grid" styleClass="basePanel">
+                <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
                     <p:outputLabel for="roomType" value="Szoba típusa:"/>
                     <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}">
                         <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber"/>
@@ -28,6 +28,7 @@
                         <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
                                        itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
                     </p:selectOneMenu>
+                    <p:message for="roomType" display="both"/>
 
                     <p:outputLabel for="roomNumber" value="Szoba száma:"/>
                     <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}">
@@ -36,15 +37,23 @@
                         <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
                                        itemLabel="#{room.number}" itemValue="#{room.id}"/>
                     </p:selectOneMenu>
+                    <p:message for="roomNumber" display="both"/>
 
                     <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
-                    <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" />
+                    <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" binding="#{startTime}">
+                        <f:validator validatorId="startDateValidator"/>
+                    </p:calendar>
+                    <p:message for="startTime" display="both"/>
 
                     <p:outputLabel for="endTime" value="Foglalás vége:"/>
-                    <p:calendar id="endTime" value="#{reserveRoomBean.endTime}" />
+                    <p:calendar id="endTime" value="#{reserveRoomBean.endTime}">
+                        <f:validator validatorId="endDateValidator"/>
+                        <f:attribute name="startTime" value="#{startTime}" />
+                    </p:calendar>
+                    <p:message for="endTime" display="both"/>
 
                     <p:commandButton value="#{msg['profile.save.label']}"
-                                     update=":form:reservationDetails"
+                                     update=":form:reservationDetails" ajax="false"
                                      action="#{reserveRoomBean.addRoomReserve}" icon="fa fa-save"/>
                 </p:panelGrid>
 
@@ -67,7 +76,7 @@
                     </h:panelGrid>
                 </p:dialog>
 
-                <p:dialog widgetVar="warningDialog" header="Warning Details" modal="true">
+                <p:dialog widgetVar="alreadyReservedWarningDialog" header="Warning Details" modal="true">
                     <h:outputText value="Nem szabad a választott szoba az adott időszakban!" />
                 </p:dialog>
             </h:form>
