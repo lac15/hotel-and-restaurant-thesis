@@ -15,6 +15,14 @@ public class UserEntity extends BaseEntity {
 
     @Basic
     @Column(nullable = false)
+    private String firstname;
+
+    @Basic
+    @Column(nullable = false)
+    private String lastname;
+
+    @Basic
+    @Column(nullable = false)
     private String email;
 
     @Basic
@@ -51,8 +59,10 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity(){}
 
-    public UserEntity(String username, String email, String password, String address, String phone) {
+    public UserEntity(String username, String firstname, String lastname, String email, String password, String address, String phone) {
         this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.address = address;
@@ -71,6 +81,22 @@ public class UserEntity extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -162,6 +188,8 @@ public class UserEntity extends BaseEntity {
         return hotelCustomer == that.hotelCustomer &&
                 active == that.active &&
                 Objects.equals(username, that.username) &&
+                Objects.equals(firstname, that.firstname) &&
+                Objects.equals(lastname, that.lastname) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(address, that.address) &&
@@ -170,13 +198,15 @@ public class UserEntity extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), username, email, password, address, phone, hotelCustomer, active);
+        return Objects.hash(super.hashCode(), username, firstname, lastname, email, password, address, phone, hotelCustomer, active);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
+                "firstname='" + firstname + '\'' +
+                "lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 "} ";
