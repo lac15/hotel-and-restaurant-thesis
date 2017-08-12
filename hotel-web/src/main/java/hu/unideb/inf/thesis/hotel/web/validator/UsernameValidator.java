@@ -38,7 +38,7 @@ public class UsernameValidator implements Validator {
             throw new ValidatorException(new FacesMessage(bundle.getString("usernameValidator.length")));
         }
 
-        UserVo dbUser = userService.getUserByName(username);
+        UserVo dbUser = userService.getUserByUsername(username);
 
         if (dbUser != null) {
             throw new ValidatorException(new FacesMessage(bundle.getString("usernameValidator.exists")));

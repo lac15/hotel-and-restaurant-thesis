@@ -28,8 +28,8 @@
 
                             <p:dataTable id="checkboxUser" var="user" value="#{userManagement.users.source}" selection="#{userManagement.users.target}" rowKey="#{user.id}" style="margin-bottom:0">
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{user.name}">
-                                    <h:outputText value="#{user.name}" />
+                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{user.username}">
+                                    <h:outputText value="#{user.username}" />
                                 </p:column>
                                 <p:column headerText="#{msg['admin.user.email.label']}" sortBy="#{user.email}">
                                     <h:outputText value="#{user.email}"/>
@@ -50,7 +50,7 @@
                                 <h:panelGrid id="displayUsers" columns="2">
                                     <h:outputText value="#{msg['admin.users.label']}" style="font-weight:bold"/>
                                     <ui:repeat value="#{userManagement.users.target}" var="item">
-                                        <h:outputText value="#{item.name}" style="margin-left:5px"/>
+                                        <h:outputText value="#{item.username}" style="margin-left:5px"/>
                                     </ui:repeat>
 
                                     <h:outputText value="#{msg['admin.role.label']}" style="font-weight:bold"/>
@@ -62,8 +62,8 @@
                         <p:tab title="#{msg['admin.activeTab.title']}">
                             <p:dataTable id="checkboxActive" var="userActive" value="#{userManagement.usersActive.source}" selection="#{userManagement.usersActive.target}" rowKey="#{userActive.id}" style="margin-bottom:0">
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{userActive.name}">
-                                    <h:outputText value="#{userActive.name}" />
+                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{userActive.username}">
+                                    <h:outputText value="#{userActive.username}" />
                                 </p:column>
                                 <p:column headerText="#{msg['admin.user.email.label']}" sortBy="#{userActive.email}">
                                     <h:outputText value="#{userActive.email}"/>
@@ -84,7 +84,7 @@
                                 <h:panelGrid id="displayActive" columns="2">
                                     <h:outputText value="#{msg['admin.users.label']}" style="font-weight:bold"/>
                                     <ui:repeat value="#{userManagement.usersActive.target}" var="item">
-                                        <h:outputText value="#{item.name}" style="margin-left:5px"/>
+                                        <h:outputText value="#{item.username}" style="margin-left:5px"/>
                                     </ui:repeat>
                                 </h:panelGrid>
                             </p:dialog>
@@ -93,8 +93,8 @@
                         <p:tab title="#{msg['admin.passTab.title']}">
                             <p:dataTable id="checkboxPass" var="userPass" value="#{userManagement.usersPass.source}" selection="#{userManagement.usersPass.target}" rowKey="#{userPass.id}" style="margin-bottom:0">
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{userPass.name}">
-                                    <h:outputText value="#{userPass.name}" />
+                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{userPass.username}">
+                                    <h:outputText value="#{userPass.username}" />
                                 </p:column>
                                 <p:column headerText="#{msg['admin.user.email.label']}" sortBy="#{userPass.email}">
                                     <h:outputText value="#{userPass.email}"/>
@@ -112,7 +112,7 @@
                                 <h:panelGrid id="displayPass" columns="2" title="#{msg['admin.pass.success.label']}">
                                     <h:outputText value="#{msg['admin.users.label']}" style="font-weight:bold"/>
                                     <ui:repeat value="#{userManagement.usersPass.target}" var="item">
-                                        <h:outputText value="#{item.name}" style="margin-left:5px"/>
+                                        <h:outputText value="#{item.username}" style="margin-left:5px"/>
                                     </ui:repeat>
                                 </h:panelGrid>
                             </p:dialog>

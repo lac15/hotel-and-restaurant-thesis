@@ -41,8 +41,8 @@ public class GuestbookMB {
     }
     public void addmsg(){
         String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-        user = userService.getUserByName(username);
-        guestbook.setName(user.getName());
+        user = userService.getUserByUsername(username);
+        guestbook.setName(user.getUsername());
         guestbook.setMessage(message);
         guestbookService.addMessage(guestbook);
         messages.clear();

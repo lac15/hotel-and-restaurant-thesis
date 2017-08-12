@@ -17,7 +17,7 @@ public class SetUsersActivityMB {
 
     public void setActivity(List<UserVo> users, boolean activity) {
         for (UserVo userVo : users) {
-            userService.setUserActivityByName(userVo.getName(), activity);
+            userService.setUserActivityByUsername(userVo.getUsername(), activity);
         }
     }
 }

@@ -7,7 +7,7 @@ public class UserVo implements Serializable {
     private static final long serialVersionUID = 5932000328505763772L;
 
     private Long id;
-    private String name;
+    private String username;
     private String email;
     private String password;
     private String address;
@@ -20,9 +20,9 @@ public class UserVo implements Serializable {
         this.active = true;
     }
 
-    public UserVo(Long id, String name, String email, String password, String address, String phone) {
+    public UserVo(Long id, String username, String email, String password, String address, String phone) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.address = address;
@@ -39,12 +39,12 @@ public class UserVo implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVo getUserByName(String name) {
-        return UserMapper.toVo(userRepository.findByName(name));
+    public UserVo getUserByUsername(String username) {
+        return UserMapper.toVo(userRepository.findByUsername(username));
     }
 
     @Override
@@ -86,10 +86,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addRoleToUserByName(String name, RoleVo roleVo) {
+    public void addRoleToUserByUsername(String username, RoleVo roleVo) {
         boolean contains = false;
 
-        for (RoleEntity role : userRepository.findByName(name).getRoles()) {
+        for (RoleEntity role : userRepository.findByUsername(username).getRoles()) {
             contains = role.getName().equals(roleVo.getName());
             if (contains) {
                 break;
@@ -97,25 +97,25 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!contains) {
-            userRepository.findByName(name).getRoles().add(RoleMapper.toEntity(roleVo));
+            userRepository.findByUsername(username).getRoles().add(RoleMapper.toEntity(roleVo));
         }
     }
 
     @Override
-    public void removeRoleFromUserByName(String name, RoleVo roleVo) {
+    public void removeRoleFromUserByUsername(String username, RoleVo roleVo) {
         List<RoleEntity> newRoles = new ArrayList<RoleEntity>();
 
-        for (RoleEntity role : userRepository.findByName(name).getRoles()) {
+        for (RoleEntity role : userRepository.findByUsername(username).getRoles()) {
             if (!(role.getName().equals(roleVo.getName()))) {
                 newRoles.add(role);
             }
         }
-        userRepository.findByName(name).setRoles(newRoles);
+        userRepository.findByUsername(username).setRoles(newRoles);
     }
 
     @Override
-    public void setUserActivityByName(String name, boolean activity) {
-        userRepository.findByName(name).setActive(activity);
+    public void setUserActivityByUsername(String username, boolean activity) {
+        userRepository.findByUsername(username).setActive(activity);
     }
 
     @Override

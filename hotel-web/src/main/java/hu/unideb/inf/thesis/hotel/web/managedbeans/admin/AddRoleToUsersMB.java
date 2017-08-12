@@ -23,7 +23,7 @@ public class AddRoleToUsersMB {
         RoleVo roleVo = roleService.getRoleByName(role);
 
         for (UserVo userVo : users) {
-            userService.addRoleToUserByName(userVo.getName(), roleVo);
+            userService.addRoleToUserByUsername(userVo.getUsername(), roleVo);
         }
     }
 
@@ -31,7 +31,7 @@ public class AddRoleToUsersMB {
         RoleVo roleVo = roleService.getRoleByName(role);
 
         for (UserVo userVo : users) {
-            userService.removeRoleFromUserByName(userVo.getName(), roleVo);
+            userService.removeRoleFromUserByUsername(userVo.getUsername(), roleVo);
         }
     }
 }

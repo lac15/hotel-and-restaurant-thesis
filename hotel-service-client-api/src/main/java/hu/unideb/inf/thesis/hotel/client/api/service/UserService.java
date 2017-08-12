@@ -12,7 +12,7 @@ public interface UserService {
 
     UserVo getUserById(Long id);
 
-    UserVo getUserByName(String name);
+    UserVo getUserByUsername(String username);
 
     UserVo getUserByEmail(String email);
 
@@ -22,11 +22,11 @@ public interface UserService {
 
     void addRoomReserveToUser(UserVo userVo, RoomReserveVo roomReserveVo);
 
-    void addRoleToUserByName(String name, RoleVo roleVo);
+    void addRoleToUserByUsername(String username, RoleVo roleVo);
 
-    void removeRoleFromUserByName(String name, RoleVo roleVo);
+    void removeRoleFromUserByUsername(String username, RoleVo roleVo);
 
-    void setUserActivityByName(String name, boolean activity);
+    void setUserActivityByUsername(String username, boolean activity);
 
     void registerUser(UserVo user);
 }

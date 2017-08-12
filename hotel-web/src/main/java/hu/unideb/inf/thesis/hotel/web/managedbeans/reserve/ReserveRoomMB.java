@@ -54,7 +54,7 @@ public class ReserveRoomMB {
     @PostConstruct
     public void init() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-        userVo = userService.getUserByName(username);
+        userVo = userService.getUserByUsername(username);
 
         roomTypes.addAll(roomTypeService.getRoomTypes());
     }

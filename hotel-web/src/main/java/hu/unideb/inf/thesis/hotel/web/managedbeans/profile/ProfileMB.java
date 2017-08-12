@@ -23,7 +23,7 @@ public class ProfileMB {
     @PostConstruct
     private void init() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-        user = userService.getUserByName(username);
+        user = userService.getUserByUsername(username);
     }
 
     public String saveUser() {

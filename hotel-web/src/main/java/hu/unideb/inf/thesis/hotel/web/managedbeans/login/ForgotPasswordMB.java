@@ -52,7 +52,7 @@ public class ForgotPasswordMB {
         user.setPassword(encPassword);
         userService.saveUser(user);
 
-        String message = bundle.getString("email.defpw.dear")+" "+user.getName()+"!<br>";
+        String message = bundle.getString("email.defpw.dear")+" "+user.getUsername()+"!<br>";
         message+=bundle.getString("email.forgotpw.message")+" "+newPassword+bundle.getString("email.defpw.endmessage");
         try {
             mailService.sendMail("noreply@restaurant.hu", user.getEmail(), bundle.getString("email.forgotpw.subject"), message);

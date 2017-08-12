@@ -32,7 +32,7 @@ public class LoginMB {
     private String password;
 
     public String login() throws ServletException, IOException {
-        UserVo user = userService.getUserByName(username);
+        UserVo user = userService.getUserByUsername(username);
         if (user == null) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);

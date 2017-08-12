@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         UserVo user;
         try {
-            user = userService.getUserByName(username);
+            user = userService.getUserByUsername(username);
 
             if (user == null) {
                 throw new UsernameNotFoundException(username);
@@ -56,7 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private User buildUserForAuthentication(UserVo user, List<GrantedAuthority> authorities) {
-        return new User(user.getName(), user.getPassword(), true, true, true, true, authorities);
+        return new User(user.getUsername(), user.getPassword(), true, true, true, true, authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(List<RoleVo> userRoles) {

@@ -11,7 +11,7 @@ public class UserEntity extends BaseEntity {
 
     @Basic
     @Column(nullable = false)
-    private String name;
+    private String username;
 
     @Basic
     @Column(nullable = false)
@@ -51,8 +51,8 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity(){}
 
-    public UserEntity(String name, String email, String password, String address, String phone) {
-        this.name = name;
+    public UserEntity(String username, String email, String password, String address, String phone) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.address = address;
@@ -65,12 +65,12 @@ public class UserEntity extends BaseEntity {
         this.roomReserves = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -161,7 +161,7 @@ public class UserEntity extends BaseEntity {
         UserEntity that = (UserEntity) o;
         return hotelCustomer == that.hotelCustomer &&
                 active == that.active &&
-                Objects.equals(name, that.name) &&
+                Objects.equals(username, that.username) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(address, that.address) &&
@@ -170,13 +170,13 @@ public class UserEntity extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, email, password, address, phone, hotelCustomer, active);
+        return Objects.hash(super.hashCode(), username, email, password, address, phone, hotelCustomer, active);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 "} ";

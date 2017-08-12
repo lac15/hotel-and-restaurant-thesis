@@ -36,7 +36,7 @@ public class RegisterMB {
         /*FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Register success", "You have successfully registered!"));*/
 
-        LOGGER.info(user.getUser().getName() + " registered with " + user.getUser().getEmail() + " email address!");
+        LOGGER.info(user.getUser().getUsername() + " registered with " + user.getUser().getEmail() + " email address!");
 
         return "200";
     }
