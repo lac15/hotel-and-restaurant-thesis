@@ -1,28 +1,32 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.reserve;
 
+import hu.unideb.inf.thesis.hotel.client.api.exception.EmailSendingException;
 import hu.unideb.inf.thesis.hotel.client.api.service.*;
 import hu.unideb.inf.thesis.hotel.client.api.vo.*;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Logger;
 
 import static java.time.LocalDateTime.now;
 
 @ManagedBean(name = "reserveRoomBean")
 @ViewScoped
 public class ReserveRoomMB {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ReserveRoomMB.class);
 
     @EJB
     private RoomReserveService roomReserveService;
@@ -34,6 +38,8 @@ public class ReserveRoomMB {
     private ReservedDateService reservedDateService;
     @EJB
     private UserService userService;
+    @EJB
+    private MailService mailService;
 
     private RoomReserveVo roomReserveVo = new RoomReserveVo();
 
@@ -46,6 +52,7 @@ public class ReserveRoomMB {
 
     private Date startTime;
     private Date endTime;
+    private int totalPrice;
 
     private UserVo userVo;
 
@@ -92,7 +99,8 @@ public class ReserveRoomMB {
 
             roomReserveVo.setStartTime(startTime);
             roomReserveVo.setEndTime(endTime);
-            roomReserveVo.setTotalPrice(days * roomTypeService.getRoomTypeById(roomTypeId).getPrice());
+            totalPrice = days * roomTypeService.getRoomTypeById(roomTypeId).getPrice();
+            roomReserveVo.setTotalPrice(totalPrice);
 
             RoomReserveVo roomReserveVoForUser = roomReserveService.saveRoomReserve(roomReserveVo, roomVo);
 
@@ -109,6 +117,8 @@ public class ReserveRoomMB {
 
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('reservationDialog').show();");
+
+            sendReservationDetails();
         }
     }
 
@@ -136,6 +146,36 @@ public class ReserveRoomMB {
                             reservedDate.getReservedDate(), true));
                 }
             }
+        }
+    }
+
+    public void sendReservationDetails() {
+        ResourceBundle bundle;
+        try {
+            bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+        } catch (MissingResourceException e) {
+            bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
+        }
+
+        String message = bundle.getString("email.roomreserve.dear") + " " + userVo.getFirstname() + " "
+                + userVo.getLastname() + "!<br>";
+        message += bundle.getString("email.roomreserve.message");
+        message += bundle.getString("email.roomreserve.roomtype") + " "
+                + roomTypeService.getRoomTypeById(roomTypeId).getCapacity() + " "
+                + bundle.getString("email.roomreserve.roomtype.ending");
+        message += bundle.getString("email.roomreserve.roomnumber") + " " + roomVo.getNumber() + "<br>";
+        message += bundle.getString("email.roomreserve.from") + " " + startTime + "<br>";
+        message += bundle.getString("email.roomreserve.to") + " " + endTime + "<br>";
+        message += bundle.getString("email.roomreserve.totalprice") + " " + totalPrice + " HUF<br>";
+        message += bundle.getString("email.roomreserve.endmessage");
+
+        try {
+            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.roomreserve.subject"), message);
+
+            LOGGER.info(bundle.getString("email.logger.success"));
+        } catch (EmailSendingException e) {
+            LOGGER.info(bundle.getString("email.logger.error"));
+            e.printStackTrace();
         }
     }
 
@@ -201,6 +241,14 @@ public class ReserveRoomMB {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public UserVo getUserVo() {
