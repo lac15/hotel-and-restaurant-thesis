@@ -21,7 +21,7 @@ public class RoomReserveMapper {
             return null;
         }
 
-        LOGGER.info(roomReserveEntity.getId() + "");
+        LOGGER.info(roomReserveEntity.getRoomEntity().getNumber() + "");
         LOGGER.info("RoomReserve entity mapped to RoomReserveVo", roomReserveEntity);
         return mapper.map(roomReserveEntity, RoomReserveVo.class);
     }

@@ -8,14 +8,12 @@ import java.util.List;
 
 public interface TableReserveService {
 
-    TableReserveVo saveTableReserve(TableReserveVo tableReserveVo);
+    TableReserveVo saveTableReserve(TableReserveVo tableReserveVo, TableVo tableVo);
 
     TableReserveVo getTableReserveById(Long id);
 
     List<TableReserveVo> getTableReservesByStartTime(Date startTime);
 
     List<TableReserveVo> getTableReservesByEndTime(Date endTime);
-
-    List<TableReserveVo> getTableReservesByTable(TableVo tableVo);
 
 }

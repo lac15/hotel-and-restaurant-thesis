@@ -3,7 +3,9 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 import hu.unideb.inf.thesis.hotel.client.api.service.TableReserveService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.TableReserveVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.TableVo;
+import hu.unideb.inf.thesis.hotel.core.entitiy.TableEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.TableReserveEntity;
+import hu.unideb.inf.thesis.hotel.core.repository.TableRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.TableReserveRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.TableMapper;
 import hu.unideb.inf.thesis.hotel.service.mapper.TableReserveMapper;
@@ -28,14 +30,20 @@ public class TableReserveServiceImpl implements TableReserveService {
 
     @Autowired
     private TableReserveRepository tableReserveRepository;
+    @Autowired
+    private TableRepository tableRepository;
 
     @Override
-    public TableReserveVo saveTableReserve(TableReserveVo tableReserveVo) {
-        TableReserveEntity tableReserveEntity = tableReserveRepository.findOne(tableReserveVo.getId());
+    public TableReserveVo saveTableReserve(TableReserveVo tableReserveVo, TableVo tableVo) {
+        TableEntity tableEntity = tableRepository.findOne(tableVo.getId());
+
+        TableReserveEntity tableReserveEntity = tableReserveRepository.findByStartTimeAndEndTimeAndTableEntity(
+                tableReserveVo.getStartTime(), tableReserveVo.getEndTime(), tableEntity);
 
         if (tableReserveEntity == null) {
             tableReserveEntity = new TableReserveEntity();
             TableReserveMapper.toEntity(tableReserveVo, tableReserveEntity);
+            tableReserveEntity.setTableEntity(tableEntity);
         }
 
         return TableReserveMapper.toVo(tableReserveRepository.save(tableReserveEntity));
@@ -54,11 +62,6 @@ public class TableReserveServiceImpl implements TableReserveService {
     @Override
     public List<TableReserveVo> getTableReservesByEndTime(Date endTime) {
         return TableReserveMapper.toVo(tableReserveRepository.findByEndTime(endTime));
-    }
-
-    @Override
-    public List<TableReserveVo> getTableReservesByTable(TableVo tableVo) {
-        return TableReserveMapper.toVo(tableReserveRepository.findByTable(TableMapper.toEntity(tableVo)));
     }
 
 }

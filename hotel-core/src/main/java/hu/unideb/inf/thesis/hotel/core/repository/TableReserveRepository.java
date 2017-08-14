@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface TableReserveRepository extends JpaRepository<TableReserveEntity, Long> {
 
-    List<TableReserveEntity> findByTable(TableEntity tableEntity);
-
     List<TableReserveEntity> findByStartTime(Date startTime);
 
     List<TableReserveEntity> findByEndTime(Date endTime);
+
+    TableReserveEntity findByStartTimeAndEndTimeAndTableEntity(Date startTime, Date endTime, TableEntity tableEntity);
 
 }

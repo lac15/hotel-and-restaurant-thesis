@@ -16,14 +16,16 @@ public class TableReserveEntity extends BaseEntity {
     @Column(nullable = false)
     private Date endTime;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private TableEntity table;
+    @OneToOne
+    @JoinColumn(name = "Tables_id")
+    private TableEntity tableEntity;
 
     public TableReserveEntity(){}
 
-    public TableReserveEntity(Date startTime, Date endTime) {
+    public TableReserveEntity(Date startTime, Date endTime, TableEntity tableEntity) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.tableEntity = tableEntity;
     }
 
     public Date getStartTime() {
@@ -42,28 +44,32 @@ public class TableReserveEntity extends BaseEntity {
         this.endTime = endTime;
     }
 
-    public TableEntity getTable() {
-        return table;
+    public TableEntity getTableEntity() {
+        return tableEntity;
     }
 
-    public void setTable(TableEntity table) {
-        this.table = table;
+    public void setTableEntity(TableEntity tableEntity) {
+        this.tableEntity = tableEntity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TableReserveEntity)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         TableReserveEntity that = (TableReserveEntity) o;
-        return Objects.equals(startTime, that.startTime) &&
-                Objects.equals(endTime, that.endTime) &&
-                Objects.equals(table, that.table);
+
+        if (!startTime.equals(that.startTime)) return false;
+        return endTime.equals(that.endTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), startTime, endTime, table);
+        int result = super.hashCode();
+        result = 31 * result + startTime.hashCode();
+        result = 31 * result + endTime.hashCode();
+        return result;
     }
 
     @Override
@@ -71,7 +77,6 @@ public class TableReserveEntity extends BaseEntity {
         return "TableReserveEntity{" +
                 "startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", table=" + table +
                 '}';
     }
 }

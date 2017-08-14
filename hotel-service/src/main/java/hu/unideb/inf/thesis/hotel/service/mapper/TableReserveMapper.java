@@ -21,7 +21,7 @@ public class TableReserveMapper {
             return null;
         }
 
-        LOGGER.info(tableReserveEntity.getTable().getNumber() + "");
+        LOGGER.info(tableReserveEntity.getTableEntity().getNumber() + "");
         LOGGER.info("TableReserve entity mapped to TableReserveVo", tableReserveEntity);
         return mapper.map(tableReserveEntity, TableReserveVo.class);
     }

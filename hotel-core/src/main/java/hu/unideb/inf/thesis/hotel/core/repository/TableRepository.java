@@ -9,6 +9,4 @@ public interface TableRepository extends JpaRepository<TableEntity, Long> {
 
     TableEntity findByNumber(int number);
 
-    TableEntity findBySeats(int seats);
-
 }

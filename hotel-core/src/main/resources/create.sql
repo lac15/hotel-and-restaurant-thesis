@@ -8,23 +8,19 @@ INSERT INTO "public".roles (id, name) VALUES (3, 'ROLE_OWNER');
 
 INSERT INTO "public".users_roles (userentity_id, roles_id) VALUES (-1, 1);
 INSERT INTO "public".users_roles (userentity_id, roles_id) VALUES (-1, 2);
-
 INSERT INTO "public".users_roles (userentity_id, roles_id) VALUES (-2, 1);
 INSERT INTO "public".users_roles (userentity_id, roles_id) VALUES (-2, 3);
-
 INSERT INTO "public".users_roles (userentity_id, roles_id) VALUES (-3, 1);
 
 INSERT INTO "public".foodtypes (id, name) VALUES (1, 'Soup');
 INSERT INTO "public".foodtypes (id, name) VALUES (2, 'Main course');
 INSERT INTO "public".foodtypes (id, name) VALUES (3, 'Dessert');
 
-INSERT INTO "public".foods (id, name, price) VALUES (nextval('hibernate_sequence'), 'Bableves', 500);
+INSERT INTO "public".foods (id, name, price) VALUES (1, 'Bableves', 500);
 
 INSERT INTO "public".foodtypes_foods (foodtypeentity_id, foods_id) VALUES (1, 1);
 
-INSERT INTO "public".drinks (id, name, price) VALUES (nextval('hibernate_sequence'), 'Fanta', 250);
-
-INSERT INTO "public".tables (id, number, seats, description, reserved) VALUES (nextval('hibernate_sequence'), 1, 4, 'Ez egy leírás.', false);
+INSERT INTO "public".drinks (id, name, price) VALUES (1, 'Fanta', 250);
 
 INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (1, 2, 5000, 'room_2');
 INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (2, 3, 10000, 'room_3');
