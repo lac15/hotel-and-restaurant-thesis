@@ -33,8 +33,6 @@ public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
     @Autowired
     private ReservedDateRepository reservedDateRepository;
-    @Autowired
-    private RoomReserveRepository roomReserveRepository;
 
     @Override
     public List<RoomVo> getRooms() {

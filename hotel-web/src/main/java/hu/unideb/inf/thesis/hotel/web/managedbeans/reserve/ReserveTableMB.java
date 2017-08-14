@@ -1,25 +1,201 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.reserve;
 
-import hu.unideb.inf.thesis.hotel.client.api.service.TableService;
-import hu.unideb.inf.thesis.hotel.client.api.vo.TableVo;
+import hu.unideb.inf.thesis.hotel.client.api.exception.EmailSendingException;
+import hu.unideb.inf.thesis.hotel.client.api.service.*;
+import hu.unideb.inf.thesis.hotel.client.api.vo.*;
+import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import java.util.ArrayList;
-import java.util.List;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
-@ManagedBean(name = "reserveTableMB")
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
+
+import static java.time.LocalDateTime.now;
+
+@ManagedBean(name = "reserveTableBean")
+@ViewScoped
 public class ReserveTableMB {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ReserveTableMB.class);
+
+    @EJB
+    private TableReserveService tableReserveService;
     @EJB
     private TableService tableService;
+    @EJB
+    private TableTypeService tableTypeService;
+    @EJB
+    private ReservedTimeService reservedTimeService;
+    @EJB
+    private UserService userService;
+    @EJB
+    private MailService mailService;
 
-    private List<TableVo> tables = new ArrayList<>();
+    private TableReserveVo tableReserveVo = new TableReserveVo();
+
+    private List<TableTypeVo> tableTypes = new ArrayList<TableTypeVo>();
+    private Long tableTypeId;
+
+    private List<TableVo> tables = new ArrayList<TableVo>();
+    private TableVo tableVo;
+    private Long tableId;
+
+    private Date startTime;
+    private Date endTime;
+
+    private UserVo userVo;
+
+    private ScheduleModel reservationModel = new DefaultScheduleModel();
 
     @PostConstruct
     public void init() {
-        tables.addAll(tableService.getTables());
+        String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+        userVo = userService.getUserByUsername(username);
+
+        tableTypes.addAll(tableTypeService.getTableTypes());
+    }
+
+    public void addTableReserve() {
+        LocalDateTime ldtStart = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
+        LocalDateTime ldtEnd = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
+
+        LocalDateTime ldtEndPlus = ldtEnd.plusDays(1);
+
+        boolean contains = false;
+        for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
+            Date normalTime = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+
+            for (ReservedTimeVo reservedTime : reservedTimeService.getReservedTimesByTableId(tableId)) {
+                if (reservedTime.getReservedTime().compareTo(normalTime) == 0) {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if (contains) {
+                break;
+            }
+        }
+
+        if (contains) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('alreadyReservedWarningDialog').show();");
+        } else {
+            int hours = 0;
+            for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
+                hours++;
+            }
+
+            tableReserveVo.setStartTime(startTime);
+            tableReserveVo.setEndTime(endTime);
+
+            TableReserveVo tableReserveVoForUser = tableReserveService.saveTableReserve(tableReserveVo, tableVo);
+
+            userService.addTableReserveToUser(userVo, tableReserveVoForUser);
+
+            for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
+                Date normalTime = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+
+                ReservedTimeVo reservedTimeVo = new ReservedTimeVo();
+                reservedTimeVo.setReservedTime(normalTime);
+
+                tableService.addReservedTimeToTable(tableVo, reservedTimeService.saveReservedTime(reservedTimeVo));
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('reservationDialog').show();");
+
+            sendReservationDetails();
+        }
+    }
+
+    public void onTableTypeChange() {
+        if (tableTypeId != null) {
+            tables = tableTypeService.getTablesByTableTypeId(tableTypeId);
+        }
+    }
+
+    public void onTableNumberChange() {
+        if (tableId != null) {
+            tableVo = tableService.getTableById(tableId);
+
+            LocalDateTime today = now();
+            today = today.withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+            Date todayTime = Date.from(today.atZone(ZoneId.systemDefault()).toInstant());
+
+            reservationModel.getEvents().clear();
+
+            for (ReservedTimeVo reservedTime : reservedTimeService.getReservedTimesByTableId(tableId)) {
+                if ( reservedTime.getReservedTime().compareTo(todayTime) >= 0 ) {
+                    reservationModel.addEvent(new DefaultScheduleEvent(
+                            "Table " + tableVo.getNumber() + " is reserved", reservedTime.getReservedTime(),
+                            reservedTime.getReservedTime(), true));
+                }
+            }
+        }
+    }
+
+    public void sendReservationDetails() {
+        ResourceBundle bundle;
+        try {
+            bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+        } catch (MissingResourceException e) {
+            bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
+        }
+
+        String message = bundle.getString("email.roomreserve.dear") + " " + userVo.getFirstname() + " "
+                + userVo.getLastname() + "!<br>";
+        message += bundle.getString("email.roomreserve.message");
+        message += bundle.getString("email.roomreserve.roomtype") + " "
+                + tableTypeService.getTableTypeById(tableTypeId).getSeats() + " "
+                + bundle.getString("email.roomreserve.roomtype.ending");
+        message += bundle.getString("email.roomreserve.roomnumber") + " " + tableVo.getNumber() + "<br>";
+        message += bundle.getString("email.roomreserve.from") + " " + startTime + "<br>";
+        message += bundle.getString("email.roomreserve.to") + " " + endTime + "<br>";
+        message += bundle.getString("email.roomreserve.endmessage");
+
+        try {
+            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.roomreserve.subject"), message);
+
+            LOGGER.info(bundle.getString("email.logger.success"));
+        } catch (EmailSendingException e) {
+            LOGGER.info(bundle.getString("email.logger.error"));
+            e.printStackTrace();
+        }
+    }
+
+    public TableReserveVo getTableReserveVo() {
+        return tableReserveVo;
+    }
+
+    public void setTableReserveVo(TableReserveVo tableReserveVo) {
+        this.tableReserveVo = tableReserveVo;
+    }
+
+    public List<TableTypeVo> getTableTypes() {
+        return tableTypes;
+    }
+
+    public void setTableTypes(List<TableTypeVo> tableTypes) {
+        this.tableTypes = tableTypes;
+    }
+
+    public Long getTableTypeId() {
+        return tableTypeId;
+    }
+
+    public void setTableTypeId(Long tableTypeId) {
+        this.tableTypeId = tableTypeId;
     }
 
     public List<TableVo> getTables() {
@@ -28,5 +204,53 @@ public class ReserveTableMB {
 
     public void setTables(List<TableVo> tables) {
         this.tables = tables;
+    }
+
+    public TableVo getTableVo() {
+        return tableVo;
+    }
+
+    public void setTableVo(TableVo tableVo) {
+        this.tableVo = tableVo;
+    }
+
+    public Long getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(Long tableId) {
+        this.tableId = tableId;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
+
+    public ScheduleModel getReservationModel() {
+        return reservationModel;
+    }
+
+    public void setReservationModel(ScheduleModel reservationModel) {
+        this.reservationModel = reservationModel;
     }
 }

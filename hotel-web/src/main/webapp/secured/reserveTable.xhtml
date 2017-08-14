@@ -15,22 +15,69 @@
         </ui:define>
 
         <ui:define name="body">
-            <h1>#{msg['reserveTable.welcome.label']}</h1>
+            <h:form id="form" styleClass="baseForm">
+                <h1>#{msg['reserveTable.welcome.label']}</h1>
 
-            <p:dataTable var="table" value="#{reserveTableMB.tables}" style="margin-bottom:0">
-                <p:column headerText="#{msg['reserveTable.number.label']}" sortBy="#{table.number}">
-                    <h:outputText value="#{table.number}" />
-                </p:column>
-                <p:column headerText="#{msg['reserveTable.seats.label']}" sortBy="#{table.seats}">
-                    <h:outputText value="#{table.seats}"/>
-                </p:column>
-                <p:column headerText="#{msg['reserveTable.description.label']}" sortBy="#{table.description}">
-                    <h:outputText value="#{table.description}"/>
-                </p:column>
-                <p:column headerText="#{msg['reserveTable.reserved.label']}" sortBy="#{table.reserved}">
-                    <h:outputText value="#{table.reserved}"/>
-                </p:column>
-            </p:dataTable>
+                <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
+                    <p:outputLabel for="tableType" value="Asztal típusa:"/>
+                    <p:selectOneMenu id="tableType" value="#{reserveTableBean.tableTypeId}">
+                        <p:ajax listener="#{reserveTableBean.onTableTypeChange}" update="tableNumber"/>
+                        <f:selectItem itemLabel="Típus" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{reserveTableBean.tableTypes}" var="tableType"
+                                       itemLabel="#{tableType.seats}" itemValue="#{tableType.id}"/>
+                    </p:selectOneMenu>
+                    <p:message for="tableType" display="both"/>
+
+                    <p:outputLabel for="tableNumber" value="Asztal száma:"/>
+                    <p:selectOneMenu id="tableNumber" value="#{reserveTableBean.tableId}">
+                        <p:ajax listener="#{reserveTableBean.onTableNumberChange}" update="reservationSchedule"/>
+                        <f:selectItem itemLabel="Szám" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{reserveTableBean.tables}" var="table"
+                                       itemLabel="#{table.number}" itemValue="#{table.id}"/>
+                    </p:selectOneMenu>
+                    <p:message for="tableNumber" display="both"/>
+
+                    <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
+                    <p:calendar id="startTime" value="#{reserveTableBean.startTime}" binding="#{startTime}">
+                        <f:validator validatorId="startDateValidator"/>
+                    </p:calendar>
+                    <p:message for="startTime" display="both"/>
+
+                    <p:outputLabel for="endTime" value="Foglalás vége:"/>
+                    <p:calendar id="endTime" value="#{reserveTableBean.endTime}">
+                        <f:validator validatorId="endDateValidator"/>
+                        <f:attribute name="startTime" value="#{startTime}" />
+                    </p:calendar>
+                    <p:message for="endTime" display="both"/>
+
+                    <p:commandButton value="#{msg['profile.save.label']}"
+                                     update=":form:reservationDetails" ajax="false"
+                                     action="#{reserveTableBean.addTableReserve}" icon="fa fa-save"/>
+                </p:panelGrid>
+
+                <p:dialog widgetVar="reservationDialog" header="Reservation Details" modal="true">
+                    <h:panelGrid id="reservationDetails" columns="2">
+                        <p:outputLabel value="Table type" />
+                        <h:outputText value="#{reserveTableBean.tableTypeId}" />
+
+                        <p:outputLabel value="Table number:" />
+                        <h:outputText value="#{reserveTableBean.tableVo.number}" />
+
+                        <p:outputLabel value="From:" />
+                        <h:outputText value="#{reserveTableBean.tableReserveVo.startTime}" />
+
+                        <p:outputLabel value="To:" />
+                        <h:outputText value="#{reserveTableBean.tableReserveVo.endTime}" />
+                    </h:panelGrid>
+                </p:dialog>
+
+                <p:dialog widgetVar="alreadyReservedWarningDialog" header="Warning Details" modal="true">
+                    <h:outputText value="Nem szabad a választott asztal az adott időszakban!" />
+                </p:dialog>
+            </h:form>
+
+            <p:schedule id="reservationSchedule" value="#{reserveTableBean.reservationModel}"
+                        draggable="false" clientTimeZone="local"/>
         </ui:define>
     </ui:composition>
 

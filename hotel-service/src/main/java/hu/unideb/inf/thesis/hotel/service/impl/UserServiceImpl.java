@@ -3,12 +3,15 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoleVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.TableReserveVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoleEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.RoomReserveEntity;
+import hu.unideb.inf.thesis.hotel.core.entitiy.TableReserveEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.UserEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.RoleRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.RoomReserveRepository;
+import hu.unideb.inf.thesis.hotel.core.repository.TableReserveRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.UserRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.RoleMapper;
 import hu.unideb.inf.thesis.hotel.service.mapper.UserMapper;
@@ -39,6 +42,8 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private RoomReserveRepository roomReserveRepository;
+    @Autowired
+    private TableReserveRepository tableReserveRepository;
 
     @Override
     public List<UserVo> getUsers() {
@@ -83,6 +88,14 @@ public class UserServiceImpl implements UserService {
         RoomReserveEntity roomReserveEntity = roomReserveRepository.findOne(roomReserveVo.getId());
 
         userEntity.getRoomReserves().add(roomReserveEntity);
+    }
+
+    @Override
+    public void addTableReserveToUser(UserVo userVo, TableReserveVo tableReserveVo) {
+        UserEntity userEntity = userRepository.findOne(userVo.getId());
+        TableReserveEntity tableReserveEntity = tableReserveRepository.findOne(tableReserveVo.getId());
+
+        userEntity.getTableReserves().add(tableReserveEntity);
     }
 
     @Override

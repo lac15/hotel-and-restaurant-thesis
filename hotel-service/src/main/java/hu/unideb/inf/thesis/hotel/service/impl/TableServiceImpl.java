@@ -1,8 +1,11 @@
 package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.TableService;
+import hu.unideb.inf.thesis.hotel.client.api.vo.ReservedTimeVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.TableVo;
+import hu.unideb.inf.thesis.hotel.core.entitiy.ReservedTimeEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.TableEntity;
+import hu.unideb.inf.thesis.hotel.core.repository.ReservedTimeRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.TableRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.TableMapper;
 import org.slf4j.Logger;
@@ -25,6 +28,8 @@ public class TableServiceImpl implements TableService {
 
     @Autowired
     private TableRepository tableRepository;
+    @Autowired
+    private ReservedTimeRepository reservedTimeRepository;
 
     @Override
     public List<TableVo> getTables() {
@@ -41,6 +46,14 @@ public class TableServiceImpl implements TableService {
         }
 
         return TableMapper.toVo(tableRepository.save(tableEntity));
+    }
+
+    @Override
+    public void addReservedTimeToTable(TableVo tableVo, ReservedTimeVo reservedTimeVo) {
+        TableEntity tableEntity = tableRepository.findByNumber(tableVo.getNumber());
+        ReservedTimeEntity reservedTimeEntity = reservedTimeRepository.findOne(reservedTimeVo.getId());
+
+        tableEntity.getReservedTimes().add(reservedTimeEntity);
     }
 
     @Override
