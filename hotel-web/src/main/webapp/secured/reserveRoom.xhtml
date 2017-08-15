@@ -32,7 +32,7 @@
 
                     <p:outputLabel for="roomNumber" value="Szoba száma:"/>
                     <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}">
-                        <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update="reservationSchedule"/>
+                        <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update="roomReserveSchedule"/>
                         <f:selectItem itemLabel="Szám" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
                                        itemLabel="#{room.number}" itemValue="#{room.id}"/>
@@ -81,8 +81,8 @@
                 </p:dialog>
             </h:form>
 
-            <p:schedule id="reservationSchedule" value="#{reserveRoomBean.reservationModel}"
-                        draggable="false" clientTimeZone="local"/>
+            <p:schedule id="roomReserveSchedule" value="#{reserveRoomBean.roomReserveModel}"
+                        draggable="false" resizable="false" clientTimeZone="local"/>
 
         </ui:define>
     </ui:composition>

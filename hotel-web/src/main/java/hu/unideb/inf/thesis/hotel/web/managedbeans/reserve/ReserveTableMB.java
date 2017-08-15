@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -23,7 +24,7 @@ import static java.time.LocalDateTime.now;
 
 @ManagedBean(name = "reserveTableBean")
 @ViewScoped
-public class ReserveTableMB {
+public class ReserveTableMB implements Serializable{
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ReserveTableMB.class);
 
@@ -54,7 +55,7 @@ public class ReserveTableMB {
 
     private UserVo userVo;
 
-    private ScheduleModel reservationModel = new DefaultScheduleModel();
+    private ScheduleModel tableReserveModel = new DefaultScheduleModel();
 
     @PostConstruct
     public void init() {
@@ -68,11 +69,9 @@ public class ReserveTableMB {
         LocalDateTime ldtStart = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
         LocalDateTime ldtEnd = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
 
-        LocalDateTime ldtEndPlus = ldtEnd.plusDays(1);
-
         boolean contains = false;
-        for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
-            Date normalTime = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+        for (LocalDateTime time = ldtStart; time.isBefore(ldtEnd); time = time.plusHours(1)) {
+            Date normalTime = Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
 
             for (ReservedTimeVo reservedTime : reservedTimeService.getReservedTimesByTableId(tableId)) {
                 if (reservedTime.getReservedTime().compareTo(normalTime) == 0) {
@@ -90,11 +89,6 @@ public class ReserveTableMB {
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('alreadyReservedWarningDialog').show();");
         } else {
-            int hours = 0;
-            for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
-                hours++;
-            }
-
             tableReserveVo.setStartTime(startTime);
             tableReserveVo.setEndTime(endTime);
 
@@ -102,8 +96,8 @@ public class ReserveTableMB {
 
             userService.addTableReserveToUser(userVo, tableReserveVoForUser);
 
-            for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
-                Date normalTime = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+            for (LocalDateTime time = ldtStart; time.isBefore(ldtEnd); time = time.plusHours(1)) {
+                Date normalTime = Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
 
                 ReservedTimeVo reservedTimeVo = new ReservedTimeVo();
                 reservedTimeVo.setReservedTime(normalTime);
@@ -133,13 +127,18 @@ public class ReserveTableMB {
 
             Date todayTime = Date.from(today.atZone(ZoneId.systemDefault()).toInstant());
 
-            reservationModel.getEvents().clear();
+            tableReserveModel.getEvents().clear();
 
             for (ReservedTimeVo reservedTime : reservedTimeService.getReservedTimesByTableId(tableId)) {
                 if ( reservedTime.getReservedTime().compareTo(todayTime) >= 0 ) {
-                    reservationModel.addEvent(new DefaultScheduleEvent(
+                    LocalDateTime reservedTimePlus = LocalDateTime.ofInstant(reservedTime.getReservedTime().toInstant(),
+                            ZoneId.systemDefault());
+                    reservedTimePlus = reservedTimePlus.plusHours(1);
+                    Date normalTimePlus = Date.from(reservedTimePlus.atZone(ZoneId.systemDefault()).toInstant());
+
+                    tableReserveModel.addEvent(new DefaultScheduleEvent(
                             "Table " + tableVo.getNumber() + " is reserved", reservedTime.getReservedTime(),
-                            reservedTime.getReservedTime(), true));
+                            normalTimePlus));
                 }
             }
         }
@@ -246,11 +245,11 @@ public class ReserveTableMB {
         this.userVo = userVo;
     }
 
-    public ScheduleModel getReservationModel() {
-        return reservationModel;
+    public ScheduleModel getTableReserveModel() {
+        return tableReserveModel;
     }
 
-    public void setReservationModel(ScheduleModel reservationModel) {
-        this.reservationModel = reservationModel;
+    public void setTableReserveModel(ScheduleModel tableReserveModel) {
+        this.tableReserveModel = tableReserveModel;
     }
 }

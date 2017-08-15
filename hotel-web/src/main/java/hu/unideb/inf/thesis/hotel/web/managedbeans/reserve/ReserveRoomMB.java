@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -22,7 +23,7 @@ import static java.time.LocalDateTime.now;
 
 @ManagedBean(name = "reserveRoomBean")
 @ViewScoped
-public class ReserveRoomMB {
+public class ReserveRoomMB implements Serializable {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ReserveRoomMB.class);
 
@@ -54,7 +55,7 @@ public class ReserveRoomMB {
 
     private UserVo userVo;
 
-    private ScheduleModel reservationModel = new DefaultScheduleModel();
+    private ScheduleModel roomReserveModel = new DefaultScheduleModel();
 
     @PostConstruct
     public void init() {
@@ -135,11 +136,11 @@ public class ReserveRoomMB {
 
             Date todayDate = Date.from(today.atZone(ZoneId.systemDefault()).toInstant());
 
-            reservationModel.getEvents().clear();
+            roomReserveModel.getEvents().clear();
 
             for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
                 if ( reservedDate.getReservedDate().compareTo(todayDate) >= 0 ) {
-                    reservationModel.addEvent(new DefaultScheduleEvent(
+                    roomReserveModel.addEvent(new DefaultScheduleEvent(
                             "Room " + roomVo.getNumber() + " is reserved", reservedDate.getReservedDate(),
                             reservedDate.getReservedDate(), true));
                 }
@@ -257,11 +258,11 @@ public class ReserveRoomMB {
         this.userVo = userVo;
     }
 
-    public ScheduleModel getReservationModel() {
-        return reservationModel;
+    public ScheduleModel getRoomReserveModel() {
+        return roomReserveModel;
     }
 
-    public void setReservationModel(ScheduleModel reservationModel) {
-        this.reservationModel = reservationModel;
+    public void setRoomReserveModel(ScheduleModel roomReserveModel) {
+        this.roomReserveModel = roomReserveModel;
     }
 }

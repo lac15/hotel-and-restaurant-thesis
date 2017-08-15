@@ -30,7 +30,7 @@
 
                     <p:outputLabel for="tableNumber" value="Asztal száma:"/>
                     <p:selectOneMenu id="tableNumber" value="#{reserveTableBean.tableId}">
-                        <p:ajax listener="#{reserveTableBean.onTableNumberChange}" update="reservationSchedule"/>
+                        <p:ajax listener="#{reserveTableBean.onTableNumberChange}" update="tableReserveSchedule"/>
                         <f:selectItem itemLabel="Szám" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveTableBean.tables}" var="table"
                                        itemLabel="#{table.number}" itemValue="#{table.id}"/>
@@ -38,13 +38,15 @@
                     <p:message for="tableNumber" display="both"/>
 
                     <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
-                    <p:calendar id="startTime" value="#{reserveTableBean.startTime}" binding="#{startTime}">
+                    <p:calendar id="startTime" value="#{reserveTableBean.startTime}" pattern="yyyy.MM.dd. HH:mm"
+                                showMinute="false" showSecond="false" minHour="6" maxHour="21" binding="#{startTime}">
                         <f:validator validatorId="startDateValidator"/>
                     </p:calendar>
                     <p:message for="startTime" display="both"/>
 
                     <p:outputLabel for="endTime" value="Foglalás vége:"/>
-                    <p:calendar id="endTime" value="#{reserveTableBean.endTime}">
+                    <p:calendar id="endTime" value="#{reserveTableBean.endTime}" pattern="yyyy.MM.dd. HH:mm"
+                                showMinute="false" showSecond="false" minHour="7" maxHour="22">
                         <f:validator validatorId="endDateValidator"/>
                         <f:attribute name="startTime" value="#{startTime}" />
                     </p:calendar>
@@ -76,8 +78,8 @@
                 </p:dialog>
             </h:form>
 
-            <p:schedule id="reservationSchedule" value="#{reserveTableBean.reservationModel}"
-                        draggable="false" clientTimeZone="local"/>
+            <p:schedule id="tableReserveSchedule" value="#{reserveTableBean.tableReserveModel}"
+                        draggable="false" resizable="false" allDaySlot="false" clientTimeZone="local"/>
         </ui:define>
     </ui:composition>
 
