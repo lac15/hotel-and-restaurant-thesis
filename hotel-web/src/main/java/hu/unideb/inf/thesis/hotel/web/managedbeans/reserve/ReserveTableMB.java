@@ -144,6 +144,14 @@ public class ReserveTableMB implements Serializable{
         }
     }
 
+    public void onStartTimeChange() {
+        LocalDateTime ldtNewEndTime = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
+
+        ldtNewEndTime = ldtNewEndTime.plusHours(1);
+
+        endTime = Date.from(ldtNewEndTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
     public void sendReservationDetails() {
         ResourceBundle bundle;
         try {

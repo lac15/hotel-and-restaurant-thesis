@@ -22,7 +22,8 @@
 
                 <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
                     <p:outputLabel for="roomType" value="Szoba típusa:"/>
-                    <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}">
+                    <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}"
+                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
                         <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber"/>
                         <f:selectItem itemLabel="Típus" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
@@ -31,7 +32,8 @@
                     <p:message for="roomType" display="both"/>
 
                     <p:outputLabel for="roomNumber" value="Szoba száma:"/>
-                    <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}">
+                    <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}"
+                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
                         <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update="roomReserveSchedule"/>
                         <f:selectItem itemLabel="Szám" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
@@ -40,13 +42,15 @@
                     <p:message for="roomNumber" display="both"/>
 
                     <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
-                    <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" binding="#{startTime}">
+                    <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" binding="#{startTime}"
+                                required="true" requiredMessage="#{msg['register.username.tooltip']}">
                         <f:validator validatorId="startDateValidator"/>
                     </p:calendar>
                     <p:message for="startTime" display="both"/>
 
                     <p:outputLabel for="endTime" value="Foglalás vége:"/>
-                    <p:calendar id="endTime" value="#{reserveRoomBean.endTime}">
+                    <p:calendar id="endTime" value="#{reserveRoomBean.endTime}"
+                                required="true" requiredMessage="#{msg['register.username.tooltip']}">
                         <f:validator validatorId="endDateValidator"/>
                         <f:attribute name="startTime" value="#{startTime}" />
                     </p:calendar>

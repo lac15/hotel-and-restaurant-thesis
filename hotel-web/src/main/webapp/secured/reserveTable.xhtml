@@ -15,12 +15,15 @@
         </ui:define>
 
         <ui:define name="body">
+            <h:outputStylesheet name="css/restaurant.css"/>
+
             <h:form id="form" styleClass="baseForm">
                 <h1>#{msg['reserveTable.welcome.label']}</h1>
 
                 <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
                     <p:outputLabel for="tableType" value="Asztal típusa:"/>
-                    <p:selectOneMenu id="tableType" value="#{reserveTableBean.tableTypeId}">
+                    <p:selectOneMenu id="tableType" value="#{reserveTableBean.tableTypeId}"
+                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
                         <p:ajax listener="#{reserveTableBean.onTableTypeChange}" update="tableNumber"/>
                         <f:selectItem itemLabel="Típus" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveTableBean.tableTypes}" var="tableType"
@@ -29,7 +32,8 @@
                     <p:message for="tableType" display="both"/>
 
                     <p:outputLabel for="tableNumber" value="Asztal száma:"/>
-                    <p:selectOneMenu id="tableNumber" value="#{reserveTableBean.tableId}">
+                    <p:selectOneMenu id="tableNumber" value="#{reserveTableBean.tableId}"
+                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
                         <p:ajax listener="#{reserveTableBean.onTableNumberChange}" update="tableReserveSchedule"/>
                         <f:selectItem itemLabel="Szám" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveTableBean.tables}" var="table"
@@ -39,15 +43,18 @@
 
                     <p:outputLabel for="startTime" value="Foglalás kezdete:"/>
                     <p:calendar id="startTime" value="#{reserveTableBean.startTime}" pattern="yyyy.MM.dd. HH:mm"
-                                showMinute="false" showSecond="false" minHour="6" maxHour="21" binding="#{startTime}">
-                        <f:validator validatorId="startDateValidator"/>
+                                showMinute="false" showSecond="false" minHour="6" maxHour="21" binding="#{startTime}"
+                                required="true" requiredMessage="#{msg['register.username.tooltip']}">
+                        <p:ajax listener="#{reserveTableBean.onStartTimeChange}" update="endTime"/>
+                        <f:validator validatorId="startTimeValidator"/>
                     </p:calendar>
                     <p:message for="startTime" display="both"/>
 
                     <p:outputLabel for="endTime" value="Foglalás vége:"/>
                     <p:calendar id="endTime" value="#{reserveTableBean.endTime}" pattern="yyyy.MM.dd. HH:mm"
-                                showMinute="false" showSecond="false" minHour="7" maxHour="22">
-                        <f:validator validatorId="endDateValidator"/>
+                                showMinute="false" showSecond="false" minHour="7" maxHour="22"
+                                required="true" requiredMessage="#{msg['register.username.tooltip']}">
+                        <f:validator validatorId="endTimeValidator"/>
                         <f:attribute name="startTime" value="#{startTime}" />
                     </p:calendar>
                     <p:message for="endTime" display="both"/>
