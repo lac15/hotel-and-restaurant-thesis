@@ -1,18 +1,9 @@
 package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoleVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.TableReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
-import hu.unideb.inf.thesis.hotel.core.entitiy.RoleEntity;
-import hu.unideb.inf.thesis.hotel.core.entitiy.RoomReserveEntity;
-import hu.unideb.inf.thesis.hotel.core.entitiy.TableReserveEntity;
-import hu.unideb.inf.thesis.hotel.core.entitiy.UserEntity;
-import hu.unideb.inf.thesis.hotel.core.repository.RoleRepository;
-import hu.unideb.inf.thesis.hotel.core.repository.RoomReserveRepository;
-import hu.unideb.inf.thesis.hotel.core.repository.TableReserveRepository;
-import hu.unideb.inf.thesis.hotel.core.repository.UserRepository;
+import hu.unideb.inf.thesis.hotel.client.api.vo.*;
+import hu.unideb.inf.thesis.hotel.core.entitiy.*;
+import hu.unideb.inf.thesis.hotel.core.repository.*;
 import hu.unideb.inf.thesis.hotel.service.mapper.RoleMapper;
 import hu.unideb.inf.thesis.hotel.service.mapper.UserMapper;
 import org.slf4j.Logger;
@@ -44,6 +35,8 @@ public class UserServiceImpl implements UserService {
     private RoomReserveRepository roomReserveRepository;
     @Autowired
     private TableReserveRepository tableReserveRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public List<UserVo> getUsers() {
@@ -96,6 +89,14 @@ public class UserServiceImpl implements UserService {
         TableReserveEntity tableReserveEntity = tableReserveRepository.findOne(tableReserveVo.getId());
 
         userEntity.getTableReserves().add(tableReserveEntity);
+    }
+
+    @Override
+    public void addOrderToUser(UserVo userVo, OrderVo orderVo) {
+        UserEntity userEntity = userRepository.findOne(userVo.getId());
+        OrderEntity orderEntity = orderRepository.findOne(orderVo.getId());
+
+        userEntity.getOrders().add(orderEntity);
     }
 
     @Override

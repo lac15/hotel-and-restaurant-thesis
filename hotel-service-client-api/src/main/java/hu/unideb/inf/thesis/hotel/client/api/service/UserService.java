@@ -1,9 +1,6 @@
 package hu.unideb.inf.thesis.hotel.client.api.service;
 
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoleVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.RoomReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.TableReserveVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.*;
 
 import java.util.List;
 
@@ -24,6 +21,8 @@ public interface UserService {
     void addRoomReserveToUser(UserVo userVo, RoomReserveVo roomReserveVo);
 
     void addTableReserveToUser(UserVo userVo, TableReserveVo tableReserveVo);
+
+    void addOrderToUser(UserVo UserVo, OrderVo OrderVo);
 
     void addRoleToUserByUsername(String username, RoleVo roleVo);
 

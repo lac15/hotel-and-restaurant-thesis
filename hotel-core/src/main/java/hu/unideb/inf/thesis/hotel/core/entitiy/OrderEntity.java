@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Orders")
@@ -16,21 +15,22 @@ public class OrderEntity extends BaseEntity {
 
     @Basic
     @Column(nullable = false)
-    private int total;
+    private int totalPrice;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<FoodEntity> foods;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<DrinkEntity> drinks;
 
-    public OrderEntity(){}
+    public OrderEntity() {
+    }
 
-    public OrderEntity(Date startTime, int total) {
+    public OrderEntity(Date time, int totalPrice) {
         this.time = time;
-        this.total = total;
-        this.foods = new ArrayList<>();
-        this.drinks = new ArrayList<>();
+        this.totalPrice = totalPrice;
+        this.foods = new ArrayList<FoodEntity>();
+        this.drinks = new ArrayList<DrinkEntity>();
     }
 
     public Date getTime() {
@@ -41,12 +41,12 @@ public class OrderEntity extends BaseEntity {
         this.time = time;
     }
 
-    public int getTotal() {
-        return total;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public List<FoodEntity> getFoods() {
@@ -68,21 +68,28 @@ public class OrderEntity extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OrderEntity)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         OrderEntity that = (OrderEntity) o;
-        return Objects.equals(time, that.time);
+
+        if (totalPrice != that.totalPrice) return false;
+        return time.equals(that.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), time);
+        int result = super.hashCode();
+        result = 31 * result + time.hashCode();
+        result = 31 * result + totalPrice;
+        return result;
     }
 
     @Override
     public String toString() {
         return "OrderEntity{" +
                 "time=" + time +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }

@@ -9,14 +9,14 @@ public class OrderVo implements Serializable {
 
     private Long id;
     private Date time;
-    private int total;
+    private int totalPrice;
 
     public OrderVo(){}
 
-    public OrderVo(Long id, Date time, int total) {
+    public OrderVo(Long id, Date time, int totalPrice) {
         this.id = id;
         this.time = time;
-        this.total = total;
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
@@ -35,11 +35,11 @@ public class OrderVo implements Serializable {
         this.time = time;
     }
 
-    public int getTotal() {
-        return total;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

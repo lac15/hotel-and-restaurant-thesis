@@ -48,9 +48,4 @@ public class OrderServiceImpl implements OrderService {
         return OrderMapper.toVo(orderRepository.findOne(id));
     }
 
-    @Override
-    public OrderVo getOrderByTime(Date time) {
-        return OrderMapper.toVo(orderRepository.findByTime(time));
-    }
-
 }

@@ -10,6 +10,4 @@ public interface OrderService {
 
     OrderVo getOrderById(Long id);
 
-    OrderVo getOrderByTime(Date time);
-
 }
