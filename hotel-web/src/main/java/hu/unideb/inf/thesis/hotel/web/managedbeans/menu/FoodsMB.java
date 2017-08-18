@@ -25,11 +25,24 @@ public class FoodsMB {
     private FoodVo mainCourse;
     private FoodVo dessert;
 
+    private FoodVo foodVo;
+    private int quantity = 1;
+
     @PostConstruct
     public void init() {
         soups.addAll(foodService.getFoodByTypeName("Soup"));
         mainCourses.addAll(foodService.getFoodByTypeName("Main course"));
         desserts.addAll(foodService.getFoodByTypeName("Dessert"));
+    }
+
+    public void addFoodVo(FoodVo food) {
+        foodVo = food;
+    }
+
+    public void addToCart() {
+        //TODO
+
+        quantity = 1;
     }
 
     public List<FoodVo> getSoups() {
@@ -102,5 +115,21 @@ public class FoodsMB {
 
     public void setDessert(FoodVo dessert) {
         this.dessert = dessert;
+    }
+
+    public FoodVo getFoodVo() {
+        return foodVo;
+    }
+
+    public void setFoodVo(FoodVo foodVo) {
+        this.foodVo = foodVo;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

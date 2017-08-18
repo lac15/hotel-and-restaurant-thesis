@@ -19,9 +19,22 @@ public class DrinksMB {
     private List<DrinkVo> selectedDrinks = new ArrayList<DrinkVo>();
     private DrinkVo drink;
 
+    private DrinkVo drinkVo;
+    private int quantity = 1;
+
     @PostConstruct
     public void init() {
         drinks.addAll(drinkService.getDrinks());
+    }
+
+    public void addDrinkVo(DrinkVo drink) {
+        drinkVo = drink;
+    }
+
+    public void addToCart() {
+        //TODO
+
+        quantity = 1;
     }
 
     public List<DrinkVo> getDrinks() {
@@ -46,5 +59,21 @@ public class DrinksMB {
 
     public void setDrink(DrinkVo drink) {
         this.drink = drink;
+    }
+
+    public DrinkVo getDrinkVo() {
+        return drinkVo;
+    }
+
+    public void setDrinkVo(DrinkVo drinkVo) {
+        this.drinkVo = drinkVo;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

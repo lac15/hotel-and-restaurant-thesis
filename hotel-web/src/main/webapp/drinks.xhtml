@@ -15,21 +15,41 @@
         </ui:define>
 
         <ui:define name="body">
-            <h1>#{msg['drinks.welcome.label']}</h1>
+            <h:form styleClass="baseForm">
+                <h1>#{msg['drinks.welcome.label']}</h1>
 
-            <p:dataTable var="drink" value="#{drinksMB.drinks}" style="margin-bottom:0">
-                <f:facet name="header">
-                    #{msg['drinks.title.label']}
-                </f:facet>
+                <p:panel>
+                    <p:dataTable var="drink" value="#{drinksMB.drinks}" style="margin-bottom:0">
+                        <f:facet name="header">
+                            #{msg['drinks.title.label']}
+                        </f:facet>
 
-                <p:column headerText="#{msg['drinks.name.label']}" sortBy="#{drink.name}">
-                    <h:outputText value="#{drink.name}" />
-                </p:column>
-                <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}">
-                    <h:outputText value="#{drink.price}"/>
-                </p:column>
-            </p:dataTable>
+                        <p:column headerText="#{msg['drinks.name.label']}" sortBy="#{drink.name}">
+                            <h:outputText value="#{drink.name}" />
+                        </p:column>
+                        <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}">
+                            <h:outputText value="#{drink.price}"/>
+                        </p:column>
+                        <p:column headerText="Order" visible="#{p:ifGranted('USER')}">
+                            <p:commandButton id="addSoup" value="Add to cart"
+                                             action="#{drinksMB.addDrinkVo(drink)}"
+                                             oncomplete="PF('quantityDialog').show();"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
 
+                <p:dialog widgetVar="quantityDialog" header="Quantity" modal="true">
+                    <h:form>
+                        <h:outputText value="Kérem adja meg, hogy mennyit szeretne rendelni a választott termékből." />
+                        <p:spinner id="spin" value="#{foodsMB.quantity}"
+                                   min="1" max="20" converter="javax.faces.Integer"/>
+
+                        <p:commandButton id="quantityOk" value="OK"
+                                         action="#{foodsMB.addToCart}"
+                                         oncomplete="PF('quantityDialog').hide();"/>
+                    </h:form>
+                </p:dialog>
+            </h:form>
         </ui:define>
     </ui:composition>
 
