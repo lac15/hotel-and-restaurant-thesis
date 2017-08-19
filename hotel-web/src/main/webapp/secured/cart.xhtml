@@ -20,7 +20,7 @@
             <h:form styleClass="baseForm">
                 <h1>#{msg['cart.title.label']}</h1>
 
-                <p:dataTable var="food" value="#{cartContentBean.foods}" sortBy="#{food.key.name}"
+                <p:dataTable id="foodCart" var="food" value="#{cartContentBean.foods}" sortBy="#{food.key.name}"
                              style="margin-bottom:40px">
                     <f:facet name="header">
                         Foods
@@ -41,12 +41,21 @@
                         <h:outputText value="#{food.key.price * food.value}" />
                     </p:column>
 
+                    <p:column headerText="Plus/Minus">
+                        <p:commandButton id="plusFoodQuantity" icon="fa fa-plus"
+                                         action="#{cartContentBean.plusFoodQuantity(food.key)}"
+                                         update="foodCart"/>
+                        <p:commandButton id="minusFoodQuantity" icon="fa fa-minus"
+                                         action="#{cartContentBean.minusFoodQuantity(food.key)}"
+                                         update="foodCart"/>
+                    </p:column>
+
                     <f:facet name="footer">
                         Total: #{cartContentBean.foodsTotal} Ft
                     </f:facet>
                 </p:dataTable>
 
-                <p:dataTable var="drink" value="#{cartContentBean.drinks}" sortBy="#{drink.key.name}"
+                <p:dataTable id="drinkCart" var="drink" value="#{cartContentBean.drinks}" sortBy="#{drink.key.name}"
                              style="margin-bottom:40px">
                     <f:facet name="header">
                         Drinks
@@ -65,6 +74,15 @@
 
                     <p:column headerText="Quantityprice">
                         <h:outputText value="#{drink.key.price * drink.value}" />
+                    </p:column>
+
+                    <p:column headerText="Plus/Minus">
+                        <p:commandButton id="plusDrinkQuantity" icon="fa fa-plus"
+                                         action="#{cartContentBean.plusDrinkQuantity(drink.key)}"
+                                         update="drinkCart"/>
+                        <p:commandButton id="minusDrinkQuantity" icon="fa fa-minus"
+                                         action="#{cartContentBean.minusDrinkQuantity(drink.key)}"
+                                         update="drinkCart"/>
                     </p:column>
 
                     <f:facet name="footer">

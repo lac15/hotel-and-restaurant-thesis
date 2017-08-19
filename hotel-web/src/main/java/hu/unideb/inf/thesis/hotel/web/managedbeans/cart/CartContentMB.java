@@ -1,6 +1,5 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.cart;
 
-import hu.unideb.inf.thesis.hotel.client.api.vo.CartVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.DrinkVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
 
@@ -8,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
 import java.util.*;
 
 @ManagedBean(name = "cartContentBean")
@@ -20,8 +20,8 @@ public class CartContentMB {
     private List<Map.Entry<FoodVo, Integer>> foods;
     private List<Map.Entry<DrinkVo, Integer>> drinks;
 
-    private int foodsTotal;
-    private int drinksTotal;
+    private int foodsTotal = 0;
+    private int drinksTotal = 0;
 
     public FoodVo foodVo1 = new FoodVo(1L, "Bableves", 800);
     public FoodVo foodVo2 = new FoodVo(2L, "Húsleves", 1000);
@@ -29,48 +29,53 @@ public class CartContentMB {
 
     @PostConstruct
     public void init() {
-        if (cart.getCart().getFoodsQuantity().isEmpty()) {
-            cart.getCart().getFoodsQuantity().put(foodVo1, 1);
-            cart.getCart().getFoodsQuantity().put(foodVo2, 2);
-        }
-        if (cart.getCart().getDrinksQuantity().isEmpty()) {
-            cart.getCart().getDrinksQuantity().put(drinkVo, 3);
-        }
+        foods = cart.getCart().getFoodsEntryList();
+        drinks = cart.getCart().getDrinksEntryList();
 
-        foods = getFoodsMap();
-        foodsTotal = getFoodsTotalValue();
-        drinks = getDrinksMap();
-        drinksTotal = getDrinksTotalValue();
+        if (!cart.getCart().getFoodsQuantity().isEmpty()) {
+            foodsTotal = cart.getCart().getFoodsTotalValue();
+        }
+        if (!cart.getCart().getDrinksQuantity().isEmpty()) {
+            drinksTotal = cart.getCart().getDrinksTotalValue();
+        }
     }
 
-    public List<Map.Entry<FoodVo, Integer>> getFoodsMap() {
-        Set<Map.Entry<FoodVo, Integer>> foodsSet =
-                cart.getCart().getFoodsQuantity().entrySet();
-        return new ArrayList<Map.Entry<FoodVo, Integer>>(foodsSet);
-    }
+    public void plusFoodQuantity(FoodVo foodVo) {
+        if (cart.getCart().getFoodsQuantity().get(foodVo) < 20) {
+            int newQuantity = cart.getCart().getFoodsQuantity().get(foodVo) + 1;
 
-    public List<Map.Entry<DrinkVo, Integer>> getDrinksMap() {
-        Set<Map.Entry<DrinkVo, Integer>> drinksSet =
-                cart.getCart().getDrinksQuantity().entrySet();
-        return new ArrayList<Map.Entry<DrinkVo, Integer>>(drinksSet);
-    }
-
-    public int getFoodsTotalValue() {
-        int sum = 0;
-        for (Map.Entry<FoodVo, Integer> entry : cart.getCart().getFoodsQuantity().entrySet()) {
-            sum += entry.getKey().getPrice() * entry.getValue();
+            cart.getCart().getFoodsQuantity().put(foodVo, newQuantity);
         }
-        
-        return sum;
     }
 
-    public int getDrinksTotalValue() {
-        int sum = 0;
-        for (Map.Entry<DrinkVo, Integer> entry : cart.getCart().getDrinksQuantity().entrySet()) {
-            sum += entry.getKey().getPrice() * entry.getValue();
+    public void minusFoodQuantity(FoodVo foodVo) {
+        if (cart.getCart().getFoodsQuantity().get(foodVo) == 1) {
+            cart.getCart().getFoodsQuantity().remove(foodVo);
         }
+        else {
+            int newQuantity = cart.getCart().getFoodsQuantity().get(foodVo) - 1;
 
-        return sum;
+            cart.getCart().getFoodsQuantity().put(foodVo, newQuantity);
+        }
+    }
+
+    public void plusDrinkQuantity(DrinkVo drinkVo) {
+        if (cart.getCart().getDrinksQuantity().get(drinkVo) < 20) {
+            int newQuantity = cart.getCart().getDrinksQuantity().get(drinkVo) + 1;
+
+            cart.getCart().getDrinksQuantity().put(drinkVo, newQuantity);
+        }
+    }
+
+    public void minusDrinkQuantity(DrinkVo drinkVo) {
+        if (cart.getCart().getDrinksQuantity().get(drinkVo) == 1) {
+            cart.getCart().getDrinksQuantity().remove(drinkVo);
+        }
+        else {
+            int newQuantity = cart.getCart().getDrinksQuantity().get(drinkVo) - 1;
+
+            cart.getCart().getDrinksQuantity().put(drinkVo, newQuantity);
+        }
     }
 
     public CartMB getCart() {

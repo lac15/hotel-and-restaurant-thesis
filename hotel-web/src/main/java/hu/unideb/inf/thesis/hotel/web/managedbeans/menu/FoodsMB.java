@@ -2,15 +2,22 @@ package hu.unideb.inf.thesis.hotel.web.managedbeans.menu;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.FoodService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
+import hu.unideb.inf.thesis.hotel.web.managedbeans.cart.CartMB;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "foodsMB")
+@ViewScoped
 public class FoodsMB {
+
+    @ManagedProperty(value = "#{cartBean}")
+    private CartMB cart;
 
     @EJB
     private FoodService foodService;
@@ -39,10 +46,29 @@ public class FoodsMB {
         foodVo = food;
     }
 
-    public void addToCart() {
-        //TODO
+    public void addFoodToCart() {
+        if (cart.getCart().getFoodsQuantity().containsKey(foodVo)) {
+            int quantitySum = cart.getCart().getFoodsQuantity().get(foodVo) + quantity;
 
+            if (quantitySum > 20) {
+                cart.getCart().getFoodsQuantity().put(foodVo, 20);
+            }
+            else {
+                cart.getCart().getFoodsQuantity().put(foodVo, quantitySum);
+            }
+        }
+        else {
+            cart.getCart().getFoodsQuantity().put(foodVo, quantity);
+        }
         quantity = 1;
+    }
+
+    public CartMB getCart() {
+        return cart;
+    }
+
+    public void setCart(CartMB cart) {
+        this.cart = cart;
     }
 
     public List<FoodVo> getSoups() {

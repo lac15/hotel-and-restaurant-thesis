@@ -41,4 +41,24 @@ public class FoodVo implements Serializable {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FoodVo foodVo = (FoodVo) o;
+
+        if (price != foodVo.price) return false;
+        if (!id.equals(foodVo.id)) return false;
+        return name.equals(foodVo.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + price;
+        return result;
+    }
 }
