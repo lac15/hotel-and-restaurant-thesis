@@ -16,6 +16,8 @@ import java.util.List;
 @ViewScoped
 public class FoodsMB {
 
+    public static final int MAX_QUANTITY = 20;
+
     @ManagedProperty(value = "#{cartBean}")
     private CartMB cart;
 
@@ -50,8 +52,8 @@ public class FoodsMB {
         if (cart.getCart().getFoodsQuantity().containsKey(foodVo)) {
             int quantitySum = cart.getCart().getFoodsQuantity().get(foodVo) + quantity;
 
-            if (quantitySum > 20) {
-                cart.getCart().getFoodsQuantity().put(foodVo, 20);
+            if (quantitySum > MAX_QUANTITY) {
+                cart.getCart().getFoodsQuantity().put(foodVo, MAX_QUANTITY);
             }
             else {
                 cart.getCart().getFoodsQuantity().put(foodVo, quantitySum);

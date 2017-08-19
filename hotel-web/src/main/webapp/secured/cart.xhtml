@@ -89,7 +89,20 @@
                         Total: #{cartContentBean.drinksTotal} Ft
                     </f:facet>
                 </p:dataTable>
+
+                <p:panel>
+                    <h:outputText value="Total: "/>
+                    <h:outputText value="#{cartContentBean.total}"/>
+                    <p:commandButton id="submitOrder" value="Order"
+                                     action="#{cartContentBean.saveOrder}"
+                                     oncomplete="PF('orderDialog').show();"
+                                     style="float: right"/>
+                </p:panel>
             </h:form>
+
+            <p:dialog widgetVar="orderDialog" header="Order accepted" modal="true">
+                <h:outputText value="We have received your order. Please check your e-mail for details." />
+            </p:dialog>
         </ui:define>
     </ui:composition>
 
