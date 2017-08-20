@@ -91,17 +91,21 @@
                 </p:dataTable>
 
                 <p:panel>
-                    <h:outputText value="Total: "/>
+                    <h:outputText id="totalPrice" value="Total: "/>
                     <h:outputText value="#{cartContentBean.total}"/>
                     <p:commandButton id="submitOrder" value="Order"
                                      action="#{cartContentBean.saveOrder}"
-                                     oncomplete="PF('orderDialog').show();"
+                                     update="drinkCart foodCart totalPrice"
                                      style="float: right"/>
                 </p:panel>
             </h:form>
 
             <p:dialog widgetVar="orderDialog" header="Order accepted" modal="true">
                 <h:outputText value="We have received your order. Please check your e-mail for details." />
+            </p:dialog>
+
+            <p:dialog widgetVar="emptyCartDialog" header="Empty Cart" modal="true">
+                <h:outputText value="Your cart is empty! Please, add some products first." />
             </p:dialog>
         </ui:define>
     </ui:composition>

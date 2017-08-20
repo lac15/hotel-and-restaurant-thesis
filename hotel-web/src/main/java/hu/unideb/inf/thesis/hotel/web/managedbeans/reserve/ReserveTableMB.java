@@ -105,10 +105,10 @@ public class ReserveTableMB implements Serializable{
                 tableService.addReservedTimeToTable(tableVo, reservedTimeService.saveReservedTime(reservedTimeVo));
             }
 
+            sendReservationDetails();
+
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('reservationDialog').show();");
-
-            sendReservationDetails();
         }
     }
 

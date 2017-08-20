@@ -114,10 +114,10 @@ public class ReserveRoomMB implements Serializable {
                 roomService.addReservedDateToRoom(roomVo, reservedDateService.saveReservedDate(reservedDateVo));
             }
 
+            sendReservationDetails();
+
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('reservationDialog').show();");
-
-            sendReservationDetails();
         }
     }
 

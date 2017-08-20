@@ -6,6 +6,7 @@ import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.DrinkVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
 import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
+import org.primefaces.context.RequestContext;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
@@ -99,9 +100,27 @@ public class CartContentMB {
     }
 
     public void saveOrder() {
+        if (foods.isEmpty() && drinks.isEmpty()) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('emptyCartDialog').show();");
+        }
+        else {
+            //save order to database
+            //TODO
 
+            sendOrderDetails();
 
-        sendOrderDetails();
+            cart.getCart().getFoodsQuantity().clear();
+            cart.getCart().getDrinksQuantity().clear();
+            foods.clear();
+            drinks.clear();
+            foodsTotal = 0;
+            drinksTotal = 0;
+            total = 0;
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('orderDialog').show();");
+        }
     }
 
     public void sendOrderDetails() {
