@@ -18,10 +18,10 @@ public class OrderEntity extends BaseEntity {
     private int totalPrice;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<FoodEntity> foods;
+    private List<OrderedFoodEntity> orderedFoods;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<DrinkEntity> drinks;
+    private List<OrderedDrinkEntity> orderedDrinks;
 
     public OrderEntity() {
     }
@@ -29,8 +29,8 @@ public class OrderEntity extends BaseEntity {
     public OrderEntity(Date time, int totalPrice) {
         this.time = time;
         this.totalPrice = totalPrice;
-        this.foods = new ArrayList<FoodEntity>();
-        this.drinks = new ArrayList<DrinkEntity>();
+        this.orderedFoods = new ArrayList<OrderedFoodEntity>();
+        this.orderedDrinks = new ArrayList<OrderedDrinkEntity>();
     }
 
     public Date getTime() {
@@ -49,20 +49,20 @@ public class OrderEntity extends BaseEntity {
         this.totalPrice = totalPrice;
     }
 
-    public List<FoodEntity> getFoods() {
-        return foods;
+    public List<OrderedFoodEntity> getOrderedFoods() {
+        return orderedFoods;
     }
 
-    public void setFoods(List<FoodEntity> foods) {
-        this.foods = foods;
+    public void setOrderedFoods(List<OrderedFoodEntity> orderedFoods) {
+        this.orderedFoods = orderedFoods;
     }
 
-    public List<DrinkEntity> getDrinks() {
-        return drinks;
+    public List<OrderedDrinkEntity> getOrderedDrinks() {
+        return orderedDrinks;
     }
 
-    public void setDrinks(List<DrinkEntity> drinks) {
-        this.drinks = drinks;
+    public void setOrderedDrinks(List<OrderedDrinkEntity> orderedDrinks) {
+        this.orderedDrinks = orderedDrinks;
     }
 
     @Override

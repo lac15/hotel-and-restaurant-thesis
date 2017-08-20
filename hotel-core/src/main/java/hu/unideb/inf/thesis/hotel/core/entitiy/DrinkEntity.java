@@ -1,9 +1,8 @@
 package hu.unideb.inf.thesis.hotel.core.entitiy;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Drinks")
@@ -17,11 +16,15 @@ public class DrinkEntity extends BaseEntity {
     @Column(nullable = false)
     private int price;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<OrderedDrinkEntity> orderedDrinks;
+
     public DrinkEntity(){}
 
     public DrinkEntity(String name, int price) {
         this.name = name;
         this.price = price;
+        this.orderedDrinks = new ArrayList<OrderedDrinkEntity>();
     }
 
     public String getName() {
@@ -38,6 +41,14 @@ public class DrinkEntity extends BaseEntity {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public List<OrderedDrinkEntity> getOrderedDrinks() {
+        return orderedDrinks;
+    }
+
+    public void setOrderedDrinks(List<OrderedDrinkEntity> orderedDrinks) {
+        this.orderedDrinks = orderedDrinks;
     }
 
     @Override

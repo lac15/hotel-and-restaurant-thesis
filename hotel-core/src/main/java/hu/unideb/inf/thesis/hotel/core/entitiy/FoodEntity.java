@@ -1,6 +1,8 @@
 package hu.unideb.inf.thesis.hotel.core.entitiy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Foods")
@@ -14,11 +16,15 @@ public class FoodEntity extends BaseEntity {
     @Column(nullable = false)
     private int price;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<OrderedFoodEntity> orderedFoods;
+
     public FoodEntity(){}
 
-    public FoodEntity(String name, int price, FoodTypeEntity type) {
+    public FoodEntity(String name, int price) {
         this.name = name;
         this.price = price;
+        this.orderedFoods = new ArrayList<OrderedFoodEntity>();
     }
 
     public String getName() {
@@ -35,6 +41,14 @@ public class FoodEntity extends BaseEntity {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public List<OrderedFoodEntity> getOrderedFoods() {
+        return orderedFoods;
+    }
+
+    public void setOrderedFoods(List<OrderedFoodEntity> orderedFoods) {
+        this.orderedFoods = orderedFoods;
     }
 
     @Override
