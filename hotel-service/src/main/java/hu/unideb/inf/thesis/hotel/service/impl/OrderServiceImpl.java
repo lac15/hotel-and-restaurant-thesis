@@ -43,12 +43,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderVo saveOrder(OrderVo orderVo) {
-        OrderEntity orderEntity = orderRepository.findOne(orderVo.getId());
-
-        if (orderEntity == null) {
-            orderEntity = new OrderEntity();
-            OrderMapper.toEntity(orderVo, orderEntity);
-        }
+        OrderEntity orderEntity = new OrderEntity();
+        OrderMapper.toEntity(orderVo, orderEntity);
 
         return OrderMapper.toVo(orderRepository.save(orderEntity));
     }

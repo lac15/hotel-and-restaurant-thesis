@@ -1,11 +1,8 @@
 package hu.unideb.inf.thesis.hotel.web.managedbeans.cart;
 
 import hu.unideb.inf.thesis.hotel.client.api.exception.EmailSendingException;
-import hu.unideb.inf.thesis.hotel.client.api.service.MailService;
-import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
-import hu.unideb.inf.thesis.hotel.client.api.vo.DrinkVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
-import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
+import hu.unideb.inf.thesis.hotel.client.api.service.*;
+import hu.unideb.inf.thesis.hotel.client.api.vo.*;
 import org.primefaces.context.RequestContext;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.jws.soap.SOAPBinding;
 
 import java.util.*;
 
@@ -33,9 +29,25 @@ public class CartContentMB {
     @EJB
     private UserService userService;
     @EJB
+    private OrderedDrinkService orderedDrinkService;
+    @EJB
+    private OrderedFoodService orderedFoodService;
+    @EJB
+    private DrinkService drinkService;
+    @EJB
+    private FoodService foodService;
+    @EJB
+    private OrderService orderService;
+    @EJB
     private MailService mailService;
 
     private UserVo userVo;
+    private OrderedDrinkVo orderedDrinkVo = new OrderedDrinkVo();
+    private OrderedFoodVo orderedFoodVo = new OrderedFoodVo();
+    private OrderedDrinkVo orderedDrinkVoFromDb;
+    private OrderedFoodVo orderedFoodVoFromDb;
+    private OrderVo orderVo = new OrderVo();
+    private OrderVo orderVoFromDb;
 
     private List<Map.Entry<FoodVo, Integer>> foods;
     private List<Map.Entry<DrinkVo, Integer>> drinks;
@@ -105,8 +117,27 @@ public class CartContentMB {
             context.execute("PF('emptyCartDialog').show();");
         }
         else {
-            //save order to database
-            //TODO
+            Date timestamp = new Date();
+            orderVo.setTime(timestamp);
+            orderVo.setTotalPrice(total);
+            orderVoFromDb = orderService.saveOrder(orderVo);
+
+            for (Map.Entry<DrinkVo, Integer> drinkEntry : cart.getCart().getDrinksEntryList()) {
+                orderedDrinkVo.setQuantity(drinkEntry.getValue());
+                orderedDrinkVoFromDb = orderedDrinkService.saveOrderedDrink(orderedDrinkVo);
+
+                drinkService.addOrderedDrinkToDrink(drinkEntry.getKey(), orderedDrinkVoFromDb);
+
+                orderService.addOrderedDrinkToOrder(orderVoFromDb, orderedDrinkVoFromDb);
+            }
+            for (Map.Entry<FoodVo, Integer> foodEntry : cart.getCart().getFoodsEntryList()) {
+                orderedFoodVo.setQuantity(foodEntry.getValue());
+                orderedFoodVoFromDb = orderedFoodService.saveOrderedFood(orderedFoodVo);
+
+                foodService.addOrderedFoodToFood(foodEntry.getKey(), orderedFoodVoFromDb);
+
+                orderService.addOrderedFoodToOrder(orderVoFromDb, orderedFoodVoFromDb);
+            }
 
             sendOrderDetails();
 
@@ -180,6 +211,54 @@ public class CartContentMB {
 
     public void setUserVo(UserVo userVo) {
         this.userVo = userVo;
+    }
+
+    public OrderedDrinkVo getOrderedDrinkVo() {
+        return orderedDrinkVo;
+    }
+
+    public void setOrderedDrinkVo(OrderedDrinkVo orderedDrinkVo) {
+        this.orderedDrinkVo = orderedDrinkVo;
+    }
+
+    public OrderedFoodVo getOrderedFoodVo() {
+        return orderedFoodVo;
+    }
+
+    public void setOrderedFoodVo(OrderedFoodVo orderedFoodVo) {
+        this.orderedFoodVo = orderedFoodVo;
+    }
+
+    public OrderedDrinkVo getOrderedDrinkVoFromDb() {
+        return orderedDrinkVoFromDb;
+    }
+
+    public void setOrderedDrinkVoFromDb(OrderedDrinkVo orderedDrinkVoFromDb) {
+        this.orderedDrinkVoFromDb = orderedDrinkVoFromDb;
+    }
+
+    public OrderedFoodVo getOrderedFoodVoFromDb() {
+        return orderedFoodVoFromDb;
+    }
+
+    public void setOrderedFoodVoFromDb(OrderedFoodVo orderedFoodVoFromDb) {
+        this.orderedFoodVoFromDb = orderedFoodVoFromDb;
+    }
+
+    public OrderVo getOrderVo() {
+        return orderVo;
+    }
+
+    public void setOrderVo(OrderVo orderVo) {
+        this.orderVo = orderVo;
+    }
+
+    public OrderVo getOrderVoFromDb() {
+        return orderVoFromDb;
+    }
+
+    public void setOrderVoFromDb(OrderVo orderVoFromDb) {
+        this.orderVoFromDb = orderVoFromDb;
     }
 
     public List<Map.Entry<FoodVo, Integer>> getFoods() {

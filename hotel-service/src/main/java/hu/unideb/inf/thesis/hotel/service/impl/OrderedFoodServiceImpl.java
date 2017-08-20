@@ -26,10 +26,11 @@ public class OrderedFoodServiceImpl implements OrderedFoodService {
     private OrderedFoodRepository orderedFoodRepository;
 
     @Override
-    public void saveOrderedFood(OrderedFoodVo orderedFoodVo) {
+    public OrderedFoodVo saveOrderedFood(OrderedFoodVo orderedFoodVo) {
         OrderedFoodEntity orderedFoodEntity = new OrderedFoodEntity();
         OrderedFoodMapper.toEntity(orderedFoodVo, orderedFoodEntity);
-        orderedFoodRepository.save(orderedFoodEntity);
+
+        return OrderedFoodMapper.toVo(orderedFoodRepository.save(orderedFoodEntity));
     }
 
     @Override

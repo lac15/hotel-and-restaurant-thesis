@@ -22,6 +22,8 @@ INSERT INTO "public".foods (id, name, price) VALUES (nextval('hibernate_sequence
 INSERT INTO "public".foodtypes_foods (foodtypeentity_id, foods_id) VALUES (1, 1);
 
 INSERT INTO "public".drinks (id, name, price) VALUES (nextval('hibernate_sequence'), 'Fanta', 250);
+INSERT INTO "public".drinks (id, name, price) VALUES (nextval('hibernate_sequence'), 'Coca-Cola', 300);
+INSERT INTO "public".drinks (id, name, price) VALUES (nextval('hibernate_sequence'), 'Bor', 500);
 /*rooms*/
 INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (1, 2, 5000, 'room_2');
 INSERT INTO "public".roomtypes (id, capacity, price, image) VALUES (2, 3, 10000, 'room_3');

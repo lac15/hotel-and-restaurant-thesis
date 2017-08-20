@@ -26,10 +26,11 @@ public class OrderedDrinkServiceImpl implements OrderedDrinkService {
     private OrderedDrinkRepository orderedDrinkRepository;
 
     @Override
-    public void saveOrderedDrink(OrderedDrinkVo orderedDrinkVo) {
+    public OrderedDrinkVo saveOrderedDrink(OrderedDrinkVo orderedDrinkVo) {
         OrderedDrinkEntity orderedDrinkEntity = new OrderedDrinkEntity();
         OrderedDrinkMapper.toEntity(orderedDrinkVo, orderedDrinkEntity);
-        orderedDrinkRepository.save(orderedDrinkEntity);
+
+        return OrderedDrinkMapper.toVo(orderedDrinkRepository.save(orderedDrinkEntity));
     }
 
     @Override

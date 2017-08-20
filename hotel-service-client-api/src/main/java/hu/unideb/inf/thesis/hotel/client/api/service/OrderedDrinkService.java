@@ -4,7 +4,7 @@ import hu.unideb.inf.thesis.hotel.client.api.vo.OrderedDrinkVo;
 
 public interface OrderedDrinkService {
 
-    void saveOrderedDrink(OrderedDrinkVo orderedDrinkVo);
+    OrderedDrinkVo saveOrderedDrink(OrderedDrinkVo orderedDrinkVo);
 
     OrderedDrinkVo getOrderedDrinkById(Long id);
 

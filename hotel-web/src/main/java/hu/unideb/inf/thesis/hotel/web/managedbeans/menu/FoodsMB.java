@@ -9,14 +9,16 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "foodsMB")
 @ViewScoped
-public class FoodsMB {
+public class FoodsMB implements Serializable {
 
-    public static final int MAX_QUANTITY = 20;
+    private static final long serialVersionUID = 4722533328505763772L;
+    private static final int MAX_QUANTITY = 20;
 
     @ManagedProperty(value = "#{cartBean}")
     private CartMB cart;

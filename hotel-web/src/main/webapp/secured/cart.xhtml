@@ -17,7 +17,7 @@
         <ui:define name="body">
             <h:outputStylesheet name="css/restaurant.css"/>
 
-            <h:form styleClass="baseForm">
+            <h:form id="form" styleClass="baseForm">
                 <h1>#{msg['cart.title.label']}</h1>
 
                 <p:dataTable id="foodCart" var="food" value="#{cartContentBean.foods}" sortBy="#{food.key.name}"
@@ -51,7 +51,7 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        Total: #{cartContentBean.foodsTotal} Ft
+                        <h:outputText value="Total: #{cartContentBean.foodsTotal} Ft"/>
                     </f:facet>
                 </p:dataTable>
 
@@ -86,13 +86,13 @@
                     </p:column>
 
                     <f:facet name="footer">
-                        Total: #{cartContentBean.drinksTotal} Ft
+                        <h:outputText value="Total: #{cartContentBean.drinksTotal} Ft"/>
                     </f:facet>
                 </p:dataTable>
 
                 <p:panel>
-                    <h:outputText id="totalPrice" value="Total: "/>
-                    <h:outputText value="#{cartContentBean.total}"/>
+                    <h:outputText value="Total: "/>
+                    <h:outputText id="totalPrice" value="#{cartContentBean.total}"/>
                     <p:commandButton id="submitOrder" value="Order"
                                      action="#{cartContentBean.saveOrder}"
                                      update="drinkCart foodCart totalPrice"
