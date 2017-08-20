@@ -1,6 +1,7 @@
 package hu.unideb.inf.thesis.hotel.client.api.service;
 
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.OrderedFoodVo;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public interface FoodService {
     void addFoodToFoodType(FoodVo foodVo, String typeName);
 
     void deleteFood(Long id, String typeName);
+
+    void addOrderedFoodToFood(FoodVo foodVo, OrderedFoodVo orderedFoodVo);
 
     FoodVo getFoodById(Long id);
 

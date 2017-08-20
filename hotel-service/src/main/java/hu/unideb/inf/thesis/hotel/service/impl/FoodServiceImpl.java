@@ -2,10 +2,13 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.FoodService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.FoodVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.OrderedFoodVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.FoodEntity;
 import hu.unideb.inf.thesis.hotel.core.entitiy.FoodTypeEntity;
+import hu.unideb.inf.thesis.hotel.core.entitiy.OrderedFoodEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.FoodRepository;
 import hu.unideb.inf.thesis.hotel.core.repository.FoodTypeRepository;
+import hu.unideb.inf.thesis.hotel.core.repository.OrderedFoodRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.FoodMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +32,8 @@ public class FoodServiceImpl implements FoodService {
     private FoodRepository foodRepository;
     @Autowired
     private FoodTypeRepository foodTypeRepository;
+    @Autowired
+    private OrderedFoodRepository orderedFoodRepository;
 
     @Override
     public void saveFood(FoodVo foodVo) {
@@ -56,6 +61,14 @@ public class FoodServiceImpl implements FoodService {
     public void deleteFood(Long id, String typeName) {
         foodTypeRepository.findByName(typeName).getFoods().remove(foodRepository.findOne(id));
         foodRepository.delete(id);
+    }
+
+    @Override
+    public void addOrderedFoodToFood(FoodVo foodVo, OrderedFoodVo orderedFoodVo) {
+        FoodEntity foodEntity = foodRepository.findOne(foodVo.getId());
+        OrderedFoodEntity orderedFoodEntity = orderedFoodRepository.findOne(orderedFoodVo.getId());
+
+        foodEntity.getOrderedFoods().add(orderedFoodEntity);
     }
 
     @Override

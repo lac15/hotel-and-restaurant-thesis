@@ -2,8 +2,11 @@ package hu.unideb.inf.thesis.hotel.service.impl;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.DrinkService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.DrinkVo;
+import hu.unideb.inf.thesis.hotel.client.api.vo.OrderedDrinkVo;
 import hu.unideb.inf.thesis.hotel.core.entitiy.DrinkEntity;
+import hu.unideb.inf.thesis.hotel.core.entitiy.OrderedDrinkEntity;
 import hu.unideb.inf.thesis.hotel.core.repository.DrinkRepository;
+import hu.unideb.inf.thesis.hotel.core.repository.OrderedDrinkRepository;
 import hu.unideb.inf.thesis.hotel.service.mapper.DrinkMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,8 @@ public class DrinkServiceImpl implements DrinkService {
 
     @Autowired
     private DrinkRepository drinkRepository;
+    @Autowired
+    private OrderedDrinkRepository orderedDrinkRepository;
 
     @Override
     public void saveDrink(DrinkVo drinkVo) {
@@ -41,6 +46,14 @@ public class DrinkServiceImpl implements DrinkService {
     @Override
     public void deleteDrink(Long id) {
         drinkRepository.delete(id);
+    }
+
+    @Override
+    public void addOrderedDrinkToDrink(DrinkVo drinkVo, OrderedDrinkVo orderedDrinkVo) {
+        DrinkEntity drinkEntity = drinkRepository.findOne(drinkVo.getId());
+        OrderedDrinkEntity orderedDrinkEntity = orderedDrinkRepository.findOne(orderedDrinkVo.getId());
+
+        drinkEntity.getOrderedDrinks().add(orderedDrinkEntity);
     }
 
     @Override
