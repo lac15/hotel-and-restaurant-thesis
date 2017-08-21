@@ -30,21 +30,24 @@
                         <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}">
                             <h:outputText value="#{drink.price}"/>
                         </p:column>
-                        <p:column headerText="Order" visible="#{p:ifGranted('USER')}">
-                            <p:commandButton id="addSoup" value="Add to cart"
+                        <p:column headerText="#{msg['drinks.order']}" visible="#{p:ifGranted('USER')}">
+                            <p:commandButton id="addSoup" value="#{msg['drinks.addtocart']}"
                                              action="#{drinksMB.addDrinkVo(drink)}"
                                              oncomplete="PF('quantityDialog').show();"/>
                         </p:column>
                     </p:dataTable>
                 </p:panel>
 
-                <p:dialog widgetVar="quantityDialog" header="Quantity" modal="true">
+                <p:dialog widgetVar="quantityDialog" header="#{msg['drinks.quantityDialog.header']}" modal="true">
                     <h:form>
-                        <h:outputText value="Kérem adja meg, hogy mennyit szeretne rendelni a választott termékből." />
-                        <p:spinner id="spin" value="#{drinksMB.quantity}"
-                                   min="1" max="20" converter="javax.faces.Integer"/>
+                        <h:outputText value="#{msg['drinks.quantityDialog.message']}" />
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg['drinks.quantity']}" />
+                            <p:spinner id="spin" value="#{drinksMB.quantity}"
+                                       min="1" max="20" converter="javax.faces.Integer"/>
+                        </h:panelGrid>
 
-                        <p:commandButton id="quantityOk" value="OK"
+                        <p:commandButton id="quantityOk" value="#{msg['drinks.addtocart']}"
                                          action="#{drinksMB.addDrinkToCart}"
                                          oncomplete="PF('quantityDialog').hide();"/>
                     </h:form>

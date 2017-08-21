@@ -28,8 +28,8 @@
                                 <p:column headerText="#{msg['foods.price.label']}" sortBy="#{soup.price}">
                                     <h:outputText value="#{soup.price}"/>
                                 </p:column>
-                                <p:column headerText="Order" visible="#{p:ifGranted('USER')}">
-                                    <p:commandButton id="addSoup" value="Add to cart"
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                    <p:commandButton id="addSoup" value="#{msg['foods.addtocart']}"
                                                      action="#{foodsMB.addFoodVo(soup)}"
                                                      oncomplete="PF('quantityDialog').show();"/>
                                 </p:column>
@@ -44,8 +44,8 @@
                                 <p:column headerText="#{msg['foods.price.label']}" sortBy="#{mainCourse.price}">
                                     <h:outputText value="#{mainCourse.price}"/>
                                 </p:column>
-                                <p:column headerText="Order" visible="#{p:ifGranted('USER')}">
-                                    <p:commandButton id="addMainCourse" value="Add to cart"
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                    <p:commandButton id="addMainCourse" value="#{msg['foods.addtocart']}"
                                                      action="#{foodsMB.addFoodVo(mainCourse)}"
                                                      oncomplete="PF('quantityDialog').show();"/>
                                 </p:column>
@@ -60,8 +60,8 @@
                                 <p:column headerText="#{msg['foods.price.label']}" sortBy="#{dessert.price}">
                                     <h:outputText value="#{dessert.price}"/>
                                 </p:column>
-                                <p:column headerText="Order" visible="#{p:ifGranted('USER')}">
-                                    <p:commandButton id="addDessert" value="Add to cart"
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                    <p:commandButton id="addDessert" value="#{msg['foods.addtocart']}"
                                                      action="#{foodsMB.addFoodVo(dessert)}"
                                                      oncomplete="PF('quantityDialog').show();"/>
                                 </p:column>
@@ -70,13 +70,15 @@
                     </p:tabView>
                 </p:panel>
 
-                <p:dialog widgetVar="quantityDialog" header="Quantity" modal="true">
+                <p:dialog widgetVar="quantityDialog" header="#{msg['foods.quantityDialog.header']}" modal="true">
                     <h:form>
-                        <h:outputText value="Kérem adja meg, hogy mennyit szeretne rendelni a választott termékből." />
-                        <p:spinner id="spin" value="#{foodsMB.quantity}"
-                                   min="1" max="20" converter="javax.faces.Integer"/>
-
-                        <p:commandButton id="quantityOk" value="OK"
+                        <h:outputText value="#{msg['foods.quantityDialog.message']}" />
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msg['foods.quantity']}" />
+                            <p:spinner id="spin" value="#{foodsMB.quantity}"
+                                       min="1" max="20" converter="javax.faces.Integer"/>
+                        </h:panelGrid>
+                        <p:commandButton id="quantityOk" value="#{msg['foods.addtocart']}"
                                          action="#{foodsMB.addFoodToCart}"
                                          oncomplete="PF('quantityDialog').hide();"/>
                     </h:form>
