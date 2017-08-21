@@ -24,7 +24,7 @@
                     <p:outputLabel for="roomType" value="#{msg['reserveRoom.roomtype']}"/>
                     <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}"
                                      required="true" requiredMessage="#{msg['register.username.tooltip']}">
-                        <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber"/>
+                        <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber roomPrice"/>
                         <f:selectItem itemLabel="#{msg['reserveRoom.type']}" itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
                                        itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
@@ -56,9 +56,13 @@
                     </p:calendar>
                     <p:message for="endTime" display="both"/>
 
+                    <p:outputLabel for="roomPrice" value="#{msg['reserveRoom.roomprice']}"/>
+                    <p:outputLabel id="roomPrice" value="#{reserveRoomBean.roomPrice} #{msg['reserveRoom.hufpernight']}"/>
+                    <p:message for="roomPrice" display="both"/>
+
                     <p:commandButton value="#{msg['reserveRoom.reserve.button']}"
                                      update=":form:reservationDetails" ajax="false"
-                                     action="#{reserveRoomBean.addRoomReserve}" icon="fa fa-save"/>
+                                     action="#{reserveRoomBean.addRoomReserve}"/>
                 </p:panelGrid>
 
                 <p:dialog widgetVar="reservationDialog" header="#{msg['reserveRoom.reservationDialog.header']}" modal="true">

@@ -33,6 +33,8 @@
                         <h:outputText value="#{msg['rooms.price.label']}" />
                         <h:outputText value="#{roomType.price} #{msg['rooms.price.tag.label']}" />
                     </p:panelGrid>
+                    <p:button id="roomReserve" value="#{msg['rooms.roomreserve']}" outcome="/secured/reserveRoom"
+                              style="alignment: center"/>
                 </p:carousel>
 
                 <p:dialog widgetVar="imageDialog" modal="true" showEffect="fade" hideEffect="fade"
