@@ -162,11 +162,14 @@ public class CartContentMB {
             bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
         }
 
-        String message = bundle.getString("email.roomreserve.dear") + " " + userVo.getFirstname() + " "
+        String message = bundle.getString("email.order.dear") + " " + userVo.getFirstname() + " "
                 + userVo.getLastname() + "!<br>";
-        message += "<br>We have received your order.<br>";
-        message += "<br>Ételek:<br><table width=\"400\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\">";
-        message += "<tr><th>Név</th><th>Darab</th><th>Ár</th></tr>";
+        message += bundle.getString("email.order.message");
+        message += bundle.getString("email.order.foods");
+        message += "<table width=\"400\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\">";
+        message += "<tr><th>" + bundle.getString("email.order.name") + "</th><th>"
+                + bundle.getString("email.order.quantity") + "</th><th>"
+                + bundle.getString("email.order.price") + "</th></tr>";
         for (Map.Entry<FoodVo, Integer> foodEntry : cart.getCart().getFoodsEntryList()) {
             message += "<tr>";
             message += "<td width=\"33%\">" + foodEntry.getKey().getName() + "</td>";
@@ -175,8 +178,11 @@ public class CartContentMB {
             message += "</tr>";
         }
         message += "</table><br>";
-        message += "<br>Italok:<br><table width=\"400\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\">";
-        message += "<tr><th>Név</th><th>Darab</th><th>Ár</th></tr>";
+        message += bundle.getString("email.order.drinks");
+        message += "<table width=\"400\" cellpadding=\"0\" cellspacing=\"0\" border=\"1\">";
+        message += "<tr><th>" + bundle.getString("email.order.name") + "</th><th>"
+                + bundle.getString("email.order.quantity") + "</th><th>"
+                + bundle.getString("email.order.price") + "</th></tr>";
         for (Map.Entry<DrinkVo, Integer> drinkEntry : cart.getCart().getDrinksEntryList()) {
             message += "<tr>";
             message += "<td width=\"33%\">" + drinkEntry.getKey().getName() + "</td>";
@@ -185,10 +191,11 @@ public class CartContentMB {
             message += "</tr>";
         }
         message += "</table><br>";
-        message += "<br>Total: " + total + " Ft";
+        message += bundle.getString("email.order.total") + " " + total + " " + bundle.getString("email.order.huf");
+        message += bundle.getString("email.order.endmessage");
 
         try {
-            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.roomreserve.subject"), message);
+            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.order.subject"), message);
 
             LOGGER.info(bundle.getString("email.logger.success"));
         } catch (EmailSendingException e) {

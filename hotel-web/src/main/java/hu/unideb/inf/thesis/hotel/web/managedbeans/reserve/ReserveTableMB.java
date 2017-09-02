@@ -129,6 +129,13 @@ public class ReserveTableMB implements Serializable{
 
             tableReserveModel.getEvents().clear();
 
+            ResourceBundle bundle;
+            try {
+                bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            } catch (MissingResourceException e) {
+                bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
+            }
+
             for (ReservedTimeVo reservedTime : reservedTimeService.getReservedTimesByTableId(tableId)) {
                 if ( reservedTime.getReservedTime().compareTo(todayTime) >= 0 ) {
                     LocalDateTime reservedTimePlus = LocalDateTime.ofInstant(reservedTime.getReservedTime().toInstant(),
@@ -137,7 +144,8 @@ public class ReserveTableMB implements Serializable{
                     Date normalTimePlus = Date.from(reservedTimePlus.atZone(ZoneId.systemDefault()).toInstant());
 
                     tableReserveModel.addEvent(new DefaultScheduleEvent(
-                            "Table " + tableVo.getNumber() + " is reserved", reservedTime.getReservedTime(),
+                            bundle.getString("schedule.table") + " " + tableVo.getNumber() + " "
+                                    + bundle.getString("schedule.table.reserved"), reservedTime.getReservedTime(),
                             normalTimePlus));
                 }
             }
@@ -160,19 +168,19 @@ public class ReserveTableMB implements Serializable{
             bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
         }
 
-        String message = bundle.getString("email.roomreserve.dear") + " " + userVo.getFirstname() + " "
+        String message = bundle.getString("email.tablereserve.dear") + " " + userVo.getFirstname() + " "
                 + userVo.getLastname() + "!<br>";
-        message += bundle.getString("email.roomreserve.message");
-        message += bundle.getString("email.roomreserve.roomtype") + " "
+        message += bundle.getString("email.tablereserve.message");
+        message += bundle.getString("email.tablereserve.tabletype") + " "
                 + tableTypeService.getTableTypeById(tableTypeId).getSeats() + " "
-                + bundle.getString("email.roomreserve.roomtype.ending");
-        message += bundle.getString("email.roomreserve.roomnumber") + " " + tableVo.getNumber() + "<br>";
-        message += bundle.getString("email.roomreserve.from") + " " + startTime + "<br>";
-        message += bundle.getString("email.roomreserve.to") + " " + endTime + "<br>";
-        message += bundle.getString("email.roomreserve.endmessage");
+                + bundle.getString("email.tablereserve.tabletype.ending");
+        message += bundle.getString("email.tablereserve.tablenumber") + " " + tableVo.getNumber() + "<br>";
+        message += bundle.getString("email.tablereserve.from") + " " + startTime + "<br>";
+        message += bundle.getString("email.tablereserve.to") + " " + endTime + "<br>";
+        message += bundle.getString("email.tablereserve.endmessage");
 
         try {
-            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.roomreserve.subject"), message);
+            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.tablereserve.subject"), message);
 
             LOGGER.info(bundle.getString("email.logger.success"));
         } catch (EmailSendingException e) {

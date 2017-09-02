@@ -142,10 +142,18 @@ public class ReserveRoomMB implements Serializable {
 
             roomReserveModel.getEvents().clear();
 
+            ResourceBundle bundle;
+            try {
+                bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            } catch (MissingResourceException e) {
+                bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
+            }
+
             for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
                 if ( reservedDate.getReservedDate().compareTo(todayDate) >= 0 ) {
                     roomReserveModel.addEvent(new DefaultScheduleEvent(
-                            "Room " + roomVo.getNumber() + " is reserved", reservedDate.getReservedDate(),
+                            bundle.getString("schedule.room") + " " + roomVo.getNumber() + " "
+                                    + bundle.getString("schedule.room.reserved"), reservedDate.getReservedDate(),
                             reservedDate.getReservedDate(), true));
                 }
             }
