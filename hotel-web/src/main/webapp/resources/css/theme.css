@@ -5,6 +5,8 @@
 
 html {
     height: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 header {
@@ -12,7 +14,7 @@ header {
 }
 
 #navigation {
-    width: 100% !important;
+    width: 100%;
     padding-bottom: 20px !important;
     z-index: 1000;
 }
