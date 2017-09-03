@@ -40,6 +40,9 @@ public class ReserveRoomMB implements Serializable {
     @EJB
     private MailService mailService;
 
+    private ResourceBundle bundle;
+    private String locale;
+
     private RoomReserveVo roomReserveVo = new RoomReserveVo();
 
     private List<RoomTypeVo> roomTypes = new ArrayList<RoomTypeVo>();
@@ -62,6 +65,14 @@ public class ReserveRoomMB implements Serializable {
     public void init() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
         userVo = userService.getUserByUsername(username);
+
+        try {
+            bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            locale = FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage();
+        } catch (MissingResourceException e) {
+            bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
+            locale = Locale.ENGLISH.getLanguage();
+        }
 
         roomTypes.addAll(roomTypeService.getRoomTypes());
         roomPrice = 0;
@@ -142,13 +153,6 @@ public class ReserveRoomMB implements Serializable {
 
             roomReserveModel.getEvents().clear();
 
-            ResourceBundle bundle;
-            try {
-                bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-            } catch (MissingResourceException e) {
-                bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
-            }
-
             for (ReservedDateVo reservedDate : reservedDateService.getReservedDatesByRoomId(roomId)) {
                 if ( reservedDate.getReservedDate().compareTo(todayDate) >= 0 ) {
                     roomReserveModel.addEvent(new DefaultScheduleEvent(
@@ -161,13 +165,6 @@ public class ReserveRoomMB implements Serializable {
     }
 
     public void sendReservationDetails() {
-        ResourceBundle bundle;
-        try {
-            bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-        } catch (MissingResourceException e) {
-            bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
-        }
-
         String message = bundle.getString("email.roomreserve.dear") + " " + userVo.getFirstname() + " "
                 + userVo.getLastname() + "!<br>";
         message += bundle.getString("email.roomreserve.message");
@@ -188,6 +185,14 @@ public class ReserveRoomMB implements Serializable {
             LOGGER.info(bundle.getString("email.logger.error"));
             e.printStackTrace();
         }
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     public RoomReserveVo getRoomReserveVo() {

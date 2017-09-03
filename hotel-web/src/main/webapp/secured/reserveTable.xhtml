@@ -16,6 +16,7 @@
 
         <ui:define name="body">
             <h:outputStylesheet name="css/restaurant.css"/>
+            <script type="text/javascript" src="/hotel/resources/js/schedule_locales.js"/>
 
             <h:form id="form" styleClass="baseForm">
                 <h1>#{msg['reserveTable.welcome.label']}</h1>
@@ -87,8 +88,8 @@
                 </p:dialog>
             </h:form>
 
-            <p:schedule id="tableReserveSchedule" value="#{reserveTableBean.tableReserveModel}"
-                        draggable="false" resizable="false" allDaySlot="false" clientTimeZone="local"/>
+            <p:schedule id="tableReserveSchedule" value="#{reserveTableBean.tableReserveModel}" allDaySlot="false"
+                        draggable="false" resizable="false" clientTimeZone="local" locale="#{reserveTableBean.locale}"/>
         </ui:define>
     </ui:composition>
 

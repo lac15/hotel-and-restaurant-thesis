@@ -16,6 +16,7 @@
 
         <ui:define name="body">
             <h:outputStylesheet name="css/hotel.css"/>
+            <script type="text/javascript" src="/hotel/resources/js/schedule_locales.js"/>
 
             <h:form id="form" styleClass="baseForm">
                 <h1>#{msg['reserveRoom.welcome.label']}</h1>
@@ -92,7 +93,7 @@
             </h:form>
 
             <p:schedule id="roomReserveSchedule" value="#{reserveRoomBean.roomReserveModel}"
-                        draggable="false" resizable="false" clientTimeZone="local"/>
+                        draggable="false" resizable="false" clientTimeZone="local" locale="#{reserveRoomBean.locale}"/>
 
         </ui:define>
     </ui:composition>

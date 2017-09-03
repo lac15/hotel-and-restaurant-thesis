@@ -41,6 +41,9 @@ public class ReserveTableMB implements Serializable{
     @EJB
     private MailService mailService;
 
+    private ResourceBundle bundle;
+    private String locale;
+
     private TableReserveVo tableReserveVo = new TableReserveVo();
 
     private List<TableTypeVo> tableTypes = new ArrayList<TableTypeVo>();
@@ -61,6 +64,14 @@ public class ReserveTableMB implements Serializable{
     public void init() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
         userVo = userService.getUserByUsername(username);
+
+        try {
+            bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            locale = FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage();
+        } catch (MissingResourceException e) {
+            bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
+            locale = Locale.ENGLISH.getLanguage();
+        }
 
         tableTypes.addAll(tableTypeService.getTableTypes());
     }
@@ -129,13 +140,6 @@ public class ReserveTableMB implements Serializable{
 
             tableReserveModel.getEvents().clear();
 
-            ResourceBundle bundle;
-            try {
-                bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-            } catch (MissingResourceException e) {
-                bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
-            }
-
             for (ReservedTimeVo reservedTime : reservedTimeService.getReservedTimesByTableId(tableId)) {
                 if ( reservedTime.getReservedTime().compareTo(todayTime) >= 0 ) {
                     LocalDateTime reservedTimePlus = LocalDateTime.ofInstant(reservedTime.getReservedTime().toInstant(),
@@ -161,13 +165,6 @@ public class ReserveTableMB implements Serializable{
     }
 
     public void sendReservationDetails() {
-        ResourceBundle bundle;
-        try {
-            bundle = ResourceBundle.getBundle("Messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-        } catch (MissingResourceException e) {
-            bundle = ResourceBundle.getBundle("Messages", Locale.ENGLISH);
-        }
-
         String message = bundle.getString("email.tablereserve.dear") + " " + userVo.getFirstname() + " "
                 + userVo.getLastname() + "!<br>";
         message += bundle.getString("email.tablereserve.message");
@@ -187,6 +184,14 @@ public class ReserveTableMB implements Serializable{
             LOGGER.info(bundle.getString("email.logger.error"));
             e.printStackTrace();
         }
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     public TableReserveVo getTableReserveVo() {
