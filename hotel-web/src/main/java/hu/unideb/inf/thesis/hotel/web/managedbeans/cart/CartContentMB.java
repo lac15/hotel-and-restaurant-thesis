@@ -78,18 +78,25 @@ public class CartContentMB {
             int newQuantity = cart.getCart().getFoodsQuantity().get(foodVo) + 1;
 
             cart.getCart().getFoodsQuantity().put(foodVo, newQuantity);
+
+            foodsTotal = cart.getCart().getFoodsTotalValue();
+            total = foodsTotal + drinksTotal;
         }
     }
 
     public void minusFoodQuantity(FoodVo foodVo) {
         if (cart.getCart().getFoodsQuantity().get(foodVo) == 1) {
             cart.getCart().getFoodsQuantity().remove(foodVo);
+            foods = cart.getCart().getFoodsEntryList();
         }
         else {
             int newQuantity = cart.getCart().getFoodsQuantity().get(foodVo) - 1;
 
             cart.getCart().getFoodsQuantity().put(foodVo, newQuantity);
         }
+
+        foodsTotal = cart.getCart().getFoodsTotalValue();
+        total = foodsTotal + drinksTotal;
     }
 
     public void plusDrinkQuantity(DrinkVo drinkVo) {
@@ -97,18 +104,25 @@ public class CartContentMB {
             int newQuantity = cart.getCart().getDrinksQuantity().get(drinkVo) + 1;
 
             cart.getCart().getDrinksQuantity().put(drinkVo, newQuantity);
+
+            drinksTotal = cart.getCart().getDrinksTotalValue();
+            total = foodsTotal + drinksTotal;
         }
     }
 
     public void minusDrinkQuantity(DrinkVo drinkVo) {
         if (cart.getCart().getDrinksQuantity().get(drinkVo) == 1) {
             cart.getCart().getDrinksQuantity().remove(drinkVo);
+            drinks = cart.getCart().getDrinksEntryList();
         }
         else {
             int newQuantity = cart.getCart().getDrinksQuantity().get(drinkVo) - 1;
 
             cart.getCart().getDrinksQuantity().put(drinkVo, newQuantity);
         }
+
+        drinksTotal = cart.getCart().getDrinksTotalValue();
+        total = foodsTotal + drinksTotal;
     }
 
     public void saveOrder() {

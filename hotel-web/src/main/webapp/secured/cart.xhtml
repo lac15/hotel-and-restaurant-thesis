@@ -44,10 +44,10 @@
                     <p:column headerText="#{msg['cart.plusminus']}">
                         <p:commandButton id="plusFoodQuantity" icon="fa fa-plus"
                                          action="#{cartContentBean.plusFoodQuantity(food.key)}"
-                                         update="foodCart"/>
+                                         update="foodCart :orderPanel"/>
                         <p:commandButton id="minusFoodQuantity" icon="fa fa-minus"
                                          action="#{cartContentBean.minusFoodQuantity(food.key)}"
-                                         update="foodCart"/>
+                                         update="foodCart :orderPanel"/>
                     </p:column>
 
                     <f:facet name="footer">
@@ -79,26 +79,26 @@
                     <p:column headerText="#{msg['cart.plusminus']}">
                         <p:commandButton id="plusDrinkQuantity" icon="fa fa-plus"
                                          action="#{cartContentBean.plusDrinkQuantity(drink.key)}"
-                                         update="drinkCart"/>
+                                         update="drinkCart :orderPanel"/>
                         <p:commandButton id="minusDrinkQuantity" icon="fa fa-minus"
                                          action="#{cartContentBean.minusDrinkQuantity(drink.key)}"
-                                         update="drinkCart"/>
+                                         update="drinkCart :orderPanel"/>
                     </p:column>
 
                     <f:facet name="footer">
                         <h:outputText value="#{msg['cart.drinks.total']} #{cartContentBean.drinksTotal} #{msg['cart.huf']}"/>
                     </f:facet>
                 </p:dataTable>
-
-                <p:panel>
-                    <h:outputText value="#{msg['cart.total']} "/>
-                    <h:outputText id="totalPrice" value="#{cartContentBean.total} #{msg['cart.huf']}"/>
-                    <p:commandButton id="submitOrder" value="#{msg['cart.order.button']}"
-                                     action="#{cartContentBean.saveOrder}"
-                                     update="drinkCart foodCart totalPrice"
-                                     style="float: right"/>
-                </p:panel>
             </h:form>
+
+            <p:panel id="orderPanel">
+                <h:outputText value="#{msg['cart.total']} "/>
+                <h:outputText id="totalPrice" value="#{cartContentBean.total} #{msg['cart.huf']}"/>
+                <p:commandButton id="submitOrder" value="#{msg['cart.order.button']}"
+                                 action="#{cartContentBean.saveOrder}"
+                                 update=":form:drinkCart :form:foodCart totalPrice"
+                                 style="float: right"/>
+            </p:panel>
 
             <p:dialog widgetVar="orderDialog" header="#{msg['cart.orderDialog.header']}" modal="true">
                 <h:outputText value="#{msg['cart.orderDialog.message']}" />
