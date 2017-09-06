@@ -24,7 +24,7 @@
                     </h:outputLink>
                 </div>-->
                 <div>
-                    <h6 class="welcome-text">#{msg['welcometext']}</h6>
+                    <h:graphicImage library="images" name="banner.jpg" style="width: 100%" class="img-responsive"/>
                 </div>
         </header>
 
@@ -41,7 +41,7 @@
                     <p:menuitem value="#{msg['menu.contact.button']}" icon="fa fa-envelope" outcome="/contact"/>
 
                     <f:facet name="options">
-                        <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-plus" outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-user-plus" outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
                         <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user" outcome="/login" rendered="#{p:ifNoneGranted('USER')}"/>
                         <p:button type="button" value="#{msg['menu.adminLayout.button']}" icon="fa fa-user" outcome="/admin/adminLayout" rendered="#{p:ifGranted('ADMIN')}"/>
                         <p:button type="button" value="#{msg['menu.ownerLayout.button']}" icon="fa fa-user" outcome="/owner/ownerLayout" rendered="#{p:ifGranted('OWNER')}"/>

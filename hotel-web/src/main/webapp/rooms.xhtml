@@ -18,7 +18,8 @@
             <h1>#{msg['rooms.welcome.label']}</h1>
 
             <h:form id="form">
-                <p:carousel value="#{roomsBean.roomTypes}" headerText="#{msg['rooms.title.label']}" var="roomType" itemStyle="text-align:center" responsive="true">
+                <p:carousel value="#{roomsBean.roomTypes}" headerText="#{msg['rooms.title.label']}" var="roomType"
+                            style="text-align: center" itemStyle="text-align:center" responsive="true">
                     <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
                         <f:facet name="header">
                             <p:commandLink update=":form:imageDetail" oncomplete="PF('imageDialog').show()">
