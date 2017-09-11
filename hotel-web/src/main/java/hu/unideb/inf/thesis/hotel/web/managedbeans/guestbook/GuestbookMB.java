@@ -23,7 +23,6 @@ public class GuestbookMB {
 
     @EJB
     private UserService userService;
-
     @EJB
     private GuestbookService guestbookService;
 
@@ -32,6 +31,7 @@ public class GuestbookMB {
     private UserVo user;
 
     private String message;
+    private int rating = 0;
 
     private GuestbookVo guestbook = new GuestbookVo();
 
@@ -39,12 +39,19 @@ public class GuestbookMB {
     public void init() {
         messages.addAll(guestbookService.getMessages());
     }
+
     public void addmsg(){
         String username = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
         user = userService.getUserByUsername(username);
         guestbook.setName(user.getUsername());
         guestbook.setMessage(message);
+        guestbook.setRating(rating);
+
         guestbookService.addMessage(guestbook);
+
+        rating = 0;
+        message = "";
+
         messages.clear();
         messages.addAll(guestbookService.getMessages());
     }
@@ -55,6 +62,14 @@ public class GuestbookMB {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public List<GuestbookVo> getMessages() {

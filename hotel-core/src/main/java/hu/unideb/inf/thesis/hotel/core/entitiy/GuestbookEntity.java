@@ -20,13 +20,18 @@ public class GuestbookEntity extends BaseEntity {
 
     @Basic
     @Column(nullable = false)
+    private int rating;
+
+    @Basic
+    @Column(nullable = false)
     private Date time;
 
     public GuestbookEntity(){}
 
-    public GuestbookEntity(String name, String message, Date time) {
+    public GuestbookEntity(String name, String message, int rating, Date time) {
         this.name = name;
         this.message = message;
+        this.rating = rating;
         this.time = time;
     }
 
@@ -46,6 +51,14 @@ public class GuestbookEntity extends BaseEntity {
         this.message = message;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     public Date getTime() {
         return time;
     }
@@ -62,10 +75,10 @@ public class GuestbookEntity extends BaseEntity {
 
         GuestbookEntity that = (GuestbookEntity) o;
 
+        if (rating != that.rating) return false;
         if (!name.equals(that.name)) return false;
         if (!message.equals(that.message)) return false;
         return time.equals(that.time);
-
     }
 
     @Override
@@ -73,15 +86,18 @@ public class GuestbookEntity extends BaseEntity {
         int result = super.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + message.hashCode();
+        result = 31 * result + rating;
         result = 31 * result + time.hashCode();
         return result;
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "GuestbookEntity{" +
                 "name='" + name + '\'' +
                 ", message='" + message + '\'' +
+                ", rating=" + rating +
                 ", time=" + time +
                 '}';
     }

@@ -11,16 +11,18 @@ public class GuestbookVo implements Serializable {
     private Long id;
     private String name;
     private String message;
+    private int rating;
     private Date time;
 
     public GuestbookVo(){
         this.time = new Date();
     }
 
-    public GuestbookVo(Long id, String name, String message ) {
+    public GuestbookVo(Long id, String name, String message, int rating ) {
         this.id = id;
         this.name = name;
         this.message = message;
+        this.rating = rating;
         this.time = new Date();
     }
 
@@ -46,6 +48,14 @@ public class GuestbookVo implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public Date getTime() {
