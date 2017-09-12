@@ -11,7 +11,6 @@
     <h:head>
         <h:outputStylesheet library="css" name="theme.css"/>
         <h:outputStylesheet library="css" name="restaurant.css"/>
-        <script type="text/javascript" src="/hotel/resources/js/sticky_menu.js"/>
 
         <title><ui:insert name="title"/></title>
     </h:head>
@@ -33,7 +32,7 @@
 
         <div id="navigation">
             <h:form>
-                <p:menubar>
+                <p:menubar id="menu">
                     <p:menuitem value="#{msg['menu.home.button']}" icon="fa fa-home" outcome="/home"/>
                     <p:menuitem value="#{msg['menu.hotel.button']}" icon="fa fa-bed" outcome="/hotel"/>
                     <p:submenu label="#{msg['menu.menu.button']}" icon="fa fa-cutlery">
@@ -59,6 +58,8 @@
                         </h:outputLink>
                     </f:facet>
                 </p:menubar>
+
+                <p:sticky target="menu" />
             </h:form>
         </div>
 

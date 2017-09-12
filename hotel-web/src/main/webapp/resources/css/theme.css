@@ -26,7 +26,7 @@ header {
 body {
     background-image: url("/hotel/resources/images/bg00.jpg");
     background-size: 100%;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-attachment: fixed;
     position: relative;
     min-height: 100%;
