@@ -17,15 +17,29 @@
         <ui:define name="body">
             <h1>#{msg['hotel.welcome.label']}</h1>
 
-            <p:carousel id="hotelImages" value="#{hotelBean.images}"
-                        var="image"
-                        vertical="true"
-                        circular="true"
-                        autoPlayInterval="5000"
-                        numVisible="1"
-                        responsive="true" >
+            <p:carousel id="hotelImages" value="#{hotelBean.images}" var="image"
+                        vertical="true" circular="true" autoPlayInterval="5000"
+                        numVisible="1" responsive="true" >
 
                 <p:graphicImage name="/images/gallery/#{image}" style="width: 100%"/>
+            </p:carousel>
+
+            <p:spacer height="2%"/>
+
+            <p:carousel value="#{roomsBean.roomTypes}" var="roomType" headerText="#{msg['rooms.title.label']}"
+                        style="text-align: center" itemStyle="text-align:center" responsive="true">
+                <p:panelGrid columns="2" columnClasses="label,value" layout="grid"
+                             style="width:100%;margin:10px 0px" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:graphicImage name="images/rooms/#{roomType.image}.jpg" style="width: 100%"/>
+                    </f:facet>
+
+                    <h:outputText value="#{msg['rooms.capacity.label']}" />
+                    <h:outputText value="#{roomType.capacity} #{msg['rooms.capacity.tag.label']}" />
+
+                    <h:outputText value="#{msg['rooms.price.label']}" />
+                    <h:outputText value="#{roomType.price} #{msg['rooms.price.tag.label']}" />
+                </p:panelGrid>
             </p:carousel>
         </ui:define>
     </ui:composition>
