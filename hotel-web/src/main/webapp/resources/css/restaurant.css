@@ -4,3 +4,31 @@ body {
     background-repeat: repeat-y;
     background-attachment: fixed;
 }
+
+#restaurantImages {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.restaurantPanel {
+    text-align: center;
+}
+
+.restaurantPanelGrid {
+    width: 100%;
+}
+
+.foodsColumn {
+    text-align: center;
+    width: 33.33%;
+}
+
+.drinksColumn {
+    text-align: center;
+    width: 33.33%;
+}
+
+.reserveTableColumn {
+    text-align: center;
+    width: 33.33%;
+}

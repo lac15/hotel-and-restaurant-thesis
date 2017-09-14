@@ -15,7 +15,23 @@
         </ui:define>
 
         <ui:define name="body">
-            <h1>#{msg['restaurant.welcome.label']}</h1>
+            <p:carousel id="restaurantImages" value="#{restaurantBean.images}" var="image"
+                        vertical="true" circular="true" autoPlayInterval="5000"
+                        numVisible="1" responsive="true" >
+
+                <p:graphicImage name="/images/gallery/#{image}" style="width: 100%"/>
+            </p:carousel>
+
+            <p:spacer height="2%"/>
+
+            <p:panel header="#{msg['restaurant.services.label']}" styleClass="restaurantPanel">
+                <h:panelGrid columns="3" layout="grid" styleClass="restaurantPanelGrid"
+                             columnClasses="foodsColumn, reserveTableColumn, drinksColumn">
+                    <p:button value="#{msg['restaurant.foods']}" outcome="/foods"/>
+                    <p:button value="#{msg['restaurant.tablereserve']}" outcome="/secured/reserveTable"/>
+                    <p:button value="#{msg['restaurant.drinks']}" outcome="/drinks"/>
+                </h:panelGrid>
+            </p:panel>
         </ui:define>
     </ui:composition>
 
