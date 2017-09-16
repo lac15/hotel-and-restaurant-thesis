@@ -14,13 +14,12 @@ header {
     margin: auto;
 }
 
-#navigation {
+#menu {
     width: 100%;
     padding-bottom: 20px;
-    z-index: 1000;
 }
 
-.menubar {
+#menubar {
     width: 100%;
 }
 

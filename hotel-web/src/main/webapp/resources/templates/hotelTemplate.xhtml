@@ -28,11 +28,9 @@
                 </div>
         </header>
 
-        <div id="navFix"></div>
-
-        <div id="navigation">
+        <div id="menu">
             <h:form>
-                <p:menubar id="menu">
+                <p:menubar id="menubar">
                     <p:menuitem value="#{msg['menu.home.button']}" icon="fa fa-home" outcome="/home"/>
                     <p:menuitem value="#{msg['menu.restaurant.button']}" icon="fa fa-cutlery" outcome="/restaurant"/>
                     <p:menuitem value="#{msg['menu.rooms.button']}" icon="fa fa-bed" outcome="/rooms"/>
@@ -55,7 +53,7 @@
                     </f:facet>
                 </p:menubar>
 
-                <p:sticky target="menu" />
+                <p:sticky target="menubar" />
             </h:form>
         </div>
 
