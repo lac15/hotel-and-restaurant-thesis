@@ -15,6 +15,8 @@
         </ui:define>
 
         <ui:define name="body">
+            <h:outputStylesheet library="css" name="gallery.css"/>
+
             <h1>#{msg['gallery.welcome.label']}</h1>
 
             <p:galleria value="#{galleryBean.images}" var="image">

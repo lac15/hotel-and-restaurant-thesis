@@ -1,9 +1,5 @@
-body {
-    background-image: url("/hotel/resources/images/bg02.jpg");
-    background-size: 100%;
-    background-repeat: repeat-y;
-    background-attachment: fixed;
-}
+@import url("theme.css");
+@import url("restaurantTemplate.css");
 
 #restaurantImages {
     margin-left: 15%;

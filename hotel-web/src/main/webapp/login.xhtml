@@ -15,6 +15,8 @@
         </ui:define>
 
         <ui:define name="body">
+            <h:outputStylesheet library="css" name="login.css"/>
+
             <p:panel rendered="#{facesContext.externalContext.userPrincipal == null}" styleClass="loginPanel">
 
                 <p:outputLabel value="#{msg['login.title.label']}" styleClass="label label-info output"/>

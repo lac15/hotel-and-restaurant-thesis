@@ -1,0 +1,6 @@
+body {
+    background-image: url("/hotel/resources/images/bg02.jpg");
+    background-size: 100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+}

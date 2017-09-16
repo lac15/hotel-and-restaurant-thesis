@@ -15,6 +15,8 @@
         </ui:define>
 
         <ui:define name="body">
+            <h:outputStylesheet library="css" name="restaurant.css"/>
+
             <p:carousel id="restaurantImages" value="#{restaurantBean.images}" var="image"
                         vertical="true" circular="true" autoPlayInterval="5000"
                         numVisible="1" responsive="true" >
