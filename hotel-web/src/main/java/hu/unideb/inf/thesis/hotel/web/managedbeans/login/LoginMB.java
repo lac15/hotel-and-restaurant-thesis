@@ -47,6 +47,13 @@ public class LoginMB {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return null;
         }
+        if (!user.getPassword().equals(password)) {
+            FacesMessage msg = new FacesMessage();
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            msg.setSummary(bundle.getString("login.passwordIncorrect.summary"));
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return null;
+        }
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         RequestDispatcher dispatcher = ((ServletRequest)externalContext.getRequest()).getRequestDispatcher("/login");
