@@ -2,6 +2,7 @@ package hu.unideb.inf.thesis.hotel.web.managedbeans.login;
 
 import hu.unideb.inf.thesis.hotel.client.api.service.UserService;
 import hu.unideb.inf.thesis.hotel.client.api.vo.UserVo;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -47,7 +48,7 @@ public class LoginMB {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return null;
         }
-        if (!user.getPassword().equals(password)) {
+        if (!BCrypt.checkpw(password, user.getPassword())) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             msg.setSummary(bundle.getString("login.passwordIncorrect.summary"));
