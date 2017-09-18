@@ -23,6 +23,16 @@ header {
     width: 100%;
 }
 
+.logoutButtonText {
+    display: block;
+    padding: 4px 15px 4px 15px;
+}
+
+.logoutButton:hover {
+    background: #654b24;
+    color: white;
+}
+
 body {
     background-image: url("/hotel/resources/images/bg00.jpg");
     background-size: 100%;

@@ -18,11 +18,6 @@
     <h:body>
 
         <header class="container-fluid header">
-                <!--<div class="col-xs-12 col-sm-1 col-md-1">
-                    <h:outputLink value="/../landing/home.xhtml">
-                        <h:graphicImage library="images" name="logo.png" style="width: 100px" class="img-responsive"/>
-                    </h:outputLink>
-                </div>-->
                 <div>
                     <h:graphicImage library="images" name="banner.jpg" style="width: 100%" class="img-responsive"/>
                 </div>
@@ -43,16 +38,28 @@
                     <p:menuitem value="#{msg['menu.contact.button']}" icon="fa fa-envelope" outcome="/contact"/>
 
                     <f:facet name="options">
-                        <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-user-plus" outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
-                        <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user" outcome="/login" rendered="#{p:ifNoneGranted('USER')}"/>
-                        <p:button type="button" value="#{msg['menu.cart.button']}" icon="fa fa-shopping-cart" outcome="/secured/cart" rendered="#{p:ifGranted('USER')}"/>
-                        <p:button type="button" value="#{msg['menu.adminLayout.button']}" icon="fa fa-user" outcome="/admin/adminLayout" rendered="#{p:ifGranted('ADMIN')}"/>
-                        <p:button type="button" value="#{msg['menu.ownerLayout.button']}" icon="fa fa-user" outcome="/owner/ownerLayout" rendered="#{p:ifGranted('OWNER')}"/>
-                        <p:button type="button" value="#{msg['menu.profile.button']}" icon="fa fa-user" outcome="/secured/profile" rendered="#{p:ifGranted('USER')}"/>
-                        <!--<p:button type="button" onclick="rc()" value="#{msg['menu.logout.button']}" icon="fa fa-close" rendered="#{p:ifGranted('USER')}"/>-->
+                        <p:button type="button" value="#{msg['menu.register.button']}" icon="fa fa-user-plus"
+                                  outcome="/register" rendered="#{p:ifNoneGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.login.button']}" icon="fa fa-user"
+                                  outcome="/login" rendered="#{p:ifNoneGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.cart.button']}" icon="fa fa-shopping-cart"
+                                  outcome="/secured/cart" rendered="#{p:ifGranted('USER')}"/>
+                        <p:button type="button" value="#{msg['menu.adminLayout.button']}" icon="fa fa-user"
+                                  outcome="/admin/adminLayout" rendered="#{p:ifGranted('ADMIN')}"/>
+                        <p:button type="button" value="#{msg['menu.ownerLayout.button']}" icon="fa fa-user"
+                                  outcome="/owner/ownerLayout" rendered="#{p:ifGranted('OWNER')}"/>
+                        <p:button type="button" value="#{msg['menu.profile.button']}" icon="fa fa-user"
+                                  outcome="/secured/profile" rendered="#{p:ifGranted('USER')}"/>
 
-                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/logout" rendered="#{p:ifGranted('USER')}">
-                            #{msg['menu.logout.button']}
+                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/logout"
+                                      rendered="#{p:ifGranted('USER')}"
+                                      styleClass="ui-button ui-widget ui-state-default
+                                      ui-corner-all ui-button-text-icon-left logoutButton">
+                            <span class="ui-button-icon-left ui-icon ui-c fa fa-sign-out">
+                                ::before
+                            </span>
+                            <h:outputText value="#{msg['menu.logout.button']}"
+                                          styleClass="ui-button-text ui-c logoutButtonText"/>
                         </h:outputLink>
                     </f:facet>
                 </p:menubar>
@@ -68,7 +75,8 @@
         <footer>
             <span>
                 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                    <img alt="Creative Commons License" style="margin-top:30px" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" />
+                    <img alt="Creative Commons License" style="margin-top:30px"
+                         src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" />
                 </a>
                 <br />
                 The images on the site are licensed under a
