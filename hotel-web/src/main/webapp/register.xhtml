@@ -18,8 +18,12 @@
             <h:outputStylesheet library="css" name="register.css"/>
 
             <p:panel>
-                <h:form styleClass="registerForm">
+                <h:form>
                     <p:panelGrid columns="3" layout="grid">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['register.title.label']}"/>
+                        </f:facet>
+
                         <p:outputLabel for="username" value="#{msg['register.username.label']}"/>
                         <p:inputText id="username" value="#{registerUser.user.username}" required="true"
                                      requiredMessage="#{msg['register.username.tooltip']}"
