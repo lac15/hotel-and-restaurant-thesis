@@ -17,42 +17,47 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="profile.css"/>
 
-            <h:form styleClass="baseForm">
-                <h1>#{msg['profile.welcome.label']}</h1>
-                <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
-                    <p:outputLabel value="#{msg['register.username.label']}"/>
-                    <p:outputLabel value="#{editProfile.user.username}"/>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
+            <p:panel>
+                <h:form>
+                    <p:panelGrid columns="3" layout="grid">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['profile.title.label']}"/>
+                        </f:facet>
 
-                    <p:outputLabel value="#{msg['register.email.label']}"/>
-                    <p:outputLabel value="#{editProfile.user.email}"/>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
+                        <p:outputLabel value="#{msg['register.username.label']}"/>
+                        <p:outputLabel value="#{editProfile.user.username}"/>
+                        <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
-                    <p:outputLabel value="#{msg['register.firstname.label']}"/>
-                    <p:outputLabel value="#{editProfile.user.firstname}"/>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
+                        <p:outputLabel value="#{msg['register.email.label']}"/>
+                        <p:outputLabel value="#{editProfile.user.email}"/>
+                        <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
-                    <p:outputLabel value="#{msg['register.lastname.label']}"/>
-                    <p:outputLabel value="#{editProfile.user.lastname}"/>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
+                        <p:outputLabel value="#{msg['register.firstname.label']}"/>
+                        <p:outputLabel value="#{editProfile.user.firstname}"/>
+                        <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
-                    <p:outputLabel for="address" value="#{msg['register.address.label']}"/>
-                    <p:inputText id="address" value="#{editProfile.user.address}" required="false"/>
-                    <p:message for="address" display="both"/>
+                        <p:outputLabel value="#{msg['register.lastname.label']}"/>
+                        <p:outputLabel value="#{editProfile.user.lastname}"/>
+                        <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
-                    <p:outputLabel for="phone" value="#{msg['register.phone.label']}"/>
-                    <p:inputText id="phone" value="#{editProfile.user.phone}" required="false"
-                                 validator="#{phoneValidator.validate}"/>
-                    <p:message for="phone" display="both"/>
+                        <p:outputLabel for="address" value="#{msg['register.address.label']}"/>
+                        <p:inputText id="address" value="#{editProfile.user.address}" required="false"/>
+                        <p:message for="address" display="both"/>
 
-                    <p:button value="#{msg['profile.pw.label']}"
-                              outcome="/secured/changePW" icon="fa fa-key"/>
+                        <p:outputLabel for="phone" value="#{msg['register.phone.label']}"/>
+                        <p:inputText id="phone" value="#{editProfile.user.phone}" required="false"
+                                     validator="#{phoneValidator.validate}"/>
+                        <p:message for="phone" display="both"/>
 
-                    <p:commandButton value="#{msg['profile.save.label']}"
-                                     ajax="false"
-                                     action="#{editProfile.saveUser}" icon="fa fa-save"/>
-                </p:panelGrid>
-            </h:form>
+                        <p:commandButton value="#{msg['profile.save.label']}"
+                                         ajax="false"
+                                         action="#{editProfile.saveUser}" icon="fa fa-save"/>
+
+                        <p:button value="#{msg['profile.pw.label']}"
+                                  outcome="/secured/changePW" icon="fa fa-key"/>
+                    </p:panelGrid>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 

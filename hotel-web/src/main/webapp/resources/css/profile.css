@@ -1,1 +1,6 @@
 @import url("theme.css");
+
+.ui-panelgrid .ui-panelgrid-header {
+    font-size: x-large;
+    color: #654b24;
+}
