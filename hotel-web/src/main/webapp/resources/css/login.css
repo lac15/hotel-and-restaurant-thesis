@@ -1,5 +1,10 @@
 @import url("theme.css");
 
+.ui-panelgrid .ui-panelgrid-header {
+    font-size: x-large;
+    color: #654b24;
+}
+
 #loginButton {
     margin: 5px;
     padding: 5px 15px 5px 15px;
