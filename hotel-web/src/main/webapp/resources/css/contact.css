@@ -1,1 +1,11 @@
 @import url("theme.css");
+
+.ui-panelgrid .ui-panelgrid-header {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.gmap {
+    width: 100%;
+    height: 400px;
+}

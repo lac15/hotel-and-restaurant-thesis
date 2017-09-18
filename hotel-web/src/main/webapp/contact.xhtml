@@ -20,33 +20,37 @@
                     type="text/javascript">
             </script>
 
-            <h:form styleClass="baseForm">
-                <h1>#{msg['contact.welcome.label']}</h1>
+            <p:panel>
+                <h:form>
+                    <p:panelGrid columns="2" layout="grid" columnClasses="firstColumn, secondColumn">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['contact.title.label']}"/>
+                        </f:facet>
 
-                <p:panelGrid columns="3" layout="grid" cellpadding="5" styleClass="basePanel"
-                             columnClasses="firstColumn, secondColumn, thirdColumn">
-                    <p:outputLabel value="#{msg['contact.opening.label']}"/>
-                    <p:outputLabel value="#{msg['contact.hours.label']}"/>
-                    <p:outputLabel/>
+                        <p:outputLabel value="#{msg['contact.opening.label']}"/>
+                        <p:outputLabel value="#{msg['contact.hours.label']}"/>
 
-                    <p:outputLabel value="#{msg['contact.address.label']}"/>
-                    <p:outputLabel id="address" value="#{contactBean.user.address}"/>
-                    <p:outputLabel value="#{msg['contact.lost.label']}"/>
+                        <p:outputLabel value="#{msg['contact.address.label']}"/>
+                        <p:outputLabel id="address" value="#{contactBean.user.address}"/>
 
-                    <p:outputLabel value="#{msg['contact.phone.label']}"/>
-                    <p:outputLabel id="phone" value="#{contactBean.user.phone}"/>
-                    <p:outputLabel value="#{msg['contact.findus.label']}"/>
+                        <p:outputLabel value="#{msg['contact.phone.label']}"/>
+                        <p:outputLabel id="phone" value="#{contactBean.user.phone}"/>
 
-                    <p:outputLabel value="#{msg['contact.email.label']}"/>
-                    <p:outputLabel id="email" value="#{contactBean.user.email}"/>
+                        <p:outputLabel value="#{msg['contact.email.label']}"/>
+                        <p:outputLabel id="email" value="#{contactBean.user.email}"/>
+
+                        <p:outputLabel value="#{msg['contact.lost.label']}"/>
+                        <p:outputLabel value="#{msg['contact.findus.label']}"/>
+                    </p:panelGrid>
+
                     <f:view contentType="text/html">
                         <p:gmap id="geoGmap" widgetVar="geoMap" center="#{contactBean.centerGeoMap}"
                                 zoom="14" type="ROADMAP" model="#{contactBean.geoModel}"
-                                style="width:100%;height:400px"/>
+                                styleClass="gmap"/>
                     </f:view>
-                </p:panelGrid>
 
-            </h:form>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 
