@@ -1,1 +1,19 @@
 @import url("theme.css");
+
+#loginButton {
+    margin: 5px;
+    padding: 5px 15px 5px 15px;
+}
+
+#loginButton:hover {
+    background: #654b24;
+    color: white;
+}
+
+.centerButton {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}

@@ -17,28 +17,20 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="login.css"/>
 
-            <p:panel rendered="#{facesContext.externalContext.userPrincipal == null}" styleClass="loginPanel">
+            <p:panel rendered="#{facesContext.externalContext.userPrincipal == null}">
+                <p:outputLabel value="#{msg['login.notRegistered.label']} "/>
 
-                <p:outputLabel value="#{msg['login.title.label']}" styleClass="label label-info output"/>
+                <p:link href="/../hotel/register.xhtml" value="#{msg['login.notRegistered.link']}"/>
 
-                <p:separator/>
+                <p:outputLabel value="#{msg['login.error.label']}" rendered="#{param['error'] == true}"/>
 
-                <p:outputLabel value="#{msg['login.notRegistered.label']} " styleClass="output"/>
-
-                <p:link href="/../hotel/register.xhtml" value="#{msg['login.notRegistered.link']}"
-                        styleClass="output"/>
-
-                <p:separator/>
-
-                <p:outputLabel value="#{msg['login.error.label']}" rendered="#{param['error'] == true}"
-                               styleClass="label label-danger output"/>
-                <p:separator rendered="#{param['error'] == true}"/>
-
-
-                <h:form id="loginForm" prependId="false" styleClass="loginForm">
+                <h:form id="loginForm" prependId="false">
                     <p:messages showSummary="true" showDetail="false"/>
 
-                    <p:panelGrid columns="2" layout="grid" cellpadding="5" styleClass="basePanel">
+                    <p:panelGrid id="loginGrid" columns="2" layout="grid" cellpadding="5">
+                        <f:facet name="header">
+                            <p:outputLabel value="#{msg['login.title.label']}"/>
+                        </f:facet>
                         <p:outputLabel for="j_username" value="#{msg['login.username.label']}"/>
                         <p:inputText id="j_username" value="#{loginBean.username}" required="true"
                                      requiredMessage="#{msg['login.username.requiredMessage']}"/>
@@ -46,31 +38,27 @@
                         <p:outputLabel for="j_password" value="#{msg['login.password.label']}"/>
                         <p:password id="j_password" value="#{loginBean.password}" required="true"
                                     requiredMessage="#{msg['login.password.requiredMessage']}"/>
-
                     </p:panelGrid>
 
-                    <p:separator/>
-
-                    <div align="center">
+                    <div class="centerButton">
                         <h:commandButton
                                 styleClass="ui-button ui-widget ui-state-default
-                                    ui-corner-all ui-button-text-icon-left baseButton"
+                                    ui-corner-all ui-button-text-icon-left"
                                 type="submit" id="loginButton" value="#{msg['login.login.label']}"
                                 action="#{loginBean.login}"/>
                     </div>
 
                     <ui:param name="loggedIn" value="#{loginBean.username}"/>
 
-                    <p:separator/>
-
-                    <p:button outcome="forgotPassword" value="#{msg['login.forgotPasswordButton.label']}"
-                              icon="fa fa-question" styleClass="baseButton"/>
+                    <div class="centerButton">
+                        <p:button value="#{msg['login.forgotPasswordButton.label']}"
+                                  outcome="forgotPassword"/>
+                    </div>
                 </h:form>
             </p:panel>
 
-            <p:outputLabel rendered="#{facesContext.externalContext.userPrincipal != null}"
-                           styleClass="center-block">
-                <h2 style="text-align: center">#{msg['login.alreadyLoggedIn.label']}</h2>
+            <p:outputLabel rendered="#{facesContext.externalContext.userPrincipal != null}">
+                <h2>#{msg['login.alreadyLoggedIn.label']}</h2>
             </p:outputLabel>
 
         </ui:define>
