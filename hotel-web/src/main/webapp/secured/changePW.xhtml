@@ -17,35 +17,39 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="changePW.css"/>
 
-            <h:form styleClass="baseForm">
-                <h1>#{msg['changepw.welcome.label']}</h1>
-                <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
-                    <p:outputLabel value="#{msg['register.username.label']}"/>
-                    <p:outputLabel value="#{editProfile.user.username}"/>
-                    <p:outputLabel value="#{msg['profile.rule.label']}"/>
+            <p:panel>
+                <h:form>
+                    <p:panelGrid columns="3" layout="grid">
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['changepw.title.label']}"/>
+                        </f:facet>
 
-                    <p:outputLabel for="psw1" value="#{msg['register.password.label']}"/>
-                    <p:password id="psw1" value="#{editProfile.user.password}" required="true"
-                                requiredMessage="#{msg['register.password.tooltip']}"
-                                match="psw2" feedback="true" inline="true">
-                        <f:validator validatorId="pwValidator"/>
-                    </p:password>
-                    <p:message for="psw1" display="both"/>
+                        <p:outputLabel value="#{msg['register.username.label']}"/>
+                        <p:outputLabel value="#{editProfile.user.username}"/>
+                        <p:outputLabel value="#{msg['profile.rule.label']}"/>
 
-                    <p:outputLabel for="psw2" value="#{msg['register.confirmpassword.label']}"/>
-                    <p:password id="psw2" value="#{editProfile.user.password}" required="true"
-                                requiredMessage="#{msg['register.confirmpassword.tooltip']}"/>
-                    <p:message for="psw2" display="both"/>
+                        <p:outputLabel for="psw1" value="#{msg['register.password.label']}"/>
+                        <p:password id="psw1" value="#{editProfile.user.password}" required="true"
+                                    requiredMessage="#{msg['register.password.tooltip']}"
+                                    match="psw2" feedback="true" inline="true">
+                            <f:validator validatorId="pwValidator"/>
+                        </p:password>
+                        <p:message for="psw1" display="both"/>
 
-                    <p:outputLabel/>
-                    <p:commandButton value="#{msg['changepw.save.label']}"
-                                     ajax="false"
-                                     action="#{editProfile.savePassword}" icon="fa fa-refresh"/>
+                        <p:outputLabel for="psw2" value="#{msg['register.confirmpassword.label']}"/>
+                        <p:password id="psw2" value="#{editProfile.user.password}" required="true"
+                                    requiredMessage="#{msg['register.confirmpassword.tooltip']}"/>
+                        <p:message for="psw2" display="both"/>
 
-                    <p:button value="#{msg['changepw.back.label']}"
-                                     outcome="/secured/profile" icon="fa fa-reply"/>
-                </p:panelGrid>
-            </h:form>
+                        <p:commandButton value="#{msg['changepw.save.label']}"
+                                         ajax="false"
+                                         action="#{editProfile.savePassword}" icon="fa fa-refresh"/>
+
+                        <p:button value="#{msg['changepw.back.label']}"
+                                         outcome="/secured/profile" icon="fa fa-reply"/>
+                    </p:panelGrid>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 
