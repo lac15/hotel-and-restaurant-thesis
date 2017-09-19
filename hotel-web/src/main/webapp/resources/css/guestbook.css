@@ -1,1 +1,18 @@
 @import url("theme.css");
+
+.headerGrid div {
+    background: none !important;
+    border: none !important;
+}
+
+.userCol {
+    width: auto;
+    color: #654b24;
+    text-align: left;
+}
+
+.timeCol {
+    width: 100%;
+    color: #654b24;
+    text-align: right;
+}
