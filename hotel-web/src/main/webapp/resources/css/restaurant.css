@@ -6,8 +6,16 @@
     margin-right: 15%;
 }
 
+div select {
+    visibility: hidden;
+}
+
 .restaurantPanel {
     text-align: center;
+}
+
+.ui-panel .ui-panel-title {
+    margin: 0;
 }
 
 .restaurantPanelGrid {

@@ -17,35 +17,33 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="gallery.css"/>
 
-            <h1>#{msg['gallery.welcome.label']}</h1>
+            <p:carousel id="galleryImages" value="#{galleryBean.images}" var="image"
+                        vertical="true" circular="true" autoPlayInterval="5000"
+                        numVisible="1" responsive="true">
+                <p:graphicImage name="/images/gallery/#{image}" styleClass="galleryImage"/>
+            </p:carousel>
 
-            <p:galleria value="#{galleryBean.images}" var="image">
-                <p:graphicImage name="/images/gallery/#{image}" style="width: 100%"/>
-            </p:galleria>
+            <p:spacer height="2%"/>
 
             <h:form id="form">
-                <p:dataGrid var="image" value="#{galleryBean.images}" columns="3" layout="grid"
-                            rows="3" paginator="true" id="galleryImages"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rowsPerPageTemplate="3,6,12">
+                <p:dataGrid id="gallery" value="#{galleryBean.images}" var="image"
+                            layout="grid" columns="3" rows="6" paginator="true"
+                            paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                     <f:facet name="header">
-                        Four Seasons Hotel and Restaurant Gallery
+                        <h:outputText value="#{msg['gallery.title.label']}"/>
                     </f:facet>
-
-                    <p:panel style="text-align: center">
+                    <p:panel styleClass="galleryPanel">
                         <p:commandLink update=":form:imageDetail" oncomplete="PF('imageDialog').show()">
-                            <p:graphicImage name="images/gallery/#{image}" style="width: 100%"/>
+                            <p:graphicImage name="images/gallery/#{image}" styleClass="galleryImage"/>
                             <f:setPropertyActionListener value="#{image}" target="#{galleryBean.selectedImage}" />
                         </p:commandLink>
-
-                        <!--<h:outputText value="#{image}" />-->
                     </p:panel>
                 </p:dataGrid>
 
-                <p:dialog widgetVar="imageDialog" modal="true" showEffect="fade" hideEffect="fade"
-                          resizable="false" width="65%">
+                <p:dialog widgetVar="imageDialog" modal="true" showEffect="fade"
+                          hideEffect="fade" resizable="false" width="65%">
                     <p:outputPanel id="imageDetail">
-                        <p:graphicImage name="images/gallery/#{galleryBean.selectedImage}" style="width: 100%"/>
+                        <p:graphicImage name="images/gallery/#{galleryBean.selectedImage}" styleClass="galleryImage"/>
                     </p:outputPanel>
                 </p:dialog>
             </h:form>

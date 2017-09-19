@@ -1,1 +1,23 @@
 @import url("theme.css");
+
+#galleryImages {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+div select {
+    visibility: hidden;
+}
+
+.galleryImage {
+    width: 100%;
+}
+
+.ui-datagrid .ui-datagrid-header {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.galleryPanel {
+    text-align: center;
+}
