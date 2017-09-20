@@ -1,2 +1,16 @@
 @import url("theme.css");
 @import url("hotelTemplate.css");
+
+.ui-datagrid .ui-datagrid-header {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.roomsGrid {
+    width: 100%;
+    text-align: center;
+}
+
+.roomImage {
+    width: 100%;
+}

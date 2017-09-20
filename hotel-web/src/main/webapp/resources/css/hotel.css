@@ -6,6 +6,16 @@
     margin-right: 15%;
 }
 
-div select {
-    visibility: hidden;
+.ui-datagrid .ui-datagrid-header {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.roomsGrid {
+    width: 100%;
+    text-align: center;
+}
+
+.roomImage {
+    width: 100%;
 }
