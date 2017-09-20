@@ -1,5 +1,27 @@
 @import url("theme.css");
 
+.ui-panel .ui-panel-titlebar {
+    text-align: center;
+}
+
+.ui-panel .ui-panel-title {
+    margin: 0;
+}
+
+.ui-panel-title {
+    font-size: x-large;
+    color: #654b24;
+}
+
+#newMessageGrid div[class = "ui-panelgrid-header ui-widget-header"] {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.ui-column-title {
+    font-size: x-large;
+}
+
 .headerGrid div {
     background: none !important;
     border: none !important;

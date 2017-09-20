@@ -31,7 +31,8 @@
                 <h:form id="messageForm" prependId="false">
                     <p:messages id="required" showSummary="true" showDetail="false" />
 
-                    <p:panelGrid columns="2" layout="grid" columnClasses="firstGuestColumn, secondGuestColumn">
+                    <p:panelGrid id="newMessageGrid" columns="2" layout="grid"
+                                 columnClasses="labelCol, inputCol">
                         <f:facet name="header">
                             <h:outputText value="#{msg['guestbook.newmessage']}"/>
                         </f:facet>
