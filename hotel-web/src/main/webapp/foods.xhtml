@@ -17,73 +17,78 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="foods.css"/>
 
-            <h:form styleClass="baseForm">
-                <h1>#{msg['foods.welcome.label']}</h1>
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['foods.title.label']}"/>
+                </f:facet>
 
-                <p:tabView>
-                    <p:tab title="#{msg['foods.soupTab.title']}">
-                        <p:dataTable var="soup" value="#{foodsMB.soups}" style="margin-bottom:0">
-                            <p:column headerText="#{msg['foods.name.label']}" sortBy="#{soup.name}">
-                                <h:outputText value="#{soup.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['foods.price.label']}" sortBy="#{soup.price}">
-                                <h:outputText value="#{soup.price}"/>
-                            </p:column>
-                            <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
-                                <p:commandButton id="addSoup" value="#{msg['foods.addtocart']}"
-                                                 action="#{foodsMB.addFoodVo(soup)}"
-                                                 oncomplete="PF('quantityDialog').show();"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
+                <h:form>
+                    <p:tabView>
+                        <p:tab title="#{msg['foods.soupTab.title']}">
+                            <p:dataTable var="soup" value="#{foodsMB.soups}">
+                                <p:column headerText="#{msg['foods.name.label']}" sortBy="#{soup.name}">
+                                    <h:outputText value="#{soup.name}" />
+                                </p:column>
+                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{soup.price}">
+                                    <h:outputText value="#{soup.price}"/>
+                                </p:column>
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                    <p:commandButton id="addSoup" value="#{msg['foods.addtocart']}"
+                                                     action="#{foodsMB.addFoodVo(soup)}"
+                                                     oncomplete="PF('quantityDialog').show();"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
 
-                    <p:tab title="#{msg['foods.mainCourseTab.title']}">
-                        <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}" style="margin-bottom:0">
-                            <p:column headerText="#{msg['foods.name.label']}" sortBy="#{mainCourse.name}">
-                                <h:outputText value="#{mainCourse.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['foods.price.label']}" sortBy="#{mainCourse.price}">
-                                <h:outputText value="#{mainCourse.price}"/>
-                            </p:column>
-                            <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
-                                <p:commandButton id="addMainCourse" value="#{msg['foods.addtocart']}"
-                                                 action="#{foodsMB.addFoodVo(mainCourse)}"
-                                                 oncomplete="PF('quantityDialog').show();"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
+                        <p:tab title="#{msg['foods.mainCourseTab.title']}">
+                            <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}">
+                                <p:column headerText="#{msg['foods.name.label']}" sortBy="#{mainCourse.name}">
+                                    <h:outputText value="#{mainCourse.name}" />
+                                </p:column>
+                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{mainCourse.price}">
+                                    <h:outputText value="#{mainCourse.price}"/>
+                                </p:column>
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                    <p:commandButton id="addMainCourse" value="#{msg['foods.addtocart']}"
+                                                     action="#{foodsMB.addFoodVo(mainCourse)}"
+                                                     oncomplete="PF('quantityDialog').show();"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
 
-                    <p:tab title="#{msg['foods.dessertTab.title']}">
-                        <p:dataTable var="dessert" value="#{foodsMB.desserts}" style="margin-bottom:0">
-                            <p:column headerText="#{msg['foods.name.label']}" sortBy="#{dessert.name}">
-                                <h:outputText value="#{dessert.name}" />
-                            </p:column>
-                            <p:column headerText="#{msg['foods.price.label']}" sortBy="#{dessert.price}">
-                                <h:outputText value="#{dessert.price}"/>
-                            </p:column>
-                            <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
-                                <p:commandButton id="addDessert" value="#{msg['foods.addtocart']}"
-                                                 action="#{foodsMB.addFoodVo(dessert)}"
-                                                 oncomplete="PF('quantityDialog').show();"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:tab>
-                </p:tabView>
+                        <p:tab title="#{msg['foods.dessertTab.title']}">
+                            <p:dataTable var="dessert" value="#{foodsMB.desserts}">
+                                <p:column headerText="#{msg['foods.name.label']}" sortBy="#{dessert.name}">
+                                    <h:outputText value="#{dessert.name}" />
+                                </p:column>
+                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{dessert.price}">
+                                    <h:outputText value="#{dessert.price}"/>
+                                </p:column>
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                    <p:commandButton id="addDessert" value="#{msg['foods.addtocart']}"
+                                                     action="#{foodsMB.addFoodVo(dessert)}"
+                                                     oncomplete="PF('quantityDialog').show();"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                    </p:tabView>
 
-                <p:dialog widgetVar="quantityDialog" header="#{msg['foods.quantityDialog.header']}" modal="true">
-                    <h:form>
-                        <h:outputText value="#{msg['foods.quantityDialog.message']}" />
-                        <h:panelGrid columns="2">
-                            <h:outputText value="#{msg['foods.quantity']}" />
-                            <p:spinner id="spin" value="#{foodsMB.quantity}"
-                                       min="1" max="20" converter="javax.faces.Integer"/>
-                        </h:panelGrid>
-                        <p:commandButton id="quantityOk" value="#{msg['foods.addtocart']}"
-                                         action="#{foodsMB.addFoodToCart}"
-                                         oncomplete="PF('quantityDialog').hide();"/>
-                    </h:form>
-                </p:dialog>
-            </h:form>
+                    <p:dialog widgetVar="quantityDialog" header="#{msg['foods.quantityDialog.header']}"
+                              modal="true" draggable="false" resizable="false" styleClass="quantityDialog">
+                        <h:form>
+                            <h:outputText value="#{msg['foods.quantityDialog.message']}" />
+                            <h:panelGrid columns="1" columnClasses="quantityCol" styleClass="quantityGrid">
+                                <h:outputText value="#{msg['foods.quantity']}" />
+                                <p:spinner id="spin" value="#{foodsMB.quantity}"
+                                           min="1" max="20" converter="javax.faces.Integer"/>
+                            </h:panelGrid>
+                            <p:commandButton id="quantityOk" value="#{msg['foods.addtocart']}"
+                                             action="#{foodsMB.addFoodToCart}"
+                                             oncomplete="PF('quantityDialog').hide();"/>
+                        </h:form>
+                    </p:dialog>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 
