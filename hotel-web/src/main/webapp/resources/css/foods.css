@@ -18,6 +18,14 @@
     padding: 0;
 }
 
+.priceCol {
+    text-align: center;
+}
+
+.orderCol {
+    text-align: center;
+}
+
 .quantityDialog {
     text-align: center;
 }

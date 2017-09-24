@@ -29,10 +29,12 @@
                                 <p:column headerText="#{msg['foods.name.label']}" sortBy="#{soup.name}">
                                     <h:outputText value="#{soup.name}" />
                                 </p:column>
-                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{soup.price}">
-                                    <h:outputText value="#{soup.price}"/>
+                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{soup.price}"
+                                          styleClass="priceCol">
+                                    <h:outputText value="#{soup.price} #{msg['foods.huf']}"/>
                                 </p:column>
-                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}"
+                                          styleClass="orderCol">
                                     <p:commandButton id="addSoup" value="#{msg['foods.addtocart']}"
                                                      action="#{foodsMB.addFoodVo(soup)}"
                                                      oncomplete="PF('quantityDialog').show();"/>
@@ -45,10 +47,12 @@
                                 <p:column headerText="#{msg['foods.name.label']}" sortBy="#{mainCourse.name}">
                                     <h:outputText value="#{mainCourse.name}" />
                                 </p:column>
-                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{mainCourse.price}">
-                                    <h:outputText value="#{mainCourse.price}"/>
+                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{mainCourse.price}"
+                                          styleClass="priceCol">
+                                    <h:outputText value="#{mainCourse.price} #{msg['foods.huf']}"/>
                                 </p:column>
-                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}"
+                                          styleClass="orderCol">
                                     <p:commandButton id="addMainCourse" value="#{msg['foods.addtocart']}"
                                                      action="#{foodsMB.addFoodVo(mainCourse)}"
                                                      oncomplete="PF('quantityDialog').show();"/>
@@ -61,10 +65,12 @@
                                 <p:column headerText="#{msg['foods.name.label']}" sortBy="#{dessert.name}">
                                     <h:outputText value="#{dessert.name}" />
                                 </p:column>
-                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{dessert.price}">
-                                    <h:outputText value="#{dessert.price}"/>
+                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{dessert.price}"
+                                          styleClass="priceCol">
+                                    <h:outputText value="#{dessert.price} #{msg['foods.huf']}"/>
                                 </p:column>
-                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}">
+                                <p:column headerText="#{msg['foods.order']}" visible="#{p:ifGranted('USER')}"
+                                          styleClass="orderCol">
                                     <p:commandButton id="addDessert" value="#{msg['foods.addtocart']}"
                                                      action="#{foodsMB.addFoodVo(dessert)}"
                                                      oncomplete="PF('quantityDialog').show();"/>
@@ -82,6 +88,7 @@
                                 <p:spinner id="spin" value="#{foodsMB.quantity}"
                                            min="1" max="20" converter="javax.faces.Integer"/>
                             </h:panelGrid>
+
                             <p:commandButton id="quantityOk" value="#{msg['foods.addtocart']}"
                                              action="#{foodsMB.addFoodToCart}"
                                              oncomplete="PF('quantityDialog').hide();"/>

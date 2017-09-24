@@ -17,42 +17,45 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="drinks.css"/>
 
-            <h:form styleClass="baseForm">
-                <h1>#{msg['drinks.welcome.label']}</h1>
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['drinks.title.label']}"/>
+                </f:facet>
 
-                <p:dataTable var="drink" value="#{drinksMB.drinks}" style="margin-bottom:0">
-                    <f:facet name="header">
-                        #{msg['drinks.title.label']}
-                    </f:facet>
+                <h:form>
+                    <p:dataTable var="drink" value="#{drinksMB.drinks}">
+                        <p:column headerText="#{msg['drinks.name.label']}" sortBy="#{drink.name}">
+                            <h:outputText value="#{drink.name}" />
+                        </p:column>
+                        <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}"
+                                  styleClass="priceCol">
+                            <h:outputText value="#{drink.price} #{msg['drinks.huf']}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['drinks.order']}" visible="#{p:ifGranted('USER')}"
+                                  styleClass="orderCol">
+                            <p:commandButton id="addSoup" value="#{msg['drinks.addtocart']}"
+                                             action="#{drinksMB.addDrinkVo(drink)}"
+                                             oncomplete="PF('quantityDialog').show();"/>
+                        </p:column>
+                    </p:dataTable>
 
-                    <p:column headerText="#{msg['drinks.name.label']}" sortBy="#{drink.name}">
-                        <h:outputText value="#{drink.name}" />
-                    </p:column>
-                    <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}">
-                        <h:outputText value="#{drink.price}"/>
-                    </p:column>
-                    <p:column headerText="#{msg['drinks.order']}" visible="#{p:ifGranted('USER')}">
-                        <p:commandButton id="addSoup" value="#{msg['drinks.addtocart']}"
-                                         action="#{drinksMB.addDrinkVo(drink)}"
-                                         oncomplete="PF('quantityDialog').show();"/>
-                    </p:column>
-                </p:dataTable>
+                    <p:dialog widgetVar="quantityDialog" header="#{msg['drinks.quantityDialog.header']}"
+                              modal="true" draggable="false" resizable="false" styleClass="quantityDialog">
+                        <h:form>
+                            <h:outputText value="#{msg['drinks.quantityDialog.message']}" />
+                            <h:panelGrid columns="1" columnClasses="quantityCol" styleClass="quantityGrid">
+                                <h:outputText value="#{msg['drinks.quantity']}" />
+                                <p:spinner id="spin" value="#{drinksMB.quantity}"
+                                           min="1" max="20" converter="javax.faces.Integer"/>
+                            </h:panelGrid>
 
-                <p:dialog widgetVar="quantityDialog" header="#{msg['drinks.quantityDialog.header']}" modal="true">
-                    <h:form>
-                        <h:outputText value="#{msg['drinks.quantityDialog.message']}" />
-                        <h:panelGrid columns="2">
-                            <h:outputText value="#{msg['drinks.quantity']}" />
-                            <p:spinner id="spin" value="#{drinksMB.quantity}"
-                                       min="1" max="20" converter="javax.faces.Integer"/>
-                        </h:panelGrid>
-
-                        <p:commandButton id="quantityOk" value="#{msg['drinks.addtocart']}"
-                                         action="#{drinksMB.addDrinkToCart}"
-                                         oncomplete="PF('quantityDialog').hide();"/>
-                    </h:form>
-                </p:dialog>
-            </h:form>
+                            <p:commandButton id="quantityOk" value="#{msg['drinks.addtocart']}"
+                                             action="#{drinksMB.addDrinkToCart}"
+                                             oncomplete="PF('quantityDialog').hide();"/>
+                        </h:form>
+                    </p:dialog>
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 

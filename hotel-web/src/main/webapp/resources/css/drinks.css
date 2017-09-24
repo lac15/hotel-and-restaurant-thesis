@@ -1,2 +1,44 @@
 @import url("theme.css");
 @import url("restaurantTemplate.css");
+
+.ui-panel .ui-panel-titlebar {
+    text-align: center;
+}
+
+.ui-panel .ui-panel-title {
+    margin: 0;
+}
+
+.ui-panel-title {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.priceCol {
+    text-align: center;
+}
+
+.orderCol {
+    text-align: center;
+}
+
+.quantityDialog {
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-title {
+    text-align: center;
+    float: none;
+    font-size: large;
+    color: #654b24;
+}
+
+.quantityGrid {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.quantityCol {
+    width: 100%;
+}
