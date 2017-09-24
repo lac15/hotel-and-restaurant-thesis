@@ -17,20 +17,22 @@
         <ui:define name="body">
             <h:outputStylesheet library="css" name="cart.css"/>
 
-            <h:form id="form" styleClass="baseForm">
-                <h1>#{msg['cart.title.label']}</h1>
-
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['cart.title.label']}"/>
+                </f:facet>
+            <h:form id="form">
                 <p:dataTable id="foodCart" var="food" value="#{cartContentBean.foods}" sortBy="#{food.key.name}"
-                             style="margin-bottom:40px">
+                             emptyMessage="#{msg['cart.emptyMessage']}" styleClass="foodTable">
                     <f:facet name="header">
                         <h:outputText value="#{msg['cart.foods.header']}" />
                     </f:facet>
-                    <p:column headerText="#{msg['cart.name']}" sortBy="#{food.key.name}">
+                    <p:column headerText="#{msg['cart.name']}" sortBy="#{food.key.name}" styleClass="nameCol">
                         <h:outputText value="#{food.key.name}" />
                     </p:column>
 
                     <p:column headerText="#{msg['cart.price']}" sortBy="#{food.key.price}">
-                        <h:outputText value="#{food.key.price}" />
+                        <h:outputText value="#{food.key.price} #{msg['cart.huf']}" />
                     </p:column>
 
                     <p:column headerText="#{msg['cart.quantity']}" sortBy="#{food.value}">
@@ -38,7 +40,7 @@
                     </p:column>
 
                     <p:column headerText="#{msg['cart.fullprice']}">
-                        <h:outputText value="#{food.key.price * food.value}" />
+                        <h:outputText value="#{food.key.price * food.value} #{msg['cart.huf']}" />
                     </p:column>
 
                     <p:column headerText="#{msg['cart.plusminus']}">
@@ -56,16 +58,16 @@
                 </p:dataTable>
 
                 <p:dataTable id="drinkCart" var="drink" value="#{cartContentBean.drinks}" sortBy="#{drink.key.name}"
-                             style="margin-bottom:40px">
+                             emptyMessage="#{msg['cart.emptyMessage']}" styleClass="drinkTable">
                     <f:facet name="header">
                         <h:outputText value="#{msg['cart.drinks.header']}" />
                     </f:facet>
-                    <p:column headerText="#{msg['cart.name']}" sortBy="#{drink.key.name}">
+                    <p:column headerText="#{msg['cart.name']}" sortBy="#{drink.key.name}" styleClass="nameCol">
                         <h:outputText value="#{drink.key.name}" />
                     </p:column>
 
                     <p:column headerText="#{msg['cart.price']}" sortBy="#{drink.key.price}">
-                        <h:outputText value="#{drink.key.price}" />
+                        <h:outputText value="#{drink.key.price} #{msg['cart.huf']}" />
                     </p:column>
 
                     <p:column headerText="#{msg['cart.quantity']}" sortBy="#{drink.value}">
@@ -73,7 +75,7 @@
                     </p:column>
 
                     <p:column headerText="#{msg['cart.fullprice']}">
-                        <h:outputText value="#{drink.key.price * drink.value}" />
+                        <h:outputText value="#{drink.key.price * drink.value} #{msg['cart.huf']}" />
                     </p:column>
 
                     <p:column headerText="#{msg['cart.plusminus']}">
@@ -90,21 +92,24 @@
                     </f:facet>
                 </p:dataTable>
             </h:form>
-
-            <p:panel id="orderPanel">
-                <h:outputText value="#{msg['cart.total']} "/>
-                <h:outputText id="totalPrice" value="#{cartContentBean.total} #{msg['cart.huf']}"/>
-                <p:commandButton id="submitOrder" value="#{msg['cart.order.button']}"
-                                 action="#{cartContentBean.saveOrder}"
-                                 update=":form:drinkCart :form:foodCart totalPrice"
-                                 style="float: right"/>
             </p:panel>
 
-            <p:dialog widgetVar="orderDialog" header="#{msg['cart.orderDialog.header']}" modal="true">
+            <p:panel id="orderPanel">
+                <p:panelGrid columns="2" styleClass="ui-noborder orderGrid">
+                    <h:outputText id="totalPrice" value="#{msg['cart.total']} #{cartContentBean.total} #{msg['cart.huf']}"/>
+                    <p:commandButton id="submitOrder" value="#{msg['cart.order.button']}"
+                                     action="#{cartContentBean.saveOrder}"
+                                     update=":form:drinkCart :form:foodCart totalPrice"/>
+                </p:panelGrid>
+            </p:panel>
+
+            <p:dialog widgetVar="orderDialog" header="#{msg['cart.orderDialog.header']}"
+                      modal="true" draggable="false" resizable="false" styleClass="orderDialog">
                 <h:outputText value="#{msg['cart.orderDialog.message']}" />
             </p:dialog>
 
-            <p:dialog widgetVar="emptyCartDialog" header="#{msg['cart.emptyCartDialog.header']}" modal="true">
+            <p:dialog widgetVar="emptyCartDialog" header="#{msg['cart.emptyCartDialog.header']}"
+                      modal="true" draggable="false" resizable="false" styleClass="emptyCartDialog">
                 <h:outputText value="#{msg['cart.emptyCartDialog.message']}" />
             </p:dialog>
         </ui:define>
