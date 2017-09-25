@@ -24,10 +24,10 @@
 
                 <h:form>
                     <p:dataTable var="drink" value="#{drinksMB.drinks}">
-                        <p:column headerText="#{msg['drinks.name.label']}" sortBy="#{drink.name}">
+                        <p:column headerText="#{msg['drinks.name.label']}">
                             <h:outputText value="#{drink.name}" />
                         </p:column>
-                        <p:column headerText="#{msg['drinks.price.label']}" sortBy="#{drink.price}"
+                        <p:column headerText="#{msg['drinks.price.label']}"
                                   styleClass="priceCol">
                             <h:outputText value="#{drink.price} #{msg['drinks.huf']}"/>
                         </p:column>

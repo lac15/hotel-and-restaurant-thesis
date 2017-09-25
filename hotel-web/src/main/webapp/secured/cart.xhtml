@@ -22,20 +22,20 @@
                     <h:outputText value="#{msg['cart.title.label']}"/>
                 </f:facet>
             <h:form id="form">
-                <p:dataTable id="foodCart" var="food" value="#{cartContentBean.foods}" sortBy="#{food.key.name}"
+                <p:dataTable id="foodCart" var="food" value="#{cartContentBean.foods}"
                              emptyMessage="#{msg['cart.emptyMessage']}" styleClass="foodTable">
                     <f:facet name="header">
                         <h:outputText value="#{msg['cart.foods.header']}" />
                     </f:facet>
-                    <p:column headerText="#{msg['cart.name']}" sortBy="#{food.key.name}" styleClass="nameCol">
+                    <p:column headerText="#{msg['cart.name']}" styleClass="nameCol">
                         <h:outputText value="#{food.key.name}" />
                     </p:column>
 
-                    <p:column headerText="#{msg['cart.price']}" sortBy="#{food.key.price}">
+                    <p:column headerText="#{msg['cart.price']}">
                         <h:outputText value="#{food.key.price} #{msg['cart.huf']}" />
                     </p:column>
 
-                    <p:column headerText="#{msg['cart.quantity']}" sortBy="#{food.value}">
+                    <p:column headerText="#{msg['cart.quantity']}">
                         <h:outputText value="#{food.value}" />
                     </p:column>
 
@@ -57,20 +57,20 @@
                     </f:facet>
                 </p:dataTable>
 
-                <p:dataTable id="drinkCart" var="drink" value="#{cartContentBean.drinks}" sortBy="#{drink.key.name}"
+                <p:dataTable id="drinkCart" var="drink" value="#{cartContentBean.drinks}"
                              emptyMessage="#{msg['cart.emptyMessage']}" styleClass="drinkTable">
                     <f:facet name="header">
                         <h:outputText value="#{msg['cart.drinks.header']}" />
                     </f:facet>
-                    <p:column headerText="#{msg['cart.name']}" sortBy="#{drink.key.name}" styleClass="nameCol">
+                    <p:column headerText="#{msg['cart.name']}" styleClass="nameCol">
                         <h:outputText value="#{drink.key.name}" />
                     </p:column>
 
-                    <p:column headerText="#{msg['cart.price']}" sortBy="#{drink.key.price}">
+                    <p:column headerText="#{msg['cart.price']}">
                         <h:outputText value="#{drink.key.price} #{msg['cart.huf']}" />
                     </p:column>
 
-                    <p:column headerText="#{msg['cart.quantity']}" sortBy="#{drink.value}">
+                    <p:column headerText="#{msg['cart.quantity']}">
                         <h:outputText value="#{drink.value}" />
                     </p:column>
 

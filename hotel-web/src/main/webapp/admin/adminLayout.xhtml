@@ -22,31 +22,36 @@
                     <p:tabView id="tab">
                         <p:tab title="#{msg['admin.userTab.title']}">
                             <p:outputLabel for="userRoles" value="#{msg['admin.roles.label']}"/>
-                            <p:selectOneRadio id="userRoles" value="#{roleManagement.userRole}" layout="responsive" columns="4">
-                                <f:selectItems value="#{roleManagement.userRoles}" var="userRole" itemLabel="#{userRole.name}" itemValue="#{userRole.name}"/>
+                            <p:selectOneRadio id="userRoles" value="#{roleManagement.userRole}"
+                                              layout="responsive" columns="4">
+                                <f:selectItems value="#{roleManagement.userRoles}" var="userRole"
+                                               itemLabel="#{userRole.name}" itemValue="#{userRole.name}"/>
                             </p:selectOneRadio>
 
-                            <p:dataTable id="checkboxUser" var="user" value="#{userManagement.users.source}" selection="#{userManagement.users.target}" rowKey="#{user.id}" style="margin-bottom:0">
+                            <p:dataTable id="checkboxUser" var="user" value="#{userManagement.users.source}"
+                                         selection="#{userManagement.users.target}" rowKey="#{user.id}"
+                                         style="margin-bottom:0">
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{user.username}">
+                                <p:column headerText="#{msg['admin.user.name.label']}">
                                     <h:outputText value="#{user.username}" />
                                 </p:column>
-                                <p:column headerText="#{msg['admin.user.email.label']}" sortBy="#{user.email}">
+                                <p:column headerText="#{msg['admin.user.email.label']}">
                                     <h:outputText value="#{user.email}"/>
                                 </p:column>
-                                <p:column headerText="#{msg['admin.user.active.label']}" sortBy="#{user.active}">
+                                <p:column headerText="#{msg['admin.user.active.label']}">
                                     <h:outputText value="#{user.active}"/>
                                 </p:column>
                             </p:dataTable>
 
-                            <p:commandButton id="usersAddSubmit" value="#{msg['admin.addButton.label']}" update="displayUsers"
-                                             oncomplete="PF('usersDialog').show()" style="margin-top:5px"
+                            <p:commandButton id="usersAddSubmit" value="#{msg['admin.addButton.label']}"
+                                             update="displayUsers" oncomplete="PF('usersDialog').show()" style="margin-top:5px"
                                              action="#{addRoleToUsers.addRole(userManagement.users.target, roleManagement.userRole)}"/>
-                            <p:commandButton id="usersRemoveSubmit" value="#{msg['admin.removeButton.label']}" update="displayUsers"
-                                             oncomplete="PF('usersDialog').show()" style="margin-top:5px"
+                            <p:commandButton id="usersRemoveSubmit" value="#{msg['admin.removeButton.label']}"
+                                             update="displayUsers" oncomplete="PF('usersDialog').show()" style="margin-top:5px"
                                              action="#{addRoleToUsers.removeRole(userManagement.users.target, roleManagement.userRole)}"/>
 
-                            <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="usersDialog" header="#{msg['admin.users.success.label']}">
+                            <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="usersDialog"
+                                      header="#{msg['admin.users.success.label']}">
                                 <h:panelGrid id="displayUsers" columns="2">
                                     <h:outputText value="#{msg['admin.users.label']}" style="font-weight:bold"/>
                                     <ui:repeat value="#{userManagement.users.target}" var="item">
@@ -60,27 +65,30 @@
                         </p:tab>
 
                         <p:tab title="#{msg['admin.activeTab.title']}">
-                            <p:dataTable id="checkboxActive" var="userActive" value="#{userManagement.usersActive.source}" selection="#{userManagement.usersActive.target}" rowKey="#{userActive.id}" style="margin-bottom:0">
+                            <p:dataTable id="checkboxActive" var="userActive" value="#{userManagement.usersActive.source}"
+                                         selection="#{userManagement.usersActive.target}" rowKey="#{userActive.id}"
+                                         style="margin-bottom:0">
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{userActive.username}">
+                                <p:column headerText="#{msg['admin.user.name.label']}">
                                     <h:outputText value="#{userActive.username}" />
                                 </p:column>
-                                <p:column headerText="#{msg['admin.user.email.label']}" sortBy="#{userActive.email}">
+                                <p:column headerText="#{msg['admin.user.email.label']}">
                                     <h:outputText value="#{userActive.email}"/>
                                 </p:column>
-                                <p:column headerText="#{msg['admin.user.active.label']}" sortBy="#{userActive.active}">
+                                <p:column headerText="#{msg['admin.user.active.label']}">
                                     <h:outputText value="#{userActive.active}"/>
                                 </p:column>
                             </p:dataTable>
 
-                            <p:commandButton id="activeTrueSubmit" value="#{msg['admin.activeButton.label']}" update="displayActive"
-                                             oncomplete="PF('activeDialog').show()" style="margin-top:5px"
+                            <p:commandButton id="activeTrueSubmit" value="#{msg['admin.activeButton.label']}"
+                                             update="displayActive" oncomplete="PF('activeDialog').show()" style="margin-top:5px"
                                              action="#{setUsersActivity.setActivity(userManagement.usersActive.target, true)}"/>
-                            <p:commandButton id="activeFalseSubmit" value="#{msg['admin.inactiveButton.label']}" update="displayActive"
-                                             oncomplete="PF('activeDialog').show()" style="margin-top:5px"
+                            <p:commandButton id="activeFalseSubmit" value="#{msg['admin.inactiveButton.label']}"
+                                             update="displayActive" oncomplete="PF('activeDialog').show()" style="margin-top:5px"
                                              action="#{setUsersActivity.setActivity(userManagement.usersActive.target, false)}"/>
 
-                            <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="activeDialog" header="#{msg['admin.active.success.label']}">
+                            <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="activeDialog"
+                                      header="#{msg['admin.active.success.label']}">
                                 <h:panelGrid id="displayActive" columns="2">
                                     <h:outputText value="#{msg['admin.users.label']}" style="font-weight:bold"/>
                                     <ui:repeat value="#{userManagement.usersActive.target}" var="item">
@@ -91,24 +99,27 @@
                         </p:tab>
 
                         <p:tab title="#{msg['admin.passTab.title']}">
-                            <p:dataTable id="checkboxPass" var="userPass" value="#{userManagement.usersPass.source}" selection="#{userManagement.usersPass.target}" rowKey="#{userPass.id}" style="margin-bottom:0">
+                            <p:dataTable id="checkboxPass" var="userPass" value="#{userManagement.usersPass.source}"
+                                         selection="#{userManagement.usersPass.target}" rowKey="#{userPass.id}"
+                                         style="margin-bottom:0">
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['admin.user.name.label']}" sortBy="#{userPass.username}">
+                                <p:column headerText="#{msg['admin.user.name.label']}">
                                     <h:outputText value="#{userPass.username}" />
                                 </p:column>
-                                <p:column headerText="#{msg['admin.user.email.label']}" sortBy="#{userPass.email}">
+                                <p:column headerText="#{msg['admin.user.email.label']}">
                                     <h:outputText value="#{userPass.email}"/>
                                 </p:column>
-                                <p:column headerText="#{msg['admin.user.active.label']}" sortBy="#{userPass.active}">
+                                <p:column headerText="#{msg['admin.user.active.label']}">
                                     <h:outputText value="#{userPass.active}"/>
                                 </p:column>
                             </p:dataTable>
 
-                            <p:commandButton id="passSubmit" value="#{msg['admin.submitButton.label']}" update="displayPass"
-                                             oncomplete="PF('passDialog').show()" style="margin-top:5px"
+                            <p:commandButton id="passSubmit" value="#{msg['admin.submitButton.label']}"
+                                             update="displayPass" oncomplete="PF('passDialog').show()" style="margin-top:5px"
                                              action="#{setPasswordToDefault.setDefault(userManagement.usersPass.target)}"/>
 
-                            <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="passDialog" header="#{msg['admin.pass.success.label']}">
+                            <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="passDialog"
+                                      header="#{msg['admin.pass.success.label']}">
                                 <h:panelGrid id="displayPass" columns="2" title="#{msg['admin.pass.success.label']}">
                                     <h:outputText value="#{msg['admin.users.label']}" style="font-weight:bold"/>
                                     <ui:repeat value="#{userManagement.usersPass.target}" var="item">

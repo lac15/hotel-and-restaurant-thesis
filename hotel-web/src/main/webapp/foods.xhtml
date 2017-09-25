@@ -26,10 +26,10 @@
                     <p:tabView>
                         <p:tab title="#{msg['foods.soupTab.title']}">
                             <p:dataTable var="soup" value="#{foodsMB.soups}">
-                                <p:column headerText="#{msg['foods.name.label']}" sortBy="#{soup.name}">
+                                <p:column headerText="#{msg['foods.name.label']}">
                                     <h:outputText value="#{soup.name}" />
                                 </p:column>
-                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{soup.price}"
+                                <p:column headerText="#{msg['foods.price.label']}"
                                           styleClass="priceCol">
                                     <h:outputText value="#{soup.price} #{msg['foods.huf']}"/>
                                 </p:column>
@@ -44,10 +44,10 @@
 
                         <p:tab title="#{msg['foods.mainCourseTab.title']}">
                             <p:dataTable var="mainCourse" value="#{foodsMB.mainCourses}">
-                                <p:column headerText="#{msg['foods.name.label']}" sortBy="#{mainCourse.name}">
+                                <p:column headerText="#{msg['foods.name.label']}">
                                     <h:outputText value="#{mainCourse.name}" />
                                 </p:column>
-                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{mainCourse.price}"
+                                <p:column headerText="#{msg['foods.price.label']}"
                                           styleClass="priceCol">
                                     <h:outputText value="#{mainCourse.price} #{msg['foods.huf']}"/>
                                 </p:column>
@@ -62,10 +62,10 @@
 
                         <p:tab title="#{msg['foods.dessertTab.title']}">
                             <p:dataTable var="dessert" value="#{foodsMB.desserts}">
-                                <p:column headerText="#{msg['foods.name.label']}" sortBy="#{dessert.name}">
+                                <p:column headerText="#{msg['foods.name.label']}">
                                     <h:outputText value="#{dessert.name}" />
                                 </p:column>
-                                <p:column headerText="#{msg['foods.price.label']}" sortBy="#{dessert.price}"
+                                <p:column headerText="#{msg['foods.price.label']}"
                                           styleClass="priceCol">
                                     <h:outputText value="#{dessert.price} #{msg['foods.huf']}"/>
                                 </p:column>

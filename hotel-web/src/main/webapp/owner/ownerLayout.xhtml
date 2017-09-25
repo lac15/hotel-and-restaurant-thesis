@@ -21,18 +21,19 @@
                 <h:form>
                     <p:tabView>
                         <p:tab title="#{msg['owner.soupTab.title']}">
-                            <p:dataTable id="soupTable" var="soup" value="#{foodsMB.soups}" selection="#{foodsMB.selectedSoups}"
-                                         rowKey="#{soup.id}" editable="true" style="margin-bottom:0">
+                            <p:dataTable id="soupTable" var="soup" value="#{foodsMB.soups}"
+                                         selection="#{foodsMB.selectedSoups}" rowKey="#{soup.id}"
+                                         editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{soup.name}">
+                                <p:column headerText="#{msg['owner.name.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{soup.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{soup.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{soup.price}">
+                                <p:column headerText="#{msg['owner.price.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{soup.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{soup.price}" style="width:100%"/></f:facet>
@@ -65,18 +66,19 @@
                         </p:tab>
 
                         <p:tab title="#{msg['owner.mainCourseTab.title']}">
-                            <p:dataTable id="mainCourseTable" var="mainCourse" value="#{foodsMB.mainCourses}" selection="#{foodsMB.selectedMainCourses}"
-                                         rowKey="#{mainCourse.id}" editable="true" style="margin-bottom:0">
+                            <p:dataTable id="mainCourseTable" var="mainCourse" value="#{foodsMB.mainCourses}"
+                                         selection="#{foodsMB.selectedMainCourses}" rowKey="#{mainCourse.id}"
+                                         editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{mainCourse.name}">
+                                <p:column headerText="#{msg['owner.name.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{mainCourse.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{mainCourse.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{mainCourse.price}">
+                                <p:column headerText="#{msg['owner.price.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{mainCourse.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{mainCourse.price}" style="width:100%"/></f:facet>
@@ -109,18 +111,19 @@
                         </p:tab>
 
                         <p:tab title="#{msg['owner.dessertTab.title']}">
-                            <p:dataTable id="dessertTable" var="dessert" value="#{foodsMB.desserts}" selection="#{foodsMB.selectedDesserts}"
-                                         rowKey="#{dessert.id}" editable="true" style="margin-bottom:0">
+                            <p:dataTable id="dessertTable" var="dessert" value="#{foodsMB.desserts}"
+                                         selection="#{foodsMB.selectedDesserts}" rowKey="#{dessert.id}"
+                                         editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{dessert.name}">
+                                <p:column headerText="#{msg['owner.name.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{dessert.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{dessert.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{dessert.price}">
+                                <p:column headerText="#{msg['owner.price.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{dessert.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{dessert.price}" style="width:100%"/></f:facet>
@@ -153,18 +156,19 @@
                         </p:tab>
 
                         <p:tab title="#{msg['owner.drinksTab.title']}">
-                            <p:dataTable id="drinkTable" var="drink" value="#{drinksMB.drinks}" selection="#{drinksMB.selectedDrinks}"
-                                         rowKey="#{drink.id}" editable="true" style="margin-bottom:0">
+                            <p:dataTable id="drinkTable" var="drink" value="#{drinksMB.drinks}"
+                                         selection="#{drinksMB.selectedDrinks}" rowKey="#{drink.id}"
+                                         editable="true" style="margin-bottom:0">
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditDrink}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}" sortBy="#{drink.name}">
+                                <p:column headerText="#{msg['owner.name.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{drink.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{drink.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}" sortBy="#{drink.price}">
+                                <p:column headerText="#{msg['owner.price.label']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{drink.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{drink.price}" style="width:100%"/></f:facet>
