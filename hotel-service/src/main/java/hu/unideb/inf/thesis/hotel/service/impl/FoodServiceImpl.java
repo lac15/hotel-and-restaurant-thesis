@@ -17,7 +17,9 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 import javax.ejb.*;
 import javax.interceptor.Interceptors;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless(name = "FoodService", mappedName = "FoodService")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -88,11 +90,13 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public List<FoodVo> getFoodByTypeName(String typeName) {
-        return FoodMapper.toVo(foodRepository.findFoodsByFoodTypeEntityName(typeName));
+        return FoodMapper.toVo(foodRepository.findFoodsByFoodTypeEntityName(typeName)
+                .stream().sorted(Comparator.comparing(FoodEntity::getName)).collect(Collectors.toList()));
     }
 
     @Override
     public List<FoodVo> getFoods() {
-        return FoodMapper.toVo(foodRepository.findAll());
+        return FoodMapper.toVo(foodRepository.findAll()
+                .stream().sorted(Comparator.comparing(FoodEntity::getName)).collect(Collectors.toList()));
     }
 }
