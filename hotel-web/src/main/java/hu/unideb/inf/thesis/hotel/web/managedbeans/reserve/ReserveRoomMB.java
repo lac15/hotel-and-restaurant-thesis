@@ -181,7 +181,7 @@ public class ReserveRoomMB implements Serializable {
         message += bundle.getString("email.roomreserve.endmessage");
 
         try {
-            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.roomreserve.subject"), message);
+            mailService.sendMail("fourseasons.hotelandrestaurant@gmail.com", userVo.getEmail(), bundle.getString("email.roomreserve.subject"), message);
 
             LOGGER.info(bundle.getString("email.logger.success"));
         } catch (EmailSendingException e) {

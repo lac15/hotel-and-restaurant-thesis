@@ -180,7 +180,7 @@ public class ReserveTableMB implements Serializable{
         message += bundle.getString("email.tablereserve.endmessage");
 
         try {
-            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.tablereserve.subject"), message);
+            mailService.sendMail("fourseasons.hotelandrestaurant@gmail.com", userVo.getEmail(), bundle.getString("email.tablereserve.subject"), message);
 
             LOGGER.info(bundle.getString("email.logger.success"));
         } catch (EmailSendingException e) {

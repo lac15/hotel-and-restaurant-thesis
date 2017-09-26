@@ -1,6 +1,6 @@
 /*users and roles*/
 INSERT INTO "public".users (id, username, firstname, lastname, email, active, hotelcustomer, password) VALUES (-1, 'admin', 'Admin', 'Miszter', 'admin@fourseasons.hu', true, true, '$2a$10$7z8ZcKhYICuyb5rkKhqo7uUh4je3HQocio0f5onZdugR0QTrxHDLi');
-INSERT INTO "public".users (id, username, firstname, lastname, email, active, hotelcustomer, password, address, phone) VALUES (-2, 'owner', 'Owner', 'Miszter', 'owner@fourseasons.hu', true, true, '$2a$08$MMXBQeDpYUkQwtsWCvi5pO5ot8jNm.YgfvT9IotlGsu9RRCSD7Lcm', '4028 Debrecen, Kassai ut 26.', '06 90 666 9696');
+INSERT INTO "public".users (id, username, firstname, lastname, email, active, hotelcustomer, password, address, phone) VALUES (-2, 'owner', 'Owner', 'Miszter', 'fourseasons.hotelandrestaurant@gmail.com', true, true, '$2a$08$MMXBQeDpYUkQwtsWCvi5pO5ot8jNm.YgfvT9IotlGsu9RRCSD7Lcm', '4028 Debrecen, Kassai ut 26.', '06 90 666 9696');
 INSERT INTO "public".users (id, username, firstname, lastname, email, active, hotelcustomer, password) VALUES (-3, 'user', 'User', 'Miszter', 'user@fourseasons.hu', true, true, '$2a$06$fVSryWjOXodMbHdVpjUGi.KIhAnXjx.QYxa.ANQEWHiWNDXn5h9mG');
 
 INSERT INTO "public".roles (id, name) VALUES (1, 'ROLE_USER');

@@ -209,7 +209,7 @@ public class CartContentMB {
         message += bundle.getString("email.order.endmessage");
 
         try {
-            mailService.sendMail("noreply@fourseasons.hu", userVo.getEmail(), bundle.getString("email.order.subject"), message);
+            mailService.sendMail("fourseasons.hotelandrestaurant@gmail.com", userVo.getEmail(), bundle.getString("email.order.subject"), message);
 
             LOGGER.info(bundle.getString("email.logger.success"));
         } catch (EmailSendingException e) {

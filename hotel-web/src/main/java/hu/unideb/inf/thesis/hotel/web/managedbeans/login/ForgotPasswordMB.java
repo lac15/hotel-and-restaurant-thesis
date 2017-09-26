@@ -55,7 +55,7 @@ public class ForgotPasswordMB {
         String message = bundle.getString("email.defpw.dear")+" "+user.getUsername()+"!<br>";
         message+=bundle.getString("email.forgotpw.message")+" "+newPassword+bundle.getString("email.defpw.endmessage");
         try {
-            mailService.sendMail("noreply@restaurant.hu", user.getEmail(), bundle.getString("email.forgotpw.subject"), message);
+            mailService.sendMail("fourseasons.hotelandrestaurant@gmail.com", user.getEmail(), bundle.getString("email.forgotpw.subject"), message);
 
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                     bundle.getString("forgotPassword.sendMail.success.summary"),
