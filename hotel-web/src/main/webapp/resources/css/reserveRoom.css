@@ -1,2 +1,50 @@
 @import url("theme.css");
 @import url("hotelTemplate.css");
+
+.ui-panel .ui-panel-titlebar {
+    text-align: center;
+}
+
+.ui-panel .ui-panel-title {
+    margin: 0;
+}
+
+.ui-panel-title {
+    font-size: x-large;
+    color: #654b24;
+}
+
+.guideText {
+    font-weight: bold;
+}
+
+.reservationDialog {
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-title {
+    text-align: center;
+    float: none;
+    font-size: large;
+    color: #654b24;
+}
+
+.reservationDetails {
+    width: 100%;
+}
+
+.labelCol {
+    text-align: left;
+}
+
+.valueCol {
+    text-align: right;
+}
+
+.reservationDialogMessage {
+    margin-top: 10px;
+}
+
+.schedulePanel {
+    margin-top: 10px;
+}

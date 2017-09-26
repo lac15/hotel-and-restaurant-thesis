@@ -47,6 +47,7 @@ public class ReserveRoomMB implements Serializable {
 
     private List<RoomTypeVo> roomTypes = new ArrayList<RoomTypeVo>();
     private Long roomTypeId;
+    private int roomTypeCapacity;
 
     private List<RoomVo> rooms = new ArrayList<RoomVo>();
     private RoomVo roomVo;
@@ -108,6 +109,8 @@ public class ReserveRoomMB implements Serializable {
             for (LocalDateTime date = ldtStart; date.isBefore(ldtEndPlus); date = date.plusDays(1)) {
                 days++;
             }
+
+            roomTypeCapacity = roomTypeService.getRoomTypeById(roomTypeId).getCapacity();
 
             roomReserveVo.setStartTime(startTime);
             roomReserveVo.setEndTime(endTime);
@@ -217,6 +220,14 @@ public class ReserveRoomMB implements Serializable {
 
     public void setRoomTypeId(Long roomTypeId) {
         this.roomTypeId = roomTypeId;
+    }
+
+    public int getRoomTypeCapacity() {
+        return roomTypeCapacity;
+    }
+
+    public void setRoomTypeCapacity(int roomTypeCapacity) {
+        this.roomTypeCapacity = roomTypeCapacity;
     }
 
     public int getRoomPrice() {

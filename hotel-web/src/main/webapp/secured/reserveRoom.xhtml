@@ -18,85 +18,108 @@
             <h:outputStylesheet library="css" name="reserveRoom.css"/>
             <script type="text/javascript" src="/hotel/resources/js/schedule_locales.js"/>
 
-            <h:form id="form" styleClass="baseForm">
-                <h1>#{msg['reserveRoom.welcome.label']}</h1>
-
-                <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
-                    <p:outputLabel for="roomType" value="#{msg['reserveRoom.roomtype']}"/>
-                    <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}"
-                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
-                        <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber roomPrice"/>
-                        <f:selectItem itemLabel="#{msg['reserveRoom.type']}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
-                                       itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
-                    </p:selectOneMenu>
-                    <p:message for="roomType" display="both"/>
-
-                    <p:outputLabel for="roomNumber" value="#{msg['reserveRoom.roomnumber']}"/>
-                    <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}"
-                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
-                        <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update="roomReserveSchedule"/>
-                        <f:selectItem itemLabel="#{msg['reserveRoom.number']}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
-                                       itemLabel="#{room.number}" itemValue="#{room.id}"/>
-                    </p:selectOneMenu>
-                    <p:message for="roomNumber" display="both"/>
-
-                    <p:outputLabel for="startTime" value="#{msg['reserveRoom.starttime']}"/>
-                    <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" binding="#{startTime}"
-                                required="true" requiredMessage="#{msg['register.username.tooltip']}"
-                                locale="#{reserveRoomBean.locale}">
-                        <f:validator validatorId="startDateValidator"/>
-                    </p:calendar>
-                    <p:message for="startTime" display="both"/>
-
-                    <p:outputLabel for="endTime" value="#{msg['reserveRoom.endtime']}"/>
-                    <p:calendar id="endTime" value="#{reserveRoomBean.endTime}"
-                                required="true" requiredMessage="#{msg['register.username.tooltip']}"
-                                locale="#{reserveRoomBean.locale}">
-                        <f:validator validatorId="endDateValidator"/>
-                        <f:attribute name="startTime" value="#{startTime}" />
-                    </p:calendar>
-                    <p:message for="endTime" display="both"/>
-
-                    <p:outputLabel for="roomPrice" value="#{msg['reserveRoom.roomprice']}"/>
-                    <p:outputLabel id="roomPrice" value="#{reserveRoomBean.roomPrice} #{msg['reserveRoom.hufpernight']}"/>
-                    <p:message for="roomPrice" display="both"/>
-
-                    <p:commandButton value="#{msg['reserveRoom.reserve.button']}"
-                                     update=":form:reservationDetails" ajax="false"
-                                     action="#{reserveRoomBean.addRoomReserve}"/>
-                </p:panelGrid>
-
-                <p:dialog widgetVar="reservationDialog" header="#{msg['reserveRoom.reservationDialog.header']}"
-                          resizable="false" modal="true">
-                    <h:panelGrid id="reservationDetails" columns="2">
-                        <p:outputLabel value="#{msg['reserveRoom.roomtype']}" />
-                        <h:outputText value="#{reserveRoomBean.roomTypeId}" />
-
-                        <p:outputLabel value="#{msg['reserveRoom.roomnumber']}" />
-                        <h:outputText value="#{reserveRoomBean.roomVo.number}" />
-
-                        <p:outputLabel value="#{msg['reserveRoom.from']}" />
-                        <h:outputText value="#{reserveRoomBean.roomReserveVo.startTime}" />
-
-                        <p:outputLabel value="#{msg['reserveRoom.to']}" />
-                        <h:outputText value="#{reserveRoomBean.roomReserveVo.endTime}" />
-
-                        <p:outputLabel value="#{msg['reserveRoom.total']}" />
-                        <h:outputText value="#{reserveRoomBean.roomReserveVo.totalPrice}" />
-                    </h:panelGrid>
-
-                    <h:outputText value="#{msg['reserveRoom.reservationDialog.message']}" />
-                </p:dialog>
-
-                <p:dialog widgetVar="alreadyReservedWarningDialog" header="#{msg['reserveRoom.alreadyReservedWarningDialog.header']}"
-                          resizable="false" modal="true">
-                    <h:outputText value="#{msg['reserveRoom.alreadyReservedWarningDialog.message']}" />
-                </p:dialog>
-            </h:form>
-
             <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['reserveRoom.title.label']}"/>
+                </f:facet>
+
+                <h:form id="form">
+                    <div align="center">
+                        <h:outputText value="#{msg['reserveRoom.guide']}" styleClass="guideText"/>
+                    </div>
+
+                    <p:panelGrid columns="3" layout="grid" styleClass="ui-noborder">
+                        <p:outputLabel for="roomType" value="#{msg['reserveRoom.roomtype']}"/>
+                        <p:selectOneMenu id="roomType" value="#{reserveRoomBean.roomTypeId}"
+                                         required="true" requiredMessage="#{msg['register.username.tooltip']}">
+                            <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber roomPrice"/>
+                            <f:selectItem itemLabel="#{msg['reserveRoom.type']}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
+                                           itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
+                        </p:selectOneMenu>
+                        <p:message for="roomType" display="both"/>
+
+                        <p:outputLabel for="roomNumber" value="#{msg['reserveRoom.roomnumber']}"/>
+                        <p:selectOneMenu id="roomNumber" value="#{reserveRoomBean.roomId}"
+                                         required="true" requiredMessage="#{msg['register.username.tooltip']}">
+                            <p:ajax listener="#{reserveRoomBean.onRoomNumberChange}" update="roomReserveSchedule"/>
+                            <f:selectItem itemLabel="#{msg['reserveRoom.number']}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{reserveRoomBean.rooms}" var="room"
+                                           itemLabel="#{room.number}" itemValue="#{room.id}"/>
+                        </p:selectOneMenu>
+                        <p:message for="roomNumber" display="both"/>
+
+                        <p:outputLabel for="startTime" value="#{msg['reserveRoom.starttime']}"/>
+                        <p:calendar id="startTime" value="#{reserveRoomBean.startTime}" binding="#{startTime}"
+                                    required="true" requiredMessage="#{msg['register.username.tooltip']}"
+                                    locale="#{reserveRoomBean.locale}">
+                            <f:validator validatorId="startDateValidator"/>
+                        </p:calendar>
+                        <p:message for="startTime" display="both"/>
+
+                        <p:outputLabel for="endTime" value="#{msg['reserveRoom.endtime']}"/>
+                        <p:calendar id="endTime" value="#{reserveRoomBean.endTime}"
+                                    required="true" requiredMessage="#{msg['register.username.tooltip']}"
+                                    locale="#{reserveRoomBean.locale}">
+                            <f:validator validatorId="endDateValidator"/>
+                            <f:attribute name="startTime" value="#{startTime}" />
+                        </p:calendar>
+                        <p:message for="endTime" display="both"/>
+
+                        <p:outputLabel for="roomPrice" value="#{msg['reserveRoom.roomprice']}"/>
+                        <p:outputLabel id="roomPrice" value="#{reserveRoomBean.roomPrice} #{msg['reserveRoom.hufpernight']}"/>
+                        <p:message for="roomPrice" display="both"/>
+                    </p:panelGrid>
+
+                    <div align="center">
+                        <p:commandButton value="#{msg['reserveRoom.reserve.button']}"
+                                         update=":form:reservationDetails" ajax="false"
+                                         action="#{reserveRoomBean.addRoomReserve}"/>
+                    </div>
+
+                    <p:dialog widgetVar="reservationDialog" header="#{msg['reserveRoom.reservationDialog.header']}"
+                              modal="true" draggable="false" resizable="false" styleClass="reservationDialog">
+                        <h:panelGrid id="reservationDetails" columns="2" layout="grid" columnClasses="labelCol, valueCol"
+                                     styleClass="reservationDetails">
+                            <p:outputLabel for="roomTypeCapacityText" value="#{msg['reserveRoom.roomtype']}" />
+                            <h:outputText id="roomTypeCapacityText" value="#{reserveRoomBean.roomTypeCapacity}" />
+
+                            <p:outputLabel for="roomNumberText" value="#{msg['reserveRoom.roomnumber']}" />
+                            <h:outputText id="roomNumberText" value="#{reserveRoomBean.roomVo.number}" />
+
+                            <p:outputLabel for="startTimeText" value="#{msg['reserveRoom.from']}" />
+                            <h:outputText id="startTimeText" value="#{reserveRoomBean.roomReserveVo.startTime}">
+                                <f:convertDateTime pattern="yyyy.MM.dd." />
+                            </h:outputText>
+
+                            <p:outputLabel for="endTimeText" value="#{msg['reserveRoom.to']}" />
+                            <h:outputText id="endTimeText" value="#{reserveRoomBean.roomReserveVo.endTime}">
+                                <f:convertDateTime pattern="yyyy.MM.dd." />
+                            </h:outputText>
+
+                            <p:outputLabel for="totalPriceText" value="#{msg['reserveRoom.total']}" />
+                            <h:outputText id="totalPriceText" value="#{reserveRoomBean.roomReserveVo.totalPrice} #{msg['reserveRoom.huf']}" />
+                        </h:panelGrid>
+
+                        <div class="reservationDialogMessage">
+                            <h:outputText value="#{msg['reserveRoom.reservationDialog.message']}" />
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog widgetVar="alreadyReservedWarningDialog" header="#{msg['reserveRoom.alreadyReservedWarningDialog.header']}"
+                              modal="true" draggable="false" resizable="false">
+                        <div align="center">
+                            <h:outputText value="#{msg['reserveRoom.alreadyReservedWarningDialog.message']}" />
+                        </div>
+                    </p:dialog>
+                </h:form>
+            </p:panel>
+
+            <p:panel styleClass="schedulePanel">
+                <f:facet name="header">
+                    <h:outputText value="#{msg['reserveRoom.reserveschedule']}"/>
+                </f:facet>
+
                 <p:schedule id="roomReserveSchedule" value="#{reserveRoomBean.roomReserveModel}"
                             draggable="false" resizable="false" clientTimeZone="local" locale="#{reserveRoomBean.locale}"/>
             </p:panel>
