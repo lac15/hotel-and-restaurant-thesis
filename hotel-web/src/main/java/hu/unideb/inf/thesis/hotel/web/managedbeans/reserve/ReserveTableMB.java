@@ -48,6 +48,7 @@ public class ReserveTableMB implements Serializable{
 
     private List<TableTypeVo> tableTypes = new ArrayList<TableTypeVo>();
     private Long tableTypeId;
+    private int tableTypeSeats;
 
     private List<TableVo> tables = new ArrayList<TableVo>();
     private TableVo tableVo;
@@ -100,6 +101,8 @@ public class ReserveTableMB implements Serializable{
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('alreadyReservedWarningDialog').show();");
         } else {
+            tableTypeSeats = tableTypeService.getTableTypeById(tableTypeId).getSeats();
+
             tableReserveVo.setStartTime(startTime);
             tableReserveVo.setEndTime(endTime);
 
@@ -216,6 +219,14 @@ public class ReserveTableMB implements Serializable{
 
     public void setTableTypeId(Long tableTypeId) {
         this.tableTypeId = tableTypeId;
+    }
+
+    public int getTableTypeSeats() {
+        return tableTypeSeats;
+    }
+
+    public void setTableTypeSeats(int tableTypeSeats) {
+        this.tableTypeSeats = tableTypeSeats;
     }
 
     public List<TableVo> getTables() {

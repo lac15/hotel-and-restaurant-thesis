@@ -18,81 +18,103 @@
             <h:outputStylesheet library="css" name="reserveTable.css"/>
             <script type="text/javascript" src="/hotel/resources/js/schedule_locales.js"/>
 
-            <h:form id="form" styleClass="baseForm">
-                <h1>#{msg['reserveTable.welcome.label']}</h1>
-
-                <p:panelGrid columns="3" layout="grid" styleClass="basePanel">
-                    <p:outputLabel for="tableType" value="#{msg['reserveTable.tabletype']}"/>
-                    <p:selectOneMenu id="tableType" value="#{reserveTableBean.tableTypeId}"
-                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
-                        <p:ajax listener="#{reserveTableBean.onTableTypeChange}" update="tableNumber"/>
-                        <f:selectItem itemLabel="#{msg['reserveTable.type']}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{reserveTableBean.tableTypes}" var="tableType"
-                                       itemLabel="#{tableType.seats}" itemValue="#{tableType.id}"/>
-                    </p:selectOneMenu>
-                    <p:message for="tableType" display="both"/>
-
-                    <p:outputLabel for="tableNumber" value="#{msg['reserveTable.tablenumber']}"/>
-                    <p:selectOneMenu id="tableNumber" value="#{reserveTableBean.tableId}"
-                                     required="true" requiredMessage="#{msg['register.username.tooltip']}">
-                        <p:ajax listener="#{reserveTableBean.onTableNumberChange}" update="tableReserveSchedule"/>
-                        <f:selectItem itemLabel="#{msg['reserveTable.number']}" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{reserveTableBean.tables}" var="table"
-                                       itemLabel="#{table.number}" itemValue="#{table.id}"/>
-                    </p:selectOneMenu>
-                    <p:message for="tableNumber" display="both"/>
-
-                    <p:outputLabel for="startTime" value="#{msg['reserveTable.starttime']}"/>
-                    <p:calendar id="startTime" value="#{reserveTableBean.startTime}" pattern="yyyy.MM.dd. HH:mm"
-                                showMinute="false" showSecond="false" minHour="6" maxHour="21" binding="#{startTime}"
-                                required="true" requiredMessage="#{msg['register.username.tooltip']}"
-                                locale="#{reserveTableBean.locale}">
-                        <p:ajax listener="#{reserveTableBean.onStartTimeChange}" update="endTime"/>
-                        <f:validator validatorId="startTimeValidator"/>
-                    </p:calendar>
-                    <p:message for="startTime" display="both"/>
-
-                    <p:outputLabel for="endTime" value="#{msg['reserveTable.endtime']}"/>
-                    <p:calendar id="endTime" value="#{reserveTableBean.endTime}" pattern="yyyy.MM.dd. HH:mm"
-                                showMinute="false" showSecond="false" minHour="7" maxHour="22"
-                                required="true" requiredMessage="#{msg['register.username.tooltip']}"
-                                locale="#{reserveTableBean.locale}">
-                        <f:validator validatorId="endTimeValidator"/>
-                        <f:attribute name="startTime" value="#{startTime}" />
-                    </p:calendar>
-                    <p:message for="endTime" display="both"/>
-
-                    <p:commandButton value="#{msg['reserveTable.reserve.button']}"
-                                     update=":form:reservationDetails" ajax="false"
-                                     action="#{reserveTableBean.addTableReserve}"/>
-                </p:panelGrid>
-
-                <p:dialog widgetVar="reservationDialog" header="#{msg['reserveTable.reservationDialog.header']}"
-                          resizable="false" modal="true">
-                    <h:panelGrid id="reservationDetails" columns="2">
-                        <p:outputLabel value="#{msg['reserveTable.tabletype']}" />
-                        <h:outputText value="#{reserveTableBean.tableTypeId}" />
-
-                        <p:outputLabel value="#{msg['reserveTable.tablenumber']}" />
-                        <h:outputText value="#{reserveTableBean.tableVo.number}" />
-
-                        <p:outputLabel value="#{msg['reserveTable.from']}" />
-                        <h:outputText value="#{reserveTableBean.tableReserveVo.startTime}" />
-
-                        <p:outputLabel value="#{msg['reserveTable.to']}" />
-                        <h:outputText value="#{reserveTableBean.tableReserveVo.endTime}" />
-                    </h:panelGrid>
-
-                    <h:outputText value="#{msg['reserveTable.reservationDialog.message']}" />
-                </p:dialog>
-
-                <p:dialog widgetVar="alreadyReservedWarningDialog" header="#{msg['reserveTable.alreadyReservedWarningDialog.header']}"
-                          resizable="false" modal="true">
-                    <h:outputText value="#{msg['reserveTable.alreadyReservedWarningDialog.message']}" />
-                </p:dialog>
-            </h:form>
-
             <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['reserveTable.title.label']}"/>
+                </f:facet>
+
+                <h:form id="form">
+                    <div align="center">
+                        <h:outputText value="#{msg['reserveTable.guide']}" styleClass="guideText"/>
+                    </div>
+
+                    <p:panelGrid columns="3" layout="grid" styleClass="ui-noborder">
+                        <p:outputLabel for="tableType" value="#{msg['reserveTable.tabletype']}"/>
+                        <p:selectOneMenu id="tableType" value="#{reserveTableBean.tableTypeId}"
+                                         required="true" requiredMessage="#{msg['register.username.tooltip']}">
+                            <p:ajax listener="#{reserveTableBean.onTableTypeChange}" update="tableNumber"/>
+                            <f:selectItem itemLabel="#{msg['reserveTable.type']}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{reserveTableBean.tableTypes}" var="tableType"
+                                           itemLabel="#{tableType.seats}" itemValue="#{tableType.id}"/>
+                        </p:selectOneMenu>
+                        <p:message for="tableType" display="both"/>
+
+                        <p:outputLabel for="tableNumber" value="#{msg['reserveTable.tablenumber']}"/>
+                        <p:selectOneMenu id="tableNumber" value="#{reserveTableBean.tableId}"
+                                         required="true" requiredMessage="#{msg['register.username.tooltip']}">
+                            <p:ajax listener="#{reserveTableBean.onTableNumberChange}" update="tableReserveSchedule"/>
+                            <f:selectItem itemLabel="#{msg['reserveTable.number']}" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{reserveTableBean.tables}" var="table"
+                                           itemLabel="#{table.number}" itemValue="#{table.id}"/>
+                        </p:selectOneMenu>
+                        <p:message for="tableNumber" display="both"/>
+
+                        <p:outputLabel for="startTime" value="#{msg['reserveTable.starttime']}"/>
+                        <p:calendar id="startTime" value="#{reserveTableBean.startTime}" pattern="yyyy.MM.dd. HH:mm"
+                                    showMinute="false" showSecond="false" minHour="6" maxHour="21" binding="#{startTime}"
+                                    required="true" requiredMessage="#{msg['register.username.tooltip']}"
+                                    locale="#{reserveTableBean.locale}">
+                            <p:ajax listener="#{reserveTableBean.onStartTimeChange}" update="endTime"/>
+                            <f:validator validatorId="startTimeValidator"/>
+                        </p:calendar>
+                        <p:message for="startTime" display="both"/>
+
+                        <p:outputLabel for="endTime" value="#{msg['reserveTable.endtime']}"/>
+                        <p:calendar id="endTime" value="#{reserveTableBean.endTime}" pattern="yyyy.MM.dd. HH:mm"
+                                    showMinute="false" showSecond="false" minHour="7" maxHour="22"
+                                    required="true" requiredMessage="#{msg['register.username.tooltip']}"
+                                    locale="#{reserveTableBean.locale}">
+                            <f:validator validatorId="endTimeValidator"/>
+                            <f:attribute name="startTime" value="#{startTime}" />
+                        </p:calendar>
+                        <p:message for="endTime" display="both"/>
+                    </p:panelGrid>
+
+                    <div align="center">
+                        <p:commandButton value="#{msg['reserveTable.reserve.button']}"
+                                         update=":form:reservationDetails" ajax="false"
+                                         action="#{reserveTableBean.addTableReserve}"/>
+                    </div>
+
+                    <p:dialog widgetVar="reservationDialog" header="#{msg['reserveTable.reservationDialog.header']}"
+                              modal="true" draggable="false" resizable="false" styleClass="dialog">
+                        <h:panelGrid id="reservationDetails" columns="2" layout="grid" columnClasses="labelCol, valueCol"
+                                     styleClass="reservationDetails">
+                            <p:outputLabel for="tableTypeSeatsText" value="#{msg['reserveTable.tabletype']}" />
+                            <h:outputText id="tableTypeSeatsText" value="#{reserveTableBean.tableTypeSeats}" />
+
+                            <p:outputLabel for="tableNumberText" value="#{msg['reserveTable.tablenumber']}" />
+                            <h:outputText id="tableNumberText" value="#{reserveTableBean.tableVo.number}" />
+
+                            <p:outputLabel for="startTimeText" value="#{msg['reserveTable.from']}" />
+                            <h:outputText id="startTimeText" value="#{reserveTableBean.tableReserveVo.startTime}">
+                                <f:convertDateTime pattern="yyyy.MM.dd. HH:mm" />
+                            </h:outputText>
+
+                            <p:outputLabel for="endTimeText" value="#{msg['reserveTable.to']}" />
+                            <h:outputText id="endTimeText" value="#{reserveTableBean.tableReserveVo.endTime}">
+                                <f:convertDateTime pattern="yyyy.MM.dd. HH:mm" />
+                            </h:outputText>
+                        </h:panelGrid>
+
+                        <div class="reservationDialogMessage">
+                            <h:outputText value="#{msg['reserveTable.reservationDialog.message']}" />
+                        </div>
+
+                    </p:dialog>
+
+                    <p:dialog widgetVar="alreadyReservedWarningDialog" header="#{msg['reserveTable.alreadyReservedWarningDialog.header']}"
+                              modal="true" draggable="false" resizable="false" styleClass="dialog">
+                        <h:outputText value="#{msg['reserveTable.alreadyReservedWarningDialog.message']}" />
+                    </p:dialog>
+                </h:form>
+            </p:panel>
+
+            <p:panel styleClass="schedulePanel">
+                <f:facet name="header">
+                    <h:outputText value="#{msg['reserveTable.reserveschedule']}"/>
+                </f:facet>
+
                 <p:schedule id="tableReserveSchedule" value="#{reserveTableBean.tableReserveModel}" allDaySlot="false"
                             draggable="false" resizable="false" clientTimeZone="local" locale="#{reserveTableBean.locale}"/>
             </p:panel>
