@@ -50,7 +50,7 @@
                         <webModule>
                             <groupId>hu.unideb.inf.thesis.hotel</groupId>
                             <artifactId>hotel-web</artifactId>
-                            <contextRoot>hotel</contextRoot>
+                            <contextRoot>fourseasons</contextRoot>
                         </webModule>
                     </modules>
 
