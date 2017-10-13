@@ -82,19 +82,19 @@ INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 7)
 INSERT INTO "public".roomtypes_rooms (roomtypeentity_id, rooms_id) VALUES (3, 8);
 
 /*INSERT INTO "public".roomreserves (id, starttime, endtime, totalprice, rooms_id) VALUES (1, '2017-08-20', '2017-08-22', 15000, 1);
-INSERT INTO "public".roomreserves (id, starttime, endtime, totalprice, rooms_id) VALUES (2, '2017-08-22', '2017-08-22', 5000, 2);
-
-INSERT INTO "public".users_roomreserves (userentity_id, roomreserves_id) VALUES (-3, 1);
-INSERT INTO "public".users_roomreserves (userentity_id, roomreserves_id) VALUES (-3, 2);
-
-INSERT INTO "public".reserveddates (id, reserveddate) VALUES (1, '2017-08-20');
-INSERT INTO "public".reserveddates (id, reserveddate) VALUES (2, '2017-08-21');
-INSERT INTO "public".reserveddates (id, reserveddate) VALUES (3, '2017-08-22');
-
-INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 1);
-INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 2);
-INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 3);
-INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (2, 3);*/
+ *INSERT INTO "public".roomreserves (id, starttime, endtime, totalprice, rooms_id) VALUES (2, '2017-08-22', '2017-08-22', 5000, 2);
+ *
+ *INSERT INTO "public".users_roomreserves (userentity_id, roomreserves_id) VALUES (-3, 1);
+ *INSERT INTO "public".users_roomreserves (userentity_id, roomreserves_id) VALUES (-3, 2);
+ *
+ *INSERT INTO "public".reserveddates (id, reserveddate) VALUES (1, '2017-08-20');
+ *INSERT INTO "public".reserveddates (id, reserveddate) VALUES (2, '2017-08-21');
+ *INSERT INTO "public".reserveddates (id, reserveddate) VALUES (3, '2017-08-22');
+ *
+ *INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 1);
+ *INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 2);
+ *INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (1, 3);
+ *INSERT INTO "public".rooms_reserveddates (roomentity_id, reserveddates_id) VALUES (2, 3);*/
 /*tables*/
 INSERT INTO "public".tabletypes (id, seats) VALUES (1, 2);
 INSERT INTO "public".tabletypes (id, seats) VALUES (2, 4);
@@ -137,13 +137,13 @@ INSERT INTO "public".tabletypes_tables (tabletypeentity_id, tables_id) VALUES (3
 INSERT INTO "public".tabletypes_tables (tabletypeentity_id, tables_id) VALUES (3, 17);
 
 /*INSERT INTO "public".tablereserves (id, starttime, endtime, tables_id) VALUES (1, '2017-08-20 10:00:00', '2017-08-20 11:00:00', 1);
-INSERT INTO "public".tablereserves (id, starttime, endtime, tables_id) VALUES (2, '2017-08-22 14:00:00', '2017-08-22 15:00:00', 2);
-
-INSERT INTO "public".users_tablereserves (userentity_id, tablereserves_id) VALUES (-3, 1);
-INSERT INTO "public".users_tablereserves (userentity_id, tablereserves_id) VALUES (-3, 2);
-
-INSERT INTO "public".reservedtimes (id, reservedtime) VALUES (1, '2017-08-20 10:00:00');
-INSERT INTO "public".reservedtimes (id, reservedtime) VALUES (2, '2017-08-22 14:00:00');
-
-INSERT INTO "public".tables_reservedtimes (tableentity_id, reservedtimes_id) VALUES (1, 1);
-INSERT INTO "public".tables_reservedtimes (tableentity_id, reservedtimes_id) VALUES (2, 2);*/
+ *INSERT INTO "public".tablereserves (id, starttime, endtime, tables_id) VALUES (2, '2017-08-22 14:00:00', '2017-08-22 15:00:00', 2);
+ *
+ *INSERT INTO "public".users_tablereserves (userentity_id, tablereserves_id) VALUES (-3, 1);
+ *INSERT INTO "public".users_tablereserves (userentity_id, tablereserves_id) VALUES (-3, 2);
+ *
+ *INSERT INTO "public".reservedtimes (id, reservedtime) VALUES (1, '2017-08-20 10:00:00');
+ *INSERT INTO "public".reservedtimes (id, reservedtime) VALUES (2, '2017-08-22 14:00:00');
+ *
+ *INSERT INTO "public".tables_reservedtimes (tableentity_id, reservedtimes_id) VALUES (1, 1);
+ *INSERT INTO "public".tables_reservedtimes (tableentity_id, reservedtimes_id) VALUES (2, 2);*/
