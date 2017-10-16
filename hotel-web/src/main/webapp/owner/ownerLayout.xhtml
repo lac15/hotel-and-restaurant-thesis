@@ -15,9 +15,13 @@
         </ui:define>
 
         <ui:define name="body">
-            <h1>#{msg['owner.welcome.label']}</h1>
+            <h:outputStylesheet library="css" name="ownerLayout.css"/>
 
             <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['owner.title.label']}"/>
+                </f:facet>
+
                 <h:form>
                     <p:tabView>
                         <p:tab title="#{msg['owner.soupTab.title']}">
