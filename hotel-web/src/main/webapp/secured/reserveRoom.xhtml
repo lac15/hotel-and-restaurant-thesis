@@ -35,7 +35,8 @@
                             <p:ajax listener="#{reserveRoomBean.onRoomTypeChange}" update="roomNumber roomPrice"/>
                             <f:selectItem itemLabel="#{msg['reserveRoom.type']}" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{reserveRoomBean.roomTypes}" var="roomType"
-                                           itemLabel="#{roomType.capacity}" itemValue="#{roomType.id}"/>
+                                           itemLabel="#{roomType.capacity} #{msg['reserveRoom.people']}"
+                                           itemValue="#{roomType.id}"/>
                         </p:selectOneMenu>
                         <p:message for="roomType" display="both"/>
 
@@ -82,7 +83,8 @@
                         <h:panelGrid id="reservationDetails" columns="2" layout="grid" columnClasses="labelCol, valueCol"
                                      styleClass="reservationDetails">
                             <p:outputLabel for="roomTypeCapacityText" value="#{msg['reserveRoom.roomtype']}" />
-                            <h:outputText id="roomTypeCapacityText" value="#{reserveRoomBean.roomTypeCapacity}" />
+                            <h:outputText id="roomTypeCapacityText"
+                                          value="#{reserveRoomBean.roomTypeCapacity} #{msg['reserveRoom.people']}" />
 
                             <p:outputLabel for="roomNumberText" value="#{msg['reserveRoom.roomnumber']}" />
                             <h:outputText id="roomNumberText" value="#{reserveRoomBean.roomVo.number}" />

@@ -35,7 +35,8 @@
                             <p:ajax listener="#{reserveTableBean.onTableTypeChange}" update="tableNumber"/>
                             <f:selectItem itemLabel="#{msg['reserveTable.type']}" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{reserveTableBean.tableTypes}" var="tableType"
-                                           itemLabel="#{tableType.seats}" itemValue="#{tableType.id}"/>
+                                           itemLabel="#{tableType.seats} #{msg['reserveTable.seats']}"
+                                           itemValue="#{tableType.id}"/>
                         </p:selectOneMenu>
                         <p:message for="tableType" display="both"/>
 
@@ -81,7 +82,8 @@
                         <h:panelGrid id="reservationDetails" columns="2" layout="grid" columnClasses="labelCol, valueCol"
                                      styleClass="reservationDetails">
                             <p:outputLabel for="tableTypeSeatsText" value="#{msg['reserveTable.tabletype']}" />
-                            <h:outputText id="tableTypeSeatsText" value="#{reserveTableBean.tableTypeSeats}" />
+                            <h:outputText id="tableTypeSeatsText"
+                                          value="#{reserveTableBean.tableTypeSeats} #{msg['reserveTable.seats']}" />
 
                             <p:outputLabel for="tableNumberText" value="#{msg['reserveTable.tablenumber']}" />
                             <h:outputText id="tableNumberText" value="#{reserveTableBean.tableVo.number}" />
