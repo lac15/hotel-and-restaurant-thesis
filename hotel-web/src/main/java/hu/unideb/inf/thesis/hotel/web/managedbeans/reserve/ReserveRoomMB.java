@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -168,6 +169,9 @@ public class ReserveRoomMB implements Serializable {
     }
 
     public void sendReservationDetails() {
+        String startTimeStr = new SimpleDateFormat("yyyy. MM. dd.").format(startTime);
+        String endTimeStr = new SimpleDateFormat("yyyy. MM. dd.").format(endTime);
+
         String message = bundle.getString("email.roomreserve.dear") + " " + userVo.getFirstname() + " "
                 + userVo.getLastname() + "!<br>";
         message += bundle.getString("email.roomreserve.message");
@@ -175,8 +179,8 @@ public class ReserveRoomMB implements Serializable {
                 + roomTypeService.getRoomTypeById(roomTypeId).getCapacity() + " "
                 + bundle.getString("email.roomreserve.roomtype.ending");
         message += bundle.getString("email.roomreserve.roomnumber") + " " + roomVo.getNumber() + "<br>";
-        message += bundle.getString("email.roomreserve.from") + " " + startTime + "<br>";
-        message += bundle.getString("email.roomreserve.to") + " " + endTime + "<br>";
+        message += bundle.getString("email.roomreserve.from") + " " + startTimeStr + "<br>";
+        message += bundle.getString("email.roomreserve.to") + " " + endTimeStr + "<br>";
         message += bundle.getString("email.roomreserve.totalprice") + " " + totalPrice + " HUF<br>";
         message += bundle.getString("email.roomreserve.endmessage");
 

@@ -28,7 +28,7 @@ public class MailServiceImpl implements MailService {
             MimeMessage message = new MimeMessage(mailSession);
             message.setFrom(new InternetAddress(mailFrom));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
-            message.setContent(mailText, "text/html; charset=utf-8");
+            message.setContent(mailText, "text/html; charset=utf-16");
             message.setSubject(subject);
             Transport.send(message);
         } catch (MessagingException e) {

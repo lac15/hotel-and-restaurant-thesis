@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -168,6 +169,9 @@ public class ReserveTableMB implements Serializable{
     }
 
     public void sendReservationDetails() {
+        String startTimeStr = new SimpleDateFormat("yyyy. MM. dd. HH:mm").format(startTime);
+        String endTimeStr = new SimpleDateFormat("yyyy. MM. dd. HH:mm").format(endTime);
+
         String message = bundle.getString("email.tablereserve.dear") + " " + userVo.getFirstname() + " "
                 + userVo.getLastname() + "!<br>";
         message += bundle.getString("email.tablereserve.message");
@@ -175,8 +179,8 @@ public class ReserveTableMB implements Serializable{
                 + tableTypeService.getTableTypeById(tableTypeId).getSeats() + " "
                 + bundle.getString("email.tablereserve.tabletype.ending");
         message += bundle.getString("email.tablereserve.tablenumber") + " " + tableVo.getNumber() + "<br>";
-        message += bundle.getString("email.tablereserve.from") + " " + startTime + "<br>";
-        message += bundle.getString("email.tablereserve.to") + " " + endTime + "<br>";
+        message += bundle.getString("email.tablereserve.from") + " " + startTimeStr + "<br>";
+        message += bundle.getString("email.tablereserve.to") + " " + endTimeStr + "<br>";
         message += bundle.getString("email.tablereserve.endmessage");
 
         try {
