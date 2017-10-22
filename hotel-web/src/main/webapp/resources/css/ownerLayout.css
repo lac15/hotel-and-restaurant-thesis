@@ -12,3 +12,30 @@
     font-size: x-large;
     color: #654b24;
 }
+
+.addDialog {
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-title {
+    text-align: center;
+    float: none;
+    font-size: large;
+    color: #654b24;
+}
+
+.addGrid {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.labelCol {
+    text-align: left;
+    width: 50%;
+    padding-right: 15px;
+}
+
+.inputCol {
+    width: 50%;
+}

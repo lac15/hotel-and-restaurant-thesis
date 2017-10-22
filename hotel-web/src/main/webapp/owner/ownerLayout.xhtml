@@ -31,13 +31,13 @@
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}">
+                                <p:column headerText="#{msg['owner.name.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{soup.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{soup.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}">
+                                <p:column headerText="#{msg['owner.price.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{soup.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{soup.price}" style="width:100%"/></f:facet>
@@ -56,16 +56,17 @@
                                              action="#{ownerManagement.deleteSoup(foodsMB.selectedSoups)}"/>
 
                             <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="addSoupDialog"
-                                      header="#{msg['owner.addSoup.button']}">
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel for="soupName" value="#{msg['foods.name.label']}"/>
+                                      header="#{msg['owner.addSoup.button']}" draggable="false" resizable="false"
+                                      styleClass="addDialog">
+                                <h:panelGrid columns="2" columnClasses="labelCol, inputCol" styleClass="addGrid">
+                                    <p:outputLabel for="soupName" value="#{msg['owner.name.label']}"/>
                                     <p:inputText id="soupName" value="#{ownerManagement.soup.name}"/>
-                                    <p:outputLabel for="soupPrice" value="#{msg['foods.price.label']}"/>
+                                    <p:outputLabel for="soupPrice" value="#{msg['owner.price.label']}"/>
                                     <p:inputText id="soupPrice" value="#{ownerManagement.soup.price}"/>
-
-                                    <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
-                                                     action="#{ownerManagement.addSoup}" icon="fa fa-save"/>
                                 </h:panelGrid>
+
+                                <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
+                                                 action="#{ownerManagement.addSoup}" icon="fa fa-save"/>
                             </p:dialog>
                         </p:tab>
 
@@ -76,13 +77,13 @@
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}">
+                                <p:column headerText="#{msg['owner.name.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{mainCourse.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{mainCourse.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}">
+                                <p:column headerText="#{msg['owner.price.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{mainCourse.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{mainCourse.price}" style="width:100%"/></f:facet>
@@ -101,16 +102,17 @@
                                              action="#{ownerManagement.deleteMainCourse(foodsMB.selectedMainCourses)}"/>
 
                             <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="addMainCourseDialog"
-                                      header="#{msg['owner.addMainCourse.button']}">
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel for="mainCourseName" value="#{msg['foods.name.label']}"/>
+                                      header="#{msg['owner.addMainCourse.button']}" draggable="false" resizable="false"
+                                      styleClass="addDialog">
+                                <h:panelGrid columns="2" columnClasses="labelCol, inputCol" styleClass="addGrid">
+                                    <p:outputLabel for="mainCourseName" value="#{msg['owner.name.label']}"/>
                                     <p:inputText id="mainCourseName" value="#{ownerManagement.mainCourse.name}"/>
-                                    <p:outputLabel for="mainCoursePrice" value="#{msg['foods.price.label']}"/>
+                                    <p:outputLabel for="mainCoursePrice" value="#{msg['owner.price.label']}"/>
                                     <p:inputText id="mainCoursePrice" value="#{ownerManagement.mainCourse.price}"/>
-
-                                    <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
-                                                     action="#{ownerManagement.addMainCourse}" icon="fa fa-save"/>
                                 </h:panelGrid>
+
+                                <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
+                                                 action="#{ownerManagement.addMainCourse}" icon="fa fa-save"/>
                             </p:dialog>
                         </p:tab>
 
@@ -121,13 +123,13 @@
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditFood}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}">
+                                <p:column headerText="#{msg['owner.name.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{dessert.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{dessert.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}">
+                                <p:column headerText="#{msg['owner.price.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{dessert.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{dessert.price}" style="width:100%"/></f:facet>
@@ -146,16 +148,17 @@
                                              action="#{ownerManagement.deleteDessert(foodsMB.selectedDesserts)}"/>
 
                             <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="addDessertDialog"
-                                      header="#{msg['owner.addDessert.button']}">
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel for="dessertName" value="#{msg['foods.name.label']}"/>
+                                      header="#{msg['owner.addDessert.button']}" draggable="false" resizable="false"
+                                      styleClass="addDialog">
+                                <h:panelGrid columns="2" columnClasses="labelCol, inputCol" styleClass="addGrid">
+                                    <p:outputLabel for="dessertName" value="#{msg['owner.name.label']}"/>
                                     <p:inputText id="dessertName" value="#{ownerManagement.dessert.name}"/>
-                                    <p:outputLabel for="dessertPrice" value="#{msg['foods.price.label']}"/>
+                                    <p:outputLabel for="dessertPrice" value="#{msg['owner.price.label']}"/>
                                     <p:inputText id="dessertPrice" value="#{ownerManagement.dessert.price}"/>
-
-                                    <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
-                                                     action="#{ownerManagement.addDessert}" icon="fa fa-save"/>
                                 </h:panelGrid>
+
+                                <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
+                                                 action="#{ownerManagement.addDessert}" icon="fa fa-save"/>
                             </p:dialog>
                         </p:tab>
 
@@ -166,13 +169,13 @@
                                 <p:ajax event="rowEdit" listener="#{ownerManagement.onRowEditDrink}" />
 
                                 <p:column selectionMode="multiple" style="width:36px;text-align:center"/>
-                                <p:column headerText="#{msg['owner.name.label']}">
+                                <p:column headerText="#{msg['owner.name.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{drink.name}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{drink.name}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="#{msg['owner.price.label']}">
+                                <p:column headerText="#{msg['owner.price.col']}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{drink.price}" /></f:facet>
                                         <f:facet name="input"><p:inputText value="#{drink.price}" style="width:100%"/></f:facet>
@@ -191,16 +194,17 @@
                                              action="#{ownerManagement.deleteDrink(drinksMB.selectedDrinks)}"/>
 
                             <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="addDrinkDialog"
-                                      header="#{msg['owner.addDrink.button']}">
-                                <h:panelGrid columns="2">
-                                    <p:outputLabel for="drinkName" value="#{msg['drinks.name.label']}"/>
+                                      header="#{msg['owner.addDrink.button']}" draggable="false" resizable="false"
+                                      styleClass="addDialog">
+                                <h:panelGrid columns="2" columnClasses="labelCol, inputCol" styleClass="addGrid">
+                                    <p:outputLabel for="drinkName" value="#{msg['owner.name.label']}"/>
                                     <p:inputText id="drinkName" value="#{ownerManagement.drink.name}"/>
-                                    <p:outputLabel for="drinkPrice" value="#{msg['drinks.price.label']}"/>
+                                    <p:outputLabel for="drinkPrice" value="#{msg['owner.price.label']}"/>
                                     <p:inputText id="drinkPrice" value="#{ownerManagement.drink.price}"/>
-
-                                    <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
-                                                     action="#{ownerManagement.addDrink}" icon="fa fa-save"/>
                                 </h:panelGrid>
+
+                                <p:commandButton value="#{msg['owner.add.button']}" ajax="false"
+                                                 action="#{ownerManagement.addDrink}" icon="fa fa-save"/>
                             </p:dialog>
                         </p:tab>
                     </p:tabView>
