@@ -88,8 +88,8 @@
                                     <h:outputText value="#{userActive.email}"/>
                                 </p:column>
                                 <p:column headerText="#{msg['admin.user.active.label']}">
-                                    <h:outputText value="#{msg['admin.user.active']}" rendered="#{user.active}"/>
-                                    <h:outputText value="#{msg['admin.user.inactive']}" rendered="#{not user.active}"/>
+                                    <h:outputText value="#{msg['admin.user.active']}" rendered="#{userActive.active}"/>
+                                    <h:outputText value="#{msg['admin.user.inactive']}" rendered="#{not userActive.active}"/>
                                 </p:column>
                             </p:dataTable>
 
@@ -123,8 +123,8 @@
                                     <h:outputText value="#{userPass.email}"/>
                                 </p:column>
                                 <p:column headerText="#{msg['admin.user.active.label']}">
-                                    <h:outputText value="#{msg['admin.user.active']}" rendered="#{user.active}"/>
-                                    <h:outputText value="#{msg['admin.user.inactive']}" rendered="#{not user.active}"/>
+                                    <h:outputText value="#{msg['admin.user.active']}" rendered="#{userPass.active}"/>
+                                    <h:outputText value="#{msg['admin.user.inactive']}" rendered="#{not userPass.active}"/>
                                 </p:column>
                             </p:dataTable>
 
