@@ -188,7 +188,8 @@ public class CartContentMB {
             message += "<tr>";
             message += "<td width=\"33%\">" + foodEntry.getKey().getName() + "</td>";
             message += "<td width=\"33%\">" + foodEntry.getValue() + "</td>";
-            message += "<td width=\"33%\">" + foodEntry.getKey().getPrice() * foodEntry.getValue() + "</td>";
+            message += "<td width=\"33%\">" + foodEntry.getKey().getPrice() * foodEntry.getValue() + " "
+                    + bundle.getString("email.order.huf") + "</td>";
             message += "</tr>";
         }
         message += "</table><br>";
@@ -201,7 +202,8 @@ public class CartContentMB {
             message += "<tr>";
             message += "<td width=\"33%\">" + drinkEntry.getKey().getName() + "</td>";
             message += "<td width=\"33%\">" + drinkEntry.getValue() + "</td>";
-            message += "<td width=\"33%\">" + drinkEntry.getKey().getPrice() * drinkEntry.getValue() + "</td>";
+            message += "<td width=\"33%\">" + drinkEntry.getKey().getPrice() * drinkEntry.getValue() + " "
+                    + bundle.getString("email.order.huf") + "</td>";
             message += "</tr>";
         }
         message += "</table><br>";
